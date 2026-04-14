@@ -3,16 +3,20 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-enum SanckBarSize { BIG, MEDIUM, SMALL }
+enum SnackBarSize { BIG, MEDIUM, SMALL }
+
+/// Keep the old name as an alias so that existing references
+/// continue to compile while we migrate call-sites.
+typedef SanckBarSize = SnackBarSize;
 
 SnackBar snackbar(BuildContext context, String text,
-    {SanckBarSize size = SanckBarSize.MEDIUM,
+    {SnackBarSize size = SnackBarSize.MEDIUM,
     Duration duration = const Duration(seconds: 1),
     bool top = false}) {
   final scrWidth = MediaQuery.of(context).size.width;
-  final hrMargin = size == SanckBarSize.BIG
+  final hrMargin = size == SnackBarSize.BIG
       ? (scrWidth - 320) / 2
-      : size == SanckBarSize.MEDIUM
+      : size == SnackBarSize.MEDIUM
           ? (scrWidth - 220) / 2
           : (scrWidth - 120) / 2;
   return SnackBar(

@@ -233,7 +233,9 @@ class HomeScreenController extends GetxController {
             Hive.box("AppPrefs").put("recentSongId", songId);
           }
           // ignore: empty_catches
-        } catch (e) {}
+        } catch (e) {
+          printERROR("Failed to load 'Based on last interaction' content: $e");
+        }
       }
     }
     if (quickPicks_ == null) return;

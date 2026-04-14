@@ -47,7 +47,7 @@ class SettingsScreenController extends GetxController {
   final keepScreenAwake = false.obs;
   final restorePlaybackSession = false.obs;
   final cacheHomeScreenData = true.obs;
-  final currentVersion = "V1.12.2";
+  final currentVersion = "V2.0.0";
 
   @override
   void onInit() {
@@ -229,8 +229,9 @@ class SettingsScreenController extends GetxController {
       if (await tempImgDir.exists()) {
         await tempImgDir.delete(recursive: true);
       }
-      // ignore: empty_catches
-    } catch (e) {}
+    } catch (e) {
+      printERROR("Failed to clear image cache: $e");
+    }
   }
 
   void resetDownloadLocation() {

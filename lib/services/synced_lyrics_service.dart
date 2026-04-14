@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 
 class SyncedLyricsService {
   static const Duration _requestTimeout = Duration(seconds: 8);
+  static const int _maxRetries = 2;
   static final Dio _dio = Dio(BaseOptions(
     connectTimeout: _requestTimeout,
     receiveTimeout: _requestTimeout,
@@ -29,16 +30,18 @@ class SyncedLyricsService {
       final album = song.album ?? '';
       final dur = song.duration?.inSeconds ?? durInSec;
 
-      // 2. Try LRCLIB exact match
-      final exactResult = await _tryLrclibExact(artist, title, album, dur);
+      // 2. Try LRCLIB exact match (with retry)
+      final exactResult = await _withRetry(
+          () => _tryLrclibExact(artist, title, album, dur));
       if (exactResult != null) {
         printINFO("Lyrics found via LRCLIB exact match");
         await lyricsBox.put(song.id, exactResult);
         return exactResult;
       }
 
-      // 3. Try LRCLIB search (fuzzy / broader)
-      final searchResult = await _tryLrclibSearch(artist, title);
+      // 3. Try LRCLIB search (fuzzy / broader, with retry)
+      final searchResult = await _withRetry(
+          () => _tryLrclibSearch(artist, title));
       if (searchResult != null) {
         printINFO("Lyrics found via LRCLIB search");
         await lyricsBox.put(song.id, searchResult);
@@ -50,26 +53,40 @@ class SyncedLyricsService {
     return null;
   }
 
+  /// Retry wrapper for transient network failures
+  static Future<T?> _withRetry<T>(Future<T?> Function() fn) async {
+    for (int attempt = 0; attempt <= _maxRetries; attempt++) {
+      try {
+        final result = await fn();
+        return result;
+      } on DioException catch (e) {
+        if (attempt == _maxRetries) {
+          printERROR("Lyrics fetch failed after ${_maxRetries + 1} attempts: ${e.message}");
+          return null;
+        }
+        // Wait briefly before retry
+        await Future.delayed(Duration(milliseconds: 500 * (attempt + 1)));
+      }
+    }
+    return null;
+  }
+
   /// LRCLIB exact match endpoint
   static Future<Map<String, dynamic>?> _tryLrclibExact(
       String artist, String title, String album, int dur) async {
     final url =
         'https://lrclib.net/api/get?artist_name=${Uri.encodeComponent(artist)}&track_name=${Uri.encodeComponent(title)}&album_name=${Uri.encodeComponent(album)}&duration=$dur';
-    try {
-      final response = (await _dio.get(url)).data;
-      if (response is Map) {
-        if (response["syncedLyrics"] != null) {
-          return {
-            "synced": response["syncedLyrics"],
-            "plainLyrics": response["plainLyrics"] ?? ""
-          };
-        }
-        if (response["plainLyrics"] != null) {
-          return {"synced": "", "plainLyrics": response["plainLyrics"]};
-        }
+    final response = (await _dio.get(url)).data;
+    if (response is Map) {
+      if (response["syncedLyrics"] != null) {
+        return {
+          "synced": response["syncedLyrics"],
+          "plainLyrics": response["plainLyrics"] ?? ""
+        };
       }
-    } on DioException catch (e) {
-      printERROR("LRCLIB exact: ${e.message}");
+      if (response["plainLyrics"] != null) {
+        return {"synced": "", "plainLyrics": response["plainLyrics"]};
+      }
     }
     return null;
   }
@@ -79,29 +96,25 @@ class SyncedLyricsService {
       String artist, String title) async {
     final query = Uri.encodeComponent('$artist $title');
     final url = 'https://lrclib.net/api/search?q=$query';
-    try {
-      final response = (await _dio.get(url)).data;
-      if (response is List && response.isNotEmpty) {
-        // Pick the first result that has synced lyrics, otherwise first with plain
-        Map<String, dynamic>? bestPlain;
-        for (final item in response) {
-          if (item["syncedLyrics"] != null &&
-              (item["syncedLyrics"] as String).isNotEmpty) {
-            return {
-              "synced": item["syncedLyrics"],
-              "plainLyrics": item["plainLyrics"] ?? ""
-            };
-          }
-          if (bestPlain == null &&
-              item["plainLyrics"] != null &&
-              (item["plainLyrics"] as String).isNotEmpty) {
-            bestPlain = {"synced": "", "plainLyrics": item["plainLyrics"]};
-          }
+    final response = (await _dio.get(url)).data;
+    if (response is List && response.isNotEmpty) {
+      // Pick the first result that has synced lyrics, otherwise first with plain
+      Map<String, dynamic>? bestPlain;
+      for (final item in response) {
+        if (item["syncedLyrics"] != null &&
+            (item["syncedLyrics"] as String).isNotEmpty) {
+          return {
+            "synced": item["syncedLyrics"],
+            "plainLyrics": item["plainLyrics"] ?? ""
+          };
         }
-        if (bestPlain != null) return bestPlain;
+        if (bestPlain == null &&
+            item["plainLyrics"] != null &&
+            (item["plainLyrics"] as String).isNotEmpty) {
+          bestPlain = {"synced": "", "plainLyrics": item["plainLyrics"]};
+        }
       }
-    } on DioException catch (e) {
-      printERROR("LRCLIB search: ${e.message}");
+      if (bestPlain != null) return bestPlain;
     }
     return null;
   }

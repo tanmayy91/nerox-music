@@ -13,8 +13,22 @@ class LyricsWidget extends StatelessWidget {
     final playerController = Get.find<PlayerController>();
     return Obx(
       () => playerController.isLyricsLoading.isTrue
-          ? const Center(
-              child: LoadingIndicator(),
+          ? Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const LoadingIndicator(),
+                  const SizedBox(height: 16),
+                  Text(
+                    "fetchingLyrics".tr,
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.4),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
             )
           : playerController.lyricsMode.toInt() == 1
               ? _PlainLyricsView(
@@ -40,28 +54,35 @@ class _PlainLyricsView extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         padding: padding,
         child: Obx(
-          () => TextSelectionTheme(
-            data: Theme.of(context).textSelectionTheme,
-            child: SelectableText(
-              playerController.lyrics["plainLyrics"] == "NA"
-                  ? "lyricsNotAvailable".tr
-                  : playerController.lyrics["plainLyrics"],
-              textAlign: TextAlign.center,
-              style: playerController.isDesktopLyricsDialogOpen
-                  ? Theme.of(context).textTheme.titleMedium!.copyWith(
-                        fontSize: 18,
-                        height: 2.0,
-                        fontWeight: FontWeight.w600,
-                      )
-                  : Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.white.withOpacity(0.85),
-                        fontSize: 18,
-                        height: 2.2,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: -0.2,
-                      ),
-            ),
-          ),
+          () {
+            final plainLyrics = playerController.lyrics["plainLyrics"];
+            if (plainLyrics == "NA") {
+              return _LyricsNotAvailableWidget(
+                playerController: playerController,
+                isDialog: playerController.isDesktopLyricsDialogOpen,
+              );
+            }
+            return TextSelectionTheme(
+              data: Theme.of(context).textSelectionTheme,
+              child: SelectableText(
+                plainLyrics ?? "",
+                textAlign: TextAlign.center,
+                style: playerController.isDesktopLyricsDialogOpen
+                    ? Theme.of(context).textTheme.titleMedium!.copyWith(
+                          fontSize: 18,
+                          height: 2.0,
+                          fontWeight: FontWeight.w600,
+                        )
+                    : Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: Colors.white.withOpacity(0.85),
+                          fontSize: 18,
+                          height: 2.2,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: -0.2,
+                        ),
+              ),
+            );
+          },
         ),
       ),
     );
@@ -81,30 +102,18 @@ class _LiveLyricsView extends StatelessWidget {
     return Obx(() {
       final syncedLyrics = playerController.lyrics['synced'].toString();
       if (syncedLyrics.isEmpty) {
-        return Center(
-          child: Text(
-            "syncedLyricsNotAvailable".tr,
-            style: playerController.isDesktopLyricsDialogOpen
-                ? Theme.of(context).textTheme.titleMedium!
-                : Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: Colors.white.withOpacity(0.6)),
-          ),
+        return _LyricsNotAvailableWidget(
+          playerController: playerController,
+          message: "syncedLyricsNotAvailable".tr,
+          isDialog: playerController.isDesktopLyricsDialogOpen,
         );
       }
       final lines = _parseLRC(syncedLyrics);
       if (lines.isEmpty) {
-        return Center(
-          child: Text(
-            "syncedLyricsNotAvailable".tr,
-            style: playerController.isDesktopLyricsDialogOpen
-                ? Theme.of(context).textTheme.titleMedium!
-                : Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: Colors.white.withOpacity(0.6)),
-          ),
+        return _LyricsNotAvailableWidget(
+          playerController: playerController,
+          message: "syncedLyricsNotAvailable".tr,
+          isDialog: playerController.isDesktopLyricsDialogOpen,
         );
       }
       return _AppleMusicLyricsScroller(
@@ -137,6 +146,91 @@ class _LiveLyricsView extends StatelessWidget {
       }
     }
     return lines;
+  }
+}
+
+/// Widget shown when lyrics are not available, with retry button
+class _LyricsNotAvailableWidget extends StatelessWidget {
+  final PlayerController playerController;
+  final String? message;
+  final bool isDialog;
+
+  const _LyricsNotAvailableWidget({
+    required this.playerController,
+    this.message,
+    this.isDialog = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final displayMessage = message ?? "lyricsNotAvailable".tr;
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.lyrics_outlined,
+            size: 48,
+            color: isDialog
+                ? Theme.of(context).textTheme.titleMedium!.color?.withOpacity(0.3)
+                : Colors.white.withOpacity(0.2),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            displayMessage,
+            style: isDialog
+                ? Theme.of(context).textTheme.titleMedium!
+                : Theme.of(context)
+                    .textTheme
+                    .titleMedium!
+                    .copyWith(color: Colors.white.withOpacity(0.5)),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20),
+          InkWell(
+            onTap: () {
+              // Clear cached lyrics and re-fetch
+              playerController.lyrics.value = {"synced": "", "plainLyrics": ""};
+              playerController.showLyricsflag.value = false;
+              playerController.showLyrics();
+            },
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: isDialog
+                    ? Theme.of(context).colorScheme.secondary.withOpacity(0.2)
+                    : Colors.white.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.refresh_rounded,
+                    size: 18,
+                    color: isDialog
+                        ? Theme.of(context).textTheme.titleMedium!.color
+                        : Colors.white.withOpacity(0.7),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    "retry".tr,
+                    style: TextStyle(
+                      color: isDialog
+                          ? Theme.of(context).textTheme.titleMedium!.color
+                          : Colors.white.withOpacity(0.7),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

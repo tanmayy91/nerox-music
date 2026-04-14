@@ -724,8 +724,9 @@ class PlayerController extends GetxController
         playlistController.addNRemoveItemsinList(mediaItem,
             action: 'add', index: 0);
 
-        // ignore: empty_catches
-      } catch (e) {}
+      } catch (e) {
+        printINFO("Playlist controller not found for LIBRP update");
+      }
     }
     recentItem = mediaItem;
   }
@@ -748,7 +749,8 @@ class PlayerController extends GetxController
   Future<void> _fetchLyricsIfNeeded() async {
     final synced = lyrics["synced"]?.toString() ?? "";
     final plain = lyrics["plainLyrics"]?.toString() ?? "";
-    if (synced.isNotEmpty || plain.isNotEmpty) return; // already loaded
+    // Only skip if we already have meaningful lyrics loaded (not "NA")
+    if ((synced.isNotEmpty || (plain.isNotEmpty && plain != "NA"))) return;
 
     isLyricsLoading.value = true;
     try {
@@ -774,6 +776,7 @@ class PlayerController extends GetxController
         lyrics.value = {"synced": "", "plainLyrics": "NA"};
       }
     } catch (e) {
+      printERROR("Lyrics fetch failed: $e");
       lyrics.value = {"synced": "", "plainLyrics": "NA"};
     }
     isLyricsLoading.value = false;
