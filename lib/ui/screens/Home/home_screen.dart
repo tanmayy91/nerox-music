@@ -335,27 +335,44 @@ class _GreetingHeader extends StatelessWidget {
     return "greetingEvening".tr;
   }
 
+  String _emoji() {
+    final hour = DateTime.now().hour;
+    if (hour < 12) return "☀️";
+    if (hour < 17) return "🎵";
+    return "🌙";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 4),
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            _greeting(),
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: -0.5,
-                ),
+          Row(
+            children: [
+              Text(
+                _greeting(),
+                style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -0.8,
+                    ),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                _emoji(),
+                style: const TextStyle(fontSize: 24),
+              ),
+            ],
           ),
-          const SizedBox(height: 2),
+          const SizedBox(height: 4),
           Text(
             "greetingSubtitle".tr,
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  fontSize: 13,
+                  fontSize: 14,
                   fontWeight: FontWeight.w400,
+                  letterSpacing: 0.1,
                 ),
           ),
         ],

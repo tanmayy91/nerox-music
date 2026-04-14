@@ -98,7 +98,7 @@ class PlayerControlWidget extends StatelessWidget {
               onSeek: controller.seek,
             );
           }),
-          const SizedBox(height: 4),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,9 +111,21 @@ class PlayerControlWidget extends StatelessWidget {
                 spinOnToggle: true,
               ),
               _previousButton(playerController, context),
-              const CircleAvatar(
-                  radius: 35,
-                  child: AnimatedPlayButton(key: Key("playButton"))),
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.25),
+                      blurRadius: 16,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: const CircleAvatar(
+                    radius: 36,
+                    child: AnimatedPlayButton(key: Key("playButton"))),
+              ),
               _nextButton(playerController, context),
               // Loop — bounces on each toggle
               _AnimatedToggleIconButton(
@@ -134,7 +146,7 @@ class PlayerControlWidget extends StatelessWidget {
       child: Icon(
         Icons.skip_previous_rounded,
         color: Theme.of(context).textTheme.titleMedium!.color,
-        size: 36,
+        size: 38,
       ),
     );
   }
@@ -152,9 +164,9 @@ Widget _nextButton(PlayerController playerController, BuildContext context) {
       child: Icon(
         Icons.skip_next_rounded,
         color: isLastSong
-            ? Theme.of(context).textTheme.titleLarge!.color!.withOpacity(0.2)
+            ? Theme.of(context).textTheme.titleLarge!.color!.withOpacity(0.15)
             : Theme.of(context).textTheme.titleMedium!.color,
-        size: 36,
+        size: 38,
       ),
     );
   });

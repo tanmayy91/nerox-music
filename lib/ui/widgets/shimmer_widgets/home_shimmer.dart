@@ -8,9 +8,10 @@ class HomeShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Shimmer.fromColors(
-        baseColor: Colors.grey[500]!,
-        highlightColor: Colors.grey[300]!,
+        baseColor: isDark ? Colors.grey[800]! : Colors.grey[300]!,
+        highlightColor: isDark ? Colors.grey[600]! : Colors.grey[100]!,
         enabled: true,
         direction: ShimmerDirection.ltr,
         child: Column(
@@ -20,7 +21,7 @@ class HomeShimmer extends StatelessWidget {
 
   Widget _discoverWidget() {
     return SizedBox(
-      height: 320,
+      height: 330,
       width: double.infinity,
       child: Column(
         children: [
@@ -31,7 +32,7 @@ class HomeShimmer extends StatelessWidget {
               child: BasicShimmerContainer(Size(220, 30)),
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           Expanded(
             child: GridView.builder(
                 scrollDirection: Axis.horizontal,
@@ -39,15 +40,15 @@ class HomeShimmer extends StatelessWidget {
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 4,
                   childAspectRatio: .26 / 1,
-                  crossAxisSpacing: 1,
-                  mainAxisSpacing: 5,
+                  crossAxisSpacing: 4,
+                  mainAxisSpacing: 6,
                 ),
                 itemBuilder: (_, item) {
                   return const ListTile(
                     contentPadding: EdgeInsetsDirectional.all(5),
-                    leading: BasicShimmerContainer(Size(50, 50)),
-                    title: BasicShimmerContainer(Size(90, 20)),
-                    subtitle: BasicShimmerContainer(Size(40, 15)),
+                    leading: BasicShimmerContainer(Size(52, 52)),
+                    title: BasicShimmerContainer(Size(90, 18)),
+                    subtitle: BasicShimmerContainer(Size(40, 14)),
                   );
                 }),
           ),
@@ -63,29 +64,28 @@ class HomeShimmer extends StatelessWidget {
       children: [
         const Padding(
           padding: EdgeInsets.only(left: 5),
-          child: BasicShimmerContainer(Size(220, 30)),
+          child: BasicShimmerContainer(Size(220, 28)),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
         SizedBox(
-          height: 200,
-          //color: Colors.blueAccent,
+          height: 210,
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 5,
               itemBuilder: (_, index) {
                 return Container(
-                  width: 140,
+                  width: 155,
                   padding: const EdgeInsets.only(left: 5.0),
                   child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                          height: 120,
-                          child: BasicShimmerContainer(Size(120, 120))),
+                          height: 147,
+                          child: BasicShimmerContainer(Size(147, 147))),
+                      SizedBox(height: 10),
+                      BasicShimmerContainer(Size(130, 18)),
                       SizedBox(height: 5),
-                      BasicShimmerContainer(Size(115, 20)),
-                      SizedBox(height: 5),
-                      BasicShimmerContainer(Size(90, 15)),
+                      BasicShimmerContainer(Size(90, 14)),
                     ],
                   ),
                 );

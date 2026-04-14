@@ -11,12 +11,9 @@ import 'backgroud_image.dart';
 import 'lyrics_switch.dart';
 import 'player_control.dart';
 
-/// Standard player widget
+/// Standard player widget – V3 immersive design
 ///
-/// This widget is used to display the player in the standard mode
-///
-/// It contains the album art image, lyrics switch, album art with lyrics and player controls
-/// and is used in the [Player] widget
+/// Deep blur with rich color-aware gradients for a premium feel
 class StandardPlayer extends StatelessWidget {
   const StandardPlayer({super.key});
 
@@ -25,9 +22,7 @@ class StandardPlayer extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final PlayerController playerController = Get.find<PlayerController>();
 
-    double playerArtImageSize =
-        size.width - 60; //((size.height < 750) ? 90 : 60);
-    //playerArtImageSize = playerArtImageSize > 350 ? 350 : playerArtImageSize;
+    double playerArtImageSize = size.width - 60;
     final spaceAvailableForArtImage =
         size.height - (70 + Get.mediaQuery.padding.bottom + 330);
     playerArtImageSize = playerArtImageSize > spaceAvailableForArtImage
@@ -35,44 +30,45 @@ class StandardPlayer extends StatelessWidget {
         : playerArtImageSize;
     return Stack(
       children: [
-        /// Stack first child
-        /// Album art image in background covering the whole screen
+        /// Background album art
         BackgroudImage(
           key: Key("${playerController.currentSong.value?.id}_background"),
           cacheHeight: 200,
         ),
 
-        /// Stack child
-        /// Enhanced blur + gradient overlay for depth
+        /// Deep immersive blur overlay
         BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 40.0, sigmaY: 40.0),
+          filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
           child: Stack(
             children: [
-              /// Deep overlay for rich dark aesthetic
+              /// Primary gradient: deep fade from album color to black
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
+                      stops: const [0.0, 0.3, 0.7, 1.0],
                       colors: [
-                        Theme.of(context).primaryColor.withOpacity(0.85),
-                        Colors.black.withOpacity(0.92),
+                        Theme.of(context).primaryColor.withOpacity(0.75),
+                        Theme.of(context).primaryColor.withOpacity(0.50),
+                        Colors.black.withOpacity(0.80),
+                        Colors.black.withOpacity(0.95),
                       ],
                     ),
                   ),
                 ),
               ),
 
-              /// Subtle vignette glow at top
+              /// Ambient glow from top-center
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: RadialGradient(
-                      center: const Alignment(0.0, -0.5),
-                      radius: 1.2,
+                      center: const Alignment(0.0, -0.7),
+                      radius: 1.4,
                       colors: [
-                        Theme.of(context).primaryColor.withOpacity(0.15),
+                        Theme.of(context).primaryColor.withOpacity(0.20),
                         Colors.transparent,
                       ],
                     ),
@@ -80,22 +76,41 @@ class StandardPlayer extends StatelessWidget {
                 ),
               ),
 
-              /// Bottom gradient blend
+              /// Subtle side vignette for depth
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        Colors.black.withOpacity(0.15),
+                        Colors.transparent,
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.15),
+                      ],
+                      stops: const [0.0, 0.2, 0.8, 1.0],
+                    ),
+                  ),
+                ),
+              ),
+
+              /// Bottom gradient
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 65 + Get.mediaQuery.padding.bottom + 120,
+                  height: 70 + Get.mediaQuery.padding.bottom + 130,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
                         Colors.black.withOpacity(0.95),
-                        Colors.black.withOpacity(0.7),
-                        Colors.black.withOpacity(0.3),
+                        Colors.black.withOpacity(0.65),
+                        Colors.black.withOpacity(0.25),
                         Colors.transparent,
                       ],
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
-                      stops: const [0, 0.4, 0.75, 1],
+                      stops: const [0, 0.35, 0.7, 1],
                     ),
                   ),
                 ),
@@ -104,21 +119,17 @@ class StandardPlayer extends StatelessWidget {
           ),
         ),
 
-        /// Stack child
-        /// Player content in landscape mode
+        /// Player content
         Padding(
           padding: const EdgeInsets.only(left: 25, right: 25),
           child: (context.isLandscape)
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    /// Album art with lyrics in .45  of width
                     SizedBox(
                       width: size.width * .45,
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                          bottom: 90.0,
-                        ),
+                        padding: const EdgeInsets.only(bottom: 90.0),
                         child: Padding(
                           padding: const EdgeInsets.only(top: 40),
                           child: Center(
@@ -129,8 +140,6 @@ class StandardPlayer extends StatelessWidget {
                         ),
                       ),
                     ),
-
-                    /// Player controls in .48 of width
                     SizedBox(
                         width: size.width * .48,
                         child: Padding(
@@ -142,23 +151,17 @@ class StandardPlayer extends StatelessWidget {
                         ))
                   ],
                 )
-              :
-
-              /// Player content in portrait mode
-              Column(
+              : Column(
                   children: [
-                    /// Work as top padding depending on the lyrics visibility and screen size
                     Obx(
                       () => AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
+                        duration: const Duration(milliseconds: 350),
                         curve: Curves.easeOutCubic,
                         height: playerController.showLyricsflag.value
-                            ? (size.height < 750 ? 60 : 90)
-                            : (size.height < 750 ? 110 : 140),
+                            ? (size.height < 750 ? 55 : 85)
+                            : (size.height < 750 ? 105 : 135),
                       ),
                     ),
-
-                    /// Contains the lyrics switch and album art with lyrics
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -169,11 +172,7 @@ class StandardPlayer extends StatelessWidget {
                                 playerArtImageSize: playerArtImageSize)),
                       ],
                     ),
-
-                    /// Extra space container
                     Expanded(child: Container()),
-
-                    /// Contains the player controls
                     Padding(
                       padding: EdgeInsets.only(
                           bottom: 80 + Get.mediaQuery.padding.bottom),
@@ -185,9 +184,7 @@ class StandardPlayer extends StatelessWidget {
                 ),
         ),
 
-        /// Stack child
-        /// Contains [Minimize button], Playing from [Album name], [More button] for current song context
-        /// This is not visible in mobile devices in landscape mode
+        /// Top bar: minimize, playing from, more
         if (!(context.isLandscape && GetPlatform.isMobile))
           Padding(
             padding: EdgeInsets.only(
@@ -196,29 +193,36 @@ class StandardPlayer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /// Minimize button
-                IconButton(
-                  icon: const Icon(
-                    Icons.keyboard_arrow_down,
-                    size: 28,
+                /// Minimize button with subtle glass background
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(14),
                   ),
-                  onPressed: playerController.playerPanelController.close,
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      size: 28,
+                    ),
+                    onPressed: playerController.playerPanelController.close,
+                  ),
                 ),
 
-                /// Playing from [Album name]
+                /// Playing from info
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 8.0, left: 5, right: 5),
+                    padding: const EdgeInsets.only(top: 8.0, left: 8, right: 8),
                     child: Obx(
                       () => Column(
                         children: [
                           Text(playerController.playinfrom.value.typeString,
                               style: TextStyle(
-                                  fontSize: 11,
+                                  fontSize: 10,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white.withOpacity(0.5),
-                                  letterSpacing: 0.5)),
-                          const SizedBox(height: 2),
+                                  color: Colors.white.withOpacity(0.40),
+                                  letterSpacing: 1.0,
+                              )),
+                          const SizedBox(height: 3),
                           Obx(
                             () => Text(
                               "\"${playerController.playinfrom.value.nameString}\"",
@@ -226,7 +230,7 @@ class StandardPlayer extends StatelessWidget {
                               style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 13,
-                                color: Colors.white.withOpacity(0.8),
+                                color: Colors.white.withOpacity(0.75),
                               ),
                             ),
                           )
@@ -236,29 +240,35 @@ class StandardPlayer extends StatelessWidget {
                   ),
                 ),
 
-                /// More button for current song context
-                IconButton(
-                  icon: const Icon(
-                    Icons.more_vert,
-                    size: 25,
+                /// More button with glass background
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(14),
                   ),
-                  onPressed: () {
-                    showModalBottomSheet(
-                      constraints: const BoxConstraints(maxWidth: 500),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(10.0)),
-                      ),
-                      isScrollControlled: true,
-                      context: playerController
-                          .homeScaffoldkey.currentState!.context,
-                      barrierColor: Colors.transparent.withAlpha(100),
-                      builder: (context) => SongInfoBottomSheet(
-                        playerController.currentSong.value!,
-                        calledFromPlayer: true,
-                      ),
-                    ).whenComplete(() => Get.delete<SongInfoController>());
-                  },
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.more_horiz_rounded,
+                      size: 25,
+                    ),
+                    onPressed: () {
+                      showModalBottomSheet(
+                        constraints: const BoxConstraints(maxWidth: 500),
+                        shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(24.0)),
+                        ),
+                        isScrollControlled: true,
+                        context: playerController
+                            .homeScaffoldkey.currentState!.context,
+                        barrierColor: Colors.transparent.withAlpha(100),
+                        builder: (context) => SongInfoBottomSheet(
+                          playerController.currentSong.value!,
+                          calledFromPlayer: true,
+                        ),
+                      ).whenComplete(() => Get.delete<SongInfoController>());
+                    },
+                  ),
                 ),
               ],
             ),

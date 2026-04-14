@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BasicShimmerContainer extends StatelessWidget {
-  const BasicShimmerContainer(this.size, {super.key, this.radius = 10});
+  const BasicShimmerContainer(this.size, {super.key, this.radius = 12});
   final Size size;
   final double radius;
 

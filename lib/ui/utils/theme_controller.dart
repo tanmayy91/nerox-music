@@ -229,11 +229,13 @@ class ThemeController extends GetxController {
             systemNavigationBarContrastEnforced: true),
       );
 
-      // GenZ aesthetic: true AMOLED black with vibrant violet accent
-      const darkSurface = Color(0xFF050505);
-      const darkCard = Color(0xFF0F0F12);
-      const darkElevated = Color(0xFF1A1A22);
-      const neonAccent = Color(0xFFBB86FC); // Vibrant violet/purple
+      // V3 Premium dark: deep blacks with electric accent
+      const darkSurface = Color(0xFF030304);
+      const darkCard = Color(0xFF0E0E14);
+      const darkElevated = Color(0xFF16161F);
+      const neonAccent = Color(0xFF9D6BFF); // Electric violet
+      const neonGlow = Color(0xFFB388FF); // Lighter glow variant
+      const subtleWhite = Color(0xFFE8E8F0);
 
       final baseTheme = ThemeData(
           useMaterial3: true,
@@ -245,106 +247,111 @@ class ThemeController extends GetxController {
           scaffoldBackgroundColor: darkSurface,
           colorScheme: ColorScheme.dark(
             surface: darkSurface,
-            primary: Colors.white,
+            primary: subtleWhite,
             secondary: darkElevated,
-            tertiary: neonAccent.withOpacity(0.12),
-            onSurface: Colors.white,
+            tertiary: neonAccent.withOpacity(0.15),
+            onSurface: subtleWhite,
             onPrimary: darkSurface,
           ),
           progressIndicatorTheme: const ProgressIndicatorThemeData(
               color: neonAccent,
-              linearTrackColor: Colors.white),
+              linearTrackColor: subtleWhite),
           textTheme: TextTheme(
               titleLarge: const TextStyle(
-                fontSize: 26,
+                fontSize: 28,
                 fontWeight: FontWeight.w800,
-                letterSpacing: -0.8,
+                letterSpacing: -1.0,
+                color: subtleWhite,
               ),
-              titleMedium: const TextStyle(
+              titleMedium: TextStyle(
                 fontWeight: FontWeight.w600,
                 letterSpacing: -0.3,
+                color: subtleWhite.withOpacity(0.95),
               ),
               titleSmall: TextStyle(
-                color: Colors.white.withOpacity(0.50),
+                color: Colors.white.withOpacity(0.45),
                 fontWeight: FontWeight.w400,
+                letterSpacing: 0.1,
               ),
               labelMedium: const TextStyle(
                 fontWeight: FontWeight.w800,
-                fontSize: 26,
-                letterSpacing: -0.8,
+                fontSize: 28,
+                letterSpacing: -1.0,
+                color: subtleWhite,
               ),
-              labelSmall: const TextStyle(
-                  fontSize: 14,
-                  letterSpacing: 0.1,
-                  fontWeight: FontWeight.w600),
+              labelSmall: TextStyle(
+                  fontSize: 13,
+                  letterSpacing: 0.2,
+                  fontWeight: FontWeight.w600,
+                  color: subtleWhite.withOpacity(0.7)),
               bodyMedium: TextStyle(
-                  color: Colors.white.withOpacity(0.45),
-                  fontWeight: FontWeight.w400)),
+                  color: Colors.white.withOpacity(0.40),
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 0.1)),
           navigationBarTheme: NavigationBarThemeData(
             elevation: 0,
-            height: 64,
+            height: 68,
             backgroundColor: darkSurface,
-            indicatorColor: neonAccent.withOpacity(0.12),
+            indicatorColor: neonAccent.withOpacity(0.15),
             iconTheme: WidgetStateProperty.resolveWith((states) {
               if (states.contains(WidgetState.selected)) {
-                return const IconThemeData(color: neonAccent, size: 26);
+                return const IconThemeData(color: neonGlow, size: 26);
               }
               return IconThemeData(
-                  color: Colors.white.withOpacity(0.35), size: 24);
+                  color: Colors.white.withOpacity(0.30), size: 23);
             }),
             labelTextStyle: WidgetStateProperty.resolveWith((states) {
               if (states.contains(WidgetState.selected)) {
                 return const TextStyle(
-                    color: Colors.white,
+                    color: subtleWhite,
                     fontWeight: FontWeight.w700,
-                    fontSize: 11);
+                    fontSize: 11,
+                    letterSpacing: 0.3);
               }
               return TextStyle(
-                  color: Colors.white.withOpacity(0.35),
+                  color: Colors.white.withOpacity(0.30),
                   fontWeight: FontWeight.w500,
                   fontSize: 11);
             }),
           ),
           navigationRailTheme: NavigationRailThemeData(
               backgroundColor: darkSurface,
-              selectedIconTheme: const IconThemeData(
-                color: neonAccent,
-              ),
+              selectedIconTheme: const IconThemeData(color: neonGlow),
               unselectedIconTheme:
-                  IconThemeData(color: Colors.white.withOpacity(0.30)),
+                  IconThemeData(color: Colors.white.withOpacity(0.25)),
               selectedLabelTextStyle: const TextStyle(
-                  color: Colors.white,
+                  color: subtleWhite,
                   fontWeight: FontWeight.w700,
-                  fontSize: 14),
+                  fontSize: 13),
               unselectedLabelTextStyle: TextStyle(
-                  color: Colors.white.withOpacity(0.30),
+                  color: Colors.white.withOpacity(0.25),
                   fontWeight: FontWeight.w500)),
           bottomSheetTheme: BottomSheetThemeData(
               backgroundColor: darkCard,
-              modalBarrierColor: Colors.black.withOpacity(0.75),
+              modalBarrierColor: Colors.black.withOpacity(0.80),
               shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
               )),
           sliderTheme: SliderThemeData(
-            inactiveTrackColor: Colors.white.withOpacity(0.10),
+            inactiveTrackColor: Colors.white.withOpacity(0.08),
             activeTrackColor: neonAccent,
             valueIndicatorColor: darkElevated,
             thumbColor: Colors.white,
-            overlayColor: neonAccent.withOpacity(0.12),
-            trackHeight: 3.5,
+            overlayColor: neonAccent.withOpacity(0.15),
+            trackHeight: 4,
           ),
           floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: neonAccent,
             foregroundColor: Colors.white,
-            elevation: 6,
+            elevation: 8,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(18),
             ),
           ),
           dialogTheme: DialogTheme(
             backgroundColor: darkCard,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(28),
+              borderRadius: BorderRadius.circular(24),
             ),
             elevation: 0,
           ),
@@ -352,7 +359,7 @@ class ThemeController extends GetxController {
             color: darkCard,
             elevation: 0,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(18),
             ),
           ),
           textSelectionTheme: TextSelectionThemeData(
@@ -378,9 +385,12 @@ class ThemeController extends GetxController {
             systemNavigationBarContrastEnforced: false),
       );
 
-      const lightSurface = Color(0xFFF8F8FA);
+      // V3 Premium light: warm cream with rich charcoal
+      const lightSurface = Color(0xFFF5F4F0);
       const lightCard = Color(0xFFFFFFFF);
-      final lightMuted = Colors.grey[500]!;
+      const charcoal = Color(0xFF141416);
+      const warmAccent = Color(0xFF6D5BFF); // Warm indigo accent
+      final softGray = Colors.grey[450]!;
 
       final baseTheme = ThemeData(
           useMaterial3: true,
@@ -388,119 +398,126 @@ class ThemeController extends GetxController {
           canvasColor: lightSurface,
           colorScheme: ColorScheme.light(
             surface: lightSurface,
-            primary: const Color(0xFF1A1A1A),
-            secondary: const Color(0xFFE8E8EC),
-            tertiary: Colors.black.withOpacity(0.05),
-            onSurface: const Color(0xFF1A1A1A),
+            primary: charcoal,
+            secondary: const Color(0xFFEAE9E5),
+            tertiary: warmAccent.withOpacity(0.08),
+            onSurface: charcoal,
             onPrimary: lightCard,
           ),
           primaryColor: lightSurface,
-          primaryColorLight: const Color(0xFFE8E8EC),
+          primaryColorLight: const Color(0xFFEAE9E5),
           progressIndicatorTheme: ProgressIndicatorThemeData(
-              linearTrackColor: const Color(0xFF1A1A1A),
-              color: lightMuted.withOpacity(0.3)),
+              linearTrackColor: charcoal,
+              color: softGray.withOpacity(0.25)),
           textTheme: TextTheme(
               titleLarge: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF1A1A1A),
-                letterSpacing: -0.5,
+                fontSize: 26,
+                fontWeight: FontWeight.w800,
+                color: charcoal,
+                letterSpacing: -0.8,
               ),
               titleMedium: const TextStyle(
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF1A1A1A),
+                color: charcoal,
                 letterSpacing: -0.2,
               ),
               titleSmall: TextStyle(
-                color: Colors.grey[600],
+                color: Colors.grey[550],
                 fontWeight: FontWeight.w400,
               ),
               labelMedium: const TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 24,
-                color: Color(0xFF1A1A1A),
-                letterSpacing: -0.5,
+                fontWeight: FontWeight.w800,
+                fontSize: 26,
+                color: charcoal,
+                letterSpacing: -0.8,
               ),
               labelSmall: TextStyle(
-                  fontSize: 14,
-                  letterSpacing: 0.1,
+                  fontSize: 13,
+                  letterSpacing: 0.2,
                   fontWeight: FontWeight.w600,
-                  color: Colors.grey[700]),
+                  color: Colors.grey[650]),
               bodyMedium: TextStyle(
-                  color: Colors.grey[600],
+                  color: Colors.grey[550],
                   fontWeight: FontWeight.w400)),
           navigationBarTheme: NavigationBarThemeData(
             elevation: 0,
+            height: 68,
             backgroundColor: lightSurface,
-            indicatorColor: Colors.black.withOpacity(0.06),
+            indicatorColor: warmAccent.withOpacity(0.10),
             iconTheme: WidgetStateProperty.resolveWith((states) {
               if (states.contains(WidgetState.selected)) {
-                return const IconThemeData(
-                    color: Color(0xFF1A1A1A), size: 24);
+                return const IconThemeData(color: charcoal, size: 25);
               }
-              return IconThemeData(color: Colors.grey[500], size: 24);
+              return IconThemeData(color: Colors.grey[400], size: 23);
             }),
             labelTextStyle: WidgetStateProperty.resolveWith((states) {
               if (states.contains(WidgetState.selected)) {
                 return const TextStyle(
-                    color: Color(0xFF1A1A1A),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12);
+                    color: charcoal,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 11,
+                    letterSpacing: 0.3);
               }
               return TextStyle(
-                  color: Colors.grey[500],
+                  color: Colors.grey[400],
                   fontWeight: FontWeight.w500,
-                  fontSize: 12);
+                  fontSize: 11);
             }),
           ),
           navigationRailTheme: NavigationRailThemeData(
               backgroundColor: lightSurface,
-              selectedIconTheme:
-                  const IconThemeData(color: Color(0xFF1A1A1A)),
-              unselectedIconTheme: IconThemeData(color: Colors.grey[500]),
+              selectedIconTheme: const IconThemeData(color: charcoal),
+              unselectedIconTheme: IconThemeData(color: Colors.grey[400]),
               selectedLabelTextStyle: const TextStyle(
-                  color: Color(0xFF1A1A1A),
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14),
+                  color: charcoal,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13),
               unselectedLabelTextStyle: TextStyle(
-                  color: Colors.grey[500], fontWeight: FontWeight.w500)),
+                  color: Colors.grey[400], fontWeight: FontWeight.w500)),
           bottomSheetTheme: BottomSheetThemeData(
               backgroundColor: lightCard,
-              modalBarrierColor: Colors.black.withOpacity(0.3),
+              modalBarrierColor: Colors.black.withOpacity(0.25),
               shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
               )),
           sliderTheme: SliderThemeData(
-            inactiveTrackColor: Colors.black.withOpacity(0.12),
-            activeTrackColor: const Color(0xFF1A1A1A),
-            valueIndicatorColor: const Color(0xFFE8E8EC),
-            thumbColor: const Color(0xFF1A1A1A),
-            overlayColor: Colors.black.withOpacity(0.05),
-            trackHeight: 3,
+            inactiveTrackColor: Colors.black.withOpacity(0.08),
+            activeTrackColor: charcoal,
+            valueIndicatorColor: const Color(0xFFEAE9E5),
+            thumbColor: charcoal,
+            overlayColor: Colors.black.withOpacity(0.04),
+            trackHeight: 4,
           ),
           floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: const Color(0xFF1A1A1A),
+            backgroundColor: charcoal,
             foregroundColor: Colors.white,
-            elevation: 2,
+            elevation: 4,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(18),
             ),
           ),
           dialogTheme: DialogTheme(
             backgroundColor: lightCard,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(24),
             ),
             elevation: 0,
           ),
+          cardTheme: CardTheme(
+            color: lightCard,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18),
+            ),
+          ),
           textSelectionTheme: TextSelectionThemeData(
-              cursorColor: Colors.grey[600],
-              selectionColor: Colors.grey[400],
-              selectionHandleColor: Colors.grey[600]),
-          inputDecorationTheme: const InputDecorationTheme(
-              focusColor: Color(0xFF1A1A1A),
+              cursorColor: warmAccent,
+              selectionColor: warmAccent.withOpacity(0.25),
+              selectionHandleColor: warmAccent),
+          inputDecorationTheme: InputDecorationTheme(
+              focusColor: charcoal,
               focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFF1A1A1A)))));
+                  borderSide: BorderSide(color: charcoal.withOpacity(0.8)))));
       return baseTheme.copyWith(
           textTheme: GoogleFonts.interTextTheme(baseTheme.textTheme));
     }

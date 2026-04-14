@@ -81,12 +81,12 @@ class Home extends StatelessWidget {
                       constraints: const BoxConstraints(maxWidth: 600),
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(16)),
+                            topLeft: Radius.circular(20)),
                         border: Border(
                           left: BorderSide(
-                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.3)),
+                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.25)),
                           top: BorderSide(
-                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.3)),
+                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.25)),
                         ),
                       ),
                       margin: const EdgeInsets.only(
@@ -97,24 +97,26 @@ class Home extends StatelessWidget {
                         child: Column(
                           children: [
                             SizedBox(
-                              height: 60,
+                              height: 64,
                               child: ColoredBox(
                                 color: Theme.of(context).canvasColor,
                                 child: Center(
                                     child: Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15),
+                                      left: 18.0, right: 18),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                          "${playerController.currentQueue.length} ${"songs".tr}"),
+                                          "${playerController.currentQueue.length} ${"songs".tr}",
+                                          style: Theme.of(context).textTheme.titleSmall),
                                       Text(
                                         "upNext".tr,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .titleLarge,
+                                            .titleLarge!
+                                            .copyWith(fontSize: 20),
                                       ),
                                       Row(
                                         children: [
@@ -125,7 +127,7 @@ class Home extends StatelessWidget {
                                             },
                                             child: Obx(
                                               () => Container(
-                                                height: 30,
+                                                height: 32,
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         horizontal: 20),
@@ -133,11 +135,11 @@ class Home extends StatelessWidget {
                                                   color: playerController
                                                           .isQueueLoopModeEnabled
                                                           .isFalse
-                                                      ? Colors.white.withOpacity(0.12)
+                                                      ? Colors.white.withOpacity(0.08)
                                                       : Colors.white
-                                                          .withOpacity(0.8),
+                                                          .withOpacity(0.80),
                                                   borderRadius:
-                                                      BorderRadius.circular(24),
+                                                      BorderRadius.circular(16),
                                                 ),
                                                 child: Center(
                                                     child:

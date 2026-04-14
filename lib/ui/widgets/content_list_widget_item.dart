@@ -16,10 +16,11 @@ class ContentListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isAlbum = content is Album;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return InkWell(
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      borderRadius: BorderRadius.circular(14),
+      borderRadius: BorderRadius.circular(16),
       onTap: () {
         if (isAlbum) {
           Get.toNamed(ScreenNavigationSetup.albumScreen,
@@ -31,18 +32,30 @@ class ContentListItem extends StatelessWidget {
             arguments: [content, content.playlistId]);
       },
       child: Container(
-        width: 148,
-        height: 210,
+        width: 155,
+        height: 220,
         padding: const EdgeInsets.symmetric(horizontal: 4),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             isAlbum
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-                    child: ImageWidget(
-                      size: 140,
-                      album: content,
+                ? Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(isDark ? 0.30 : 0.10),
+                          blurRadius: 16,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: ImageWidget(
+                        size: 147,
+                        album: content,
+                      ),
                     ),
                   )
                 : content.isCloudPlaylist ||
@@ -51,14 +64,26 @@ class ContentListItem extends StatelessWidget {
                             content.playlistId == 'SongsCache' ||
                             content.playlistId == 'SongDownloads')
                     ? SizedBox.square(
-                        dimension: 140,
+                        dimension: 147,
                         child: Stack(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(14),
-                              child: ImageWidget(
-                                size: 140,
-                                playlist: content,
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(isDark ? 0.30 : 0.10),
+                                    blurRadius: 16,
+                                    offset: const Offset(0, 6),
+                                  ),
+                                ],
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: ImageWidget(
+                                  size: 147,
+                                  playlist: content,
+                                ),
                               ),
                             ),
                             if (content.isPipedPlaylist)
@@ -67,14 +92,14 @@ class ContentListItem extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
-                                    height: 22,
-                                    width: 22,
+                                    height: 24,
+                                    width: 24,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(7),
+                                      borderRadius: BorderRadius.circular(8),
                                       color: Theme.of(context)
                                           .colorScheme
                                           .secondary
-                                          .withOpacity(0.85),
+                                          .withOpacity(0.90),
                                     ),
                                     child: Center(
                                         child: Text(
@@ -96,14 +121,14 @@ class ContentListItem extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
-                                    height: 22,
-                                    width: 22,
+                                    height: 24,
+                                    width: 24,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(7),
+                                      borderRadius: BorderRadius.circular(8),
                                       color: Theme.of(context)
                                           .colorScheme
                                           .secondary
-                                          .withOpacity(0.85),
+                                          .withOpacity(0.90),
                                     ),
                                     child: Center(
                                         child: Text(
@@ -123,11 +148,18 @@ class ContentListItem extends StatelessWidget {
                         ),
                       )
                     : Container(
-                        height: 140,
-                        width: 140,
+                        height: 147,
+                        width: 147,
                         decoration: BoxDecoration(
                             color: Theme.of(context).primaryColorLight,
-                            borderRadius: BorderRadius.circular(14)),
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(isDark ? 0.25 : 0.08),
+                                blurRadius: 12,
+                                offset: const Offset(0, 4),
+                              ),
+                            ]),
                         child: Center(
                             child: Icon(
                           content.playlistId == 'LIBRP'
@@ -138,9 +170,9 @@ class ContentListItem extends StatelessWidget {
                                       ? Icons.flight_rounded
                                       : Icons.download_rounded,
                           color: Colors.white,
-                          size: 36,
+                          size: 38,
                         ))),
-            const SizedBox(height: 8),
+            const SizedBox(height: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,7 +187,7 @@ class ContentListItem extends StatelessWidget {
                           letterSpacing: -0.2,
                         ),
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: 3),
                   Text(
                     isAlbum
                         ? isLibraryItem

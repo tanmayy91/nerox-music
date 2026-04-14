@@ -161,23 +161,38 @@ class _SongListTileState extends State<SongListTile>
                 onTap: widget.onTap,
                 onLongPress: () => _showSongInfo(context, playerController),
                 contentPadding:
-                    const EdgeInsets.only(top: 0, left: 5, right: 30),
+                    const EdgeInsets.only(top: 0, left: 8, right: 30),
                 leading: widget.thumbReplacementWithIndex
                     ? SizedBox(
-                        width: 27.5,
-                        height: 55,
+                        width: 30,
+                        height: 56,
                         child: Center(
                           child: Text(
                             "${widget.index}.",
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
                         ),
                       )
-                    : ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: ImageWidget(
-                          size: 55,
-                          song: widget.song,
+                    : Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(
+                                  Theme.of(context).brightness == Brightness.dark ? 0.25 : 0.08),
+                              blurRadius: 8,
+                              offset: const Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: ImageWidget(
+                            size: 56,
+                            song: widget.song,
+                          ),
                         ),
                       ),
                 title: Marquee(
@@ -189,14 +204,19 @@ class _SongListTileState extends State<SongListTile>
                         ? widget.song.title.substring(0, 50)
                         : widget.song.title,
                     maxLines: 1,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
                 subtitle: Text(
                   subtitle,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleSmall,
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontSize: 12,
+                  ),
                 ),
                 trailing: SizedBox(
                   width: Get.size.width > 800 ? 80 : 40,

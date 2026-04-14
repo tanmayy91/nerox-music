@@ -21,11 +21,12 @@ class ContentListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isAlbumContent = content is AlbumContent;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 6, right: 8),
+          padding: const EdgeInsets.only(bottom: 8, right: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -35,7 +36,7 @@ class ContentListWidget extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontSize: 20,
                         fontWeight: FontWeight.w800,
-                        letterSpacing: -0.3,
+                        letterSpacing: -0.5,
                       ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -43,35 +44,40 @@ class ContentListWidget extends StatelessWidget {
               ),
               !isHomeContent
                   ? Container(
-                      height: 28,
+                      height: 30,
                       decoration: BoxDecoration(
-                        color: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .color
-                            ?.withOpacity(0.08),
-                        borderRadius: BorderRadius.circular(14),
+                        color: isDark
+                            ? Colors.white.withOpacity(0.07)
+                            : Colors.black.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(
+                          color: isDark
+                              ? Colors.white.withOpacity(0.05)
+                              : Colors.black.withOpacity(0.03),
+                          width: 0.5,
+                        ),
                       ),
                       child: InkWell(
-                        borderRadius: BorderRadius.circular(14),
+                        borderRadius: BorderRadius.circular(15),
                         onTap: () {
                           final scrresController =
                               Get.find<SearchResultScreenController>();
                           scrresController.viewAllCallback(content.title);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          padding: const EdgeInsets.symmetric(horizontal: 14),
                           child: Center(
                             child: Text(
                               "viewAll".tr,
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
+                                letterSpacing: 0.2,
                                 color: Theme.of(context)
                                     .textTheme
                                     .titleMedium!
                                     .color
-                                    ?.withOpacity(0.6),
+                                    ?.withOpacity(0.55),
                               ),
                             ),
                           ),
@@ -84,7 +90,7 @@ class ContentListWidget extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         SizedBox(
-          height: 210,
+          height: 220,
           child: Scrollbar(
             thickness: GetPlatform.isDesktop ? null : 0,
             controller: scrollController,
@@ -94,7 +100,7 @@ class ContentListWidget extends StatelessWidget {
                 addRepaintBoundaries: false,
                 physics: const BouncingScrollPhysics(),
                 separatorBuilder: (context, index) => const SizedBox(
-                      width: 14,
+                      width: 12,
                     ),
                 scrollDirection: Axis.horizontal,
                 itemCount: isAlbumContent

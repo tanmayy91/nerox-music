@@ -19,19 +19,24 @@ SnackBar snackbar(BuildContext context, String text,
       : size == SnackBarSize.MEDIUM
           ? (scrWidth - 220) / 2
           : (scrWidth - 120) / 2;
+  final isDark = Theme.of(context).brightness == Brightness.dark;
   return SnackBar(
-    backgroundColor: Theme.of(context).colorScheme.secondary.withOpacity(0.9),
-    content: BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-      child: Center(
-        child: Text(
-          text,
-          style: TextStyle(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.white
-                  : Colors.black,
-              fontWeight: FontWeight.w500,
-              fontSize: 13),
+    backgroundColor: isDark
+        ? Colors.white.withOpacity(0.10)
+        : Colors.black.withOpacity(0.06),
+    content: ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+                color: isDark ? Colors.white : Colors.black,
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                letterSpacing: 0.1),
+          ),
         ),
       ),
     ),
@@ -42,6 +47,6 @@ SnackBar snackbar(BuildContext context, String text,
     behavior: SnackBarBehavior.floating,
     duration: duration,
     elevation: 0,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
   );
 }

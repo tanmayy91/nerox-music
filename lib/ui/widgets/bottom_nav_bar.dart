@@ -9,20 +9,32 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeScreenController = Get.find<HomeScreenController>();
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 14),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(32),
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
+          filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor.withOpacity(0.75),
-              borderRadius: BorderRadius.circular(28),
+              color: isDark
+                  ? Colors.white.withOpacity(0.06)
+                  : Colors.black.withOpacity(0.04),
+              borderRadius: BorderRadius.circular(32),
               border: Border.all(
-                color: Colors.white.withOpacity(0.08),
+                color: isDark
+                    ? Colors.white.withOpacity(0.10)
+                    : Colors.black.withOpacity(0.06),
                 width: 1,
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(isDark ? 0.35 : 0.08),
+                  blurRadius: 30,
+                  offset: const Offset(0, 8),
+                ),
+              ],
             ),
             child: Obx(() {
               final selected = homeScreenController.tabIndex.toInt();
@@ -33,10 +45,10 @@ class BottomNavBar extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 surfaceTintColor: Colors.transparent,
                 elevation: 0,
-                height: 64,
+                height: 68,
                 labelBehavior:
                     NavigationDestinationLabelBehavior.alwaysShow,
-                animationDuration: const Duration(milliseconds: 400),
+                animationDuration: const Duration(milliseconds: 350),
                 destinations: [
                   _bouncyDest(
                     context,
@@ -90,7 +102,7 @@ class BottomNavBar extends StatelessWidget {
       ),
       icon: _BouncyIcon(
         icon: unselectedIcon,
-        size: 24,
+        size: 22,
         isSelected: false,
       ),
       label: label,
@@ -131,11 +143,12 @@ class _BouncyIconState extends State<_BouncyIcon>
   void initState() {
     super.initState();
     _ctrl = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+        vsync: this, duration: const Duration(milliseconds: 450));
     _scale = TweenSequence<double>([
-      TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.4), weight: 35),
-      TweenSequenceItem(tween: Tween(begin: 1.4, end: 0.88), weight: 30),
-      TweenSequenceItem(tween: Tween(begin: 0.88, end: 1.0), weight: 35),
+      TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.35), weight: 30),
+      TweenSequenceItem(tween: Tween(begin: 1.35, end: 0.90), weight: 30),
+      TweenSequenceItem(tween: Tween(begin: 0.90, end: 1.05), weight: 20),
+      TweenSequenceItem(tween: Tween(begin: 1.05, end: 1.0), weight: 20),
     ]).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
   }
 

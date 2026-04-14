@@ -16,8 +16,9 @@ class QuickPicksWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PlayerController playerController = Get.find<PlayerController>();
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return SizedBox(
-      height: 360,
+      height: 370,
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -35,26 +36,30 @@ class QuickPicksWidget extends StatelessWidget {
                       ),
                 ),
               ),
-              // Play all button
+              // Play all pill button
               Container(
-                height: 32,
+                height: 34,
                 decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .color
-                      ?.withOpacity(0.08),
-                  borderRadius: BorderRadius.circular(16),
+                  color: isDark
+                      ? Colors.white.withOpacity(0.08)
+                      : Colors.black.withOpacity(0.06),
+                  borderRadius: BorderRadius.circular(17),
+                  border: Border.all(
+                    color: isDark
+                        ? Colors.white.withOpacity(0.06)
+                        : Colors.black.withOpacity(0.04),
+                    width: 0.5,
+                  ),
                 ),
                 child: InkWell(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(17),
                   onTap: () {
                     if (content.songList.isNotEmpty) {
                       playerController.pushSongToQueue(content.songList[0]);
                     }
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -65,7 +70,7 @@ class QuickPicksWidget extends StatelessWidget {
                               .textTheme
                               .titleMedium!
                               .color
-                              ?.withOpacity(0.7),
+                              ?.withOpacity(0.65),
                         ),
                         const SizedBox(width: 4),
                         Text(
@@ -73,11 +78,12 @@ class QuickPicksWidget extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
+                            letterSpacing: 0.3,
                             color: Theme.of(context)
                                 .textTheme
                                 .titleMedium!
                                 .color
-                                ?.withOpacity(0.7),
+                                ?.withOpacity(0.65),
                           ),
                         ),
                       ],
@@ -88,7 +94,7 @@ class QuickPicksWidget extends StatelessWidget {
               const SizedBox(width: 8),
             ],
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 16),
           Expanded(
             child: Scrollbar(
               thickness: GetPlatform.isDesktop ? null : 0,
@@ -101,7 +107,7 @@ class QuickPicksWidget extends StatelessWidget {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                     childAspectRatio: .26 / 1,
-                    crossAxisSpacing: 2,
+                    crossAxisSpacing: 4,
                     mainAxisSpacing: 6,
                   ),
                   itemBuilder: (_, item) {
@@ -114,7 +120,7 @@ class QuickPicksWidget extends StatelessWidget {
                       child: Material(
                         color: Colors.transparent,
                         child: InkWell(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(14),
                           onTap: () {
                             playerController
                                 .pushSongToQueue(content.songList[item]);
@@ -122,13 +128,19 @@ class QuickPicksWidget extends StatelessWidget {
                           onLongPress: () {
                             _showSongInfo(playerController, content.songList[item]);
                           },
-                          child: Padding(
+                          child: Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 4, vertical: 3),
+                                horizontal: 6, vertical: 4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              color: isDark
+                                  ? Colors.white.withOpacity(0.03)
+                                  : Colors.black.withOpacity(0.02),
+                            ),
                             child: Row(
                               children: [
                                 ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
+                                  borderRadius: BorderRadius.circular(10),
                                   child: ImageWidget(
                                     song: content.songList[item],
                                     size: 52,
@@ -197,7 +209,7 @@ class QuickPicksWidget extends StatelessWidget {
       constraints: const BoxConstraints(maxWidth: 500),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
-            top: Radius.circular(20.0)),
+            top: Radius.circular(24.0)),
       ),
       isScrollControlled: true,
       context: playerController
