@@ -1,110 +1,157 @@
 <div align="center">
 
-# 🎵 Harmony Music
+<img src="assets/icons/icon.png" width="120" alt="Nerox Music Logo" />
+
+# Nerox Music
 
 [![Build & Release APK](https://github.com/tanmayy91/Harmony-Music/actions/workflows/build_release.yml/badge.svg)](https://github.com/tanmayy91/Harmony-Music/actions/workflows/build_release.yml)
+[![GitHub Pages](https://github.com/tanmayy91/Harmony-Music/actions/workflows/pages.yml/badge.svg)](https://tanmayy91.github.io/Harmony-Music)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Version](https://img.shields.io/badge/version-4.0.0-purple.svg)]()
 
-**A beautiful, modern, cross-platform music streaming app built with Flutter.**
+**A premium, cross-platform music streaming experience built with Flutter.**
+
+Stream millions of songs. No ads. No login. No limits.
+
+[Download APK](https://github.com/tanmayy91/Harmony-Music/releases/latest) · [Website](https://tanmayy91.github.io/Harmony-Music) · [Report Bug](https://github.com/tanmayy91/Harmony-Music/issues)
 
 </div>
 
-<img src="https://github.com/anandnet/Harmony-Music/blob/main/cover.png" width="1200" >
+---
 
-## ⬇️ Download
+## Download
 
 | Platform | Download |
 |----------|----------|
-| **Android APK** | [📥 Latest Release](https://github.com/tanmayy91/Harmony-Music/releases/latest) |
-| **Android APK (CI Build)** | [📦 Latest Build Artifact](https://github.com/tanmayy91/Harmony-Music/actions/workflows/build_release.yml) |
-| **Windows** | [🖥️ Windows Build](https://github.com/tanmayy91/Harmony-Music/actions/workflows/win_exe.yml) |
+| **Android APK** | [Latest Release](https://github.com/tanmayy91/Harmony-Music/releases/latest) |
+| **Android APK (CI Build)** | [Latest Build Artifact](https://github.com/tanmayy91/Harmony-Music/actions/workflows/build_release.yml) |
+| **Windows** | [Windows Build](https://github.com/tanmayy91/Harmony-Music/actions/workflows/win_exe.yml) |
 
-> **Tip:** Go to the latest successful workflow run → click on **harmony-music-apk** under Artifacts to download.
+> Go to the latest successful workflow run and download **nerox-music-apk** under Artifacts.
 
-## ✨ Features
-* Ability to play song from Ytube/Ytube Music.
-* Song cache while playing
-* Radio feature support
-* Background music
-* Playlist creation & bookmark support
-* Artist & Album bookmark support
-* Import song,Playlist,Album,Artist via sharing from Ytube/Ytube Music.
-* Streaming quality control
-* Song downloading support
-* Language support
-* Skip silence
-* Dynamic Theme
-* Flexibility to switch between Bottom & Side Nav bar
-* Equalizer support
-* Android Auto support
-* Synced & Plain Lyrics support
-* Sleep Timer
-* No Advertisment
-* No Login required
-* Piped playlist integration
+---
 
+## Features
 
-## ⬇️ Download APK
+### Streaming & Playback
+- Stream music from YouTube / YouTube Music
+- Background playback with system media controls
+- Streaming quality control (Low / High / Best)
+- Skip silence for seamless listening
+- Equalizer support (Android)
+- Android Auto support
 
-Get the latest APK from our automated builds:
+### Library & Collections
+- Create and manage playlists
+- Bookmark albums and artists
+- Import songs, playlists, albums, and artists via sharing
+- Song download support for offline playback
+- Radio feature for endless music discovery
 
-| Source | Link |
-|--------|------|
-| **GitHub Releases** | [📥 Download Latest APK](https://github.com/tanmayy91/Harmony-Music/releases/latest) |
-| **CI Artifacts** | [📦 Build Artifacts](https://github.com/tanmayy91/Harmony-Music/actions/workflows/build_release.yml) |
+### UI & Experience
+- Premium dark theme with electric violet accents
+- Dynamic theme that adapts to album artwork
+- Smooth animated transitions
+- Flexible navigation (bottom bar or side rail)
+- Responsive layout for phones, tablets, and desktops
+- Synced and plain lyrics display
+- Sleep timer
 
-> Click on the latest successful workflow run and download **harmony-music-apk** from the Artifacts section.
+### Privacy & Freedom
+- No advertisements
+- No login required
+- No tracking or data collection
+- Piped playlist integration
+- Open source under GPL v3.0
 
-## 🌐 Translation
+### Cross-Platform
+- Android
+- Windows
+- Linux
+
+---
+
+## Translation
+
 <a href="https://hosted.weblate.org/engage/harmony-music/">
 <img src="https://hosted.weblate.org/widget/harmony-music/project-translations/multi-auto.svg" alt="Translation status" />
 </a>
 
-You can also help us in translation, click status image or <a href="https://hosted.weblate.org/projects/harmony-music/project-translations/"> here </a> to go to Weblate.
+Help translate Nerox Music — click the badge above or visit the [Weblate project](https://hosted.weblate.org/projects/harmony-music/project-translations/).
 
-## 🔧 Troubleshoot
-* if you are facing Notification control issue or music playback stopped by system optimization, please enable ignore battery optimization option from settings
+---
 
-## 📄 License
+## Troubleshoot
+
+- If music playback stops due to battery optimization, enable **Ignore Battery Optimization** in Settings > Advanced.
+
+---
+
+## Documentation
+
+Full documentation is available in the [`docs/`](docs/) folder and on the [website](https://tanmayy91.github.io/Harmony-Music).
+
+- [Architecture Overview](docs/ARCHITECTURE.md)
+- [Contributing Guide](docs/CONTRIBUTING.md)
+- [Build Instructions](docs/BUILD.md)
+
+---
+
+## License
+
 ```
-Harmony Music is a free software licensed under GPL v3.0 with following condition.
+Nerox Music is free software licensed under GPL v3.0 with the following conditions:
 
-- Copied/Modified version of this software can not be used for 'non-free' and profit purposes.
-- You can not publish copied/modified version of this app on closed source app repository
+- Copied/modified versions of this software cannot be used for non-free or profit purposes.
+- You cannot publish copied/modified versions on closed source app repositories
   like PlayStore/AppStore.
-
 ```
 
+---
 
-## ⚠️ Disclaimer
+## Disclaimer
+
 ```
-This project has been created while learning & learning is the main intention.
-This project is not sponsored or affiliated with, funded, authorized, endorsed by any content provider.
-Any Song, content, trademark used in this app are intellectual property of their respective owners.
-Harmony music is not responsible for any infringement of copyright or other intellectual property rights that may result
-from the use of the songs and other content available through this app.
+This project is created for educational purposes.
+It is not sponsored, affiliated with, funded, authorized, or endorsed by any content provider.
+Any song, content, or trademark used in this app is the intellectual property of its respective owners.
+Nerox Music is not responsible for any infringement of copyright or other intellectual property rights
+that may result from the use of content available through this app.
 
-This Software is released "as-is", without any warranty, responsibility or liability.
-In no event shall the Author of this Software be liable for any special, consequential,
-incidental or indirect damages whatsoever (including, without limitation, any 
-other pecuniary loss) arising out of the use of inability to use this product, even if
-Author of this Sotware is aware of the possibility of such damages and known defect.
+This software is released "as-is", without any warranty, responsibility, or liability.
 ```
 
-## 🙏 Credits & References
-<a href = 'https://docs.flutter.dev/'>Flutter documentation</a> - a best guide to learn cross platform Ui/app developemnt<br/>
-<a href = 'https://suragch.medium.com/'>Suragch</a>'s Article related to Just audio & state management,architectural style<br/>
-<a href = 'https://github.com/sigma67'>sigma67</a>'s unofficial ytmusic api project<br/>
-App UI inspired by <a href = 'https://github.com/vfsfitvnm'>vfsfitvnm</a>'s ViMusic<br/>
-Synced lyrics provided by <a href = 'https://lrclib.net' >LRCLIB</a> <br/>
-<a href = 'https://piped.video' >Piped</a> for playlists.
+---
 
-#### Major Packages used
-* just_audio: ^0.9.40  -  audio player for android
-* media_kit: ^1.1.9 - audio player for linux and windows
-* audio_service: ^0.18.15 - manage background music & platform audio services
-* get: ^4.6.6 -  package for high-performance state management, intelligent dependency injection, and route management
-* youtube_explode_dart: ^2.0.2 - Third party package to provide song url
-* hive: ^2.2.3 - offline db used 
-* hive_flutter: ^1.1.0
+## Credits
 
+**Created by [tanmay](https://instagram.com/tanmaaahy)**
 
+### References
+- [Flutter Documentation](https://docs.flutter.dev/) — cross-platform UI framework
+- [Suragch](https://suragch.medium.com/) — articles on Just Audio and state management
+- [sigma67](https://github.com/sigma67) — unofficial YouTube Music API
+- UI inspired by [vfsfitvnm](https://github.com/vfsfitvnm)'s ViMusic
+- Synced lyrics by [LRCLIB](https://lrclib.net)
+- [Piped](https://piped.video) — playlist integration
+
+### Key Dependencies
+| Package | Purpose |
+|---------|---------|
+| `just_audio` | Audio playback (Android) |
+| `media_kit` | Audio playback (Linux/Windows) |
+| `audio_service` | Background audio and media controls |
+| `get` | State management, DI, routing |
+| `youtube_explode_dart` | YouTube stream resolution |
+| `hive` | Local database |
+| `palette_generator` | Dynamic theming from artwork |
+
+---
+
+<div align="center">
+
+**Made with love by tanmay**
+
+[Instagram](https://instagram.com/tanmaaahy) · [GitHub](https://github.com/tanmayy91)
+
+</div>
