@@ -348,7 +348,7 @@ class ThemeController extends GetxController {
             ),
             elevation: 0,
           ),
-          cardTheme: CardThemeData(
+          cardTheme: CardTheme(
             color: darkCard,
             elevation: 0,
             shape: RoundedRectangleBorder(

@@ -126,8 +126,8 @@ class Player extends StatelessWidget {
 /// Full-screen lyrics panel that opens on swipe up
 class _LyricsPanel extends StatelessWidget {
   final PlayerController playerController;
-  final VoidCallback onReorderStart;
-  final VoidCallback onReorderEnd;
+  final void Function(int) onReorderStart;
+  final void Function(int) onReorderEnd;
 
   const _LyricsPanel({
     required this.playerController,
@@ -137,7 +137,6 @@ class _LyricsPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Container(
       color: Colors.black.withOpacity(0.95),
       child: Column(
@@ -262,8 +261,8 @@ class _LyricsPanel extends StatelessWidget {
                   }
                 });
               }
-              return LyricsWidget(
-                padding: const EdgeInsets.symmetric(
+              return const LyricsWidget(
+                padding: EdgeInsets.symmetric(
                     horizontal: 24, vertical: 20),
               );
             }),
@@ -463,8 +462,8 @@ class _LyricsPanel extends StatelessWidget {
                 ),
                 Expanded(
                   child: UpNextQueue(
-                    onReorderEnd: () {},
-                    onReorderStart: () {},
+                    onReorderEnd: (_) {},
+                    onReorderStart: (_) {},
                   ),
                 ),
               ],
