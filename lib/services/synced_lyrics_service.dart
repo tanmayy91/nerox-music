@@ -4,9 +4,10 @@ import 'package:harmonymusic/utils/helper.dart';
 import 'package:hive/hive.dart';
 
 class SyncedLyricsService {
+  static const Duration _requestTimeout = Duration(seconds: 8);
   static final Dio _dio = Dio(BaseOptions(
-    connectTimeout: const Duration(seconds: 8),
-    receiveTimeout: const Duration(seconds: 8),
+    connectTimeout: _requestTimeout,
+    receiveTimeout: _requestTimeout,
   ));
 
   /// Fetch lyrics using multiple sources with fallback.

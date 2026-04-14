@@ -249,8 +249,10 @@ class _LyricsPanel extends StatelessWidget {
           Expanded(
             child: Obx(() {
               // Auto-trigger lyrics loading when panel opens
-              if (playerController.lyrics["synced"].toString().isEmpty &&
-                  playerController.lyrics["plainLyrics"].toString().isEmpty &&
+              final synced = playerController.lyrics["synced"];
+              final plain = playerController.lyrics["plainLyrics"];
+              if ((synced == null || (synced is String && synced.isEmpty)) &&
+                  (plain == null || (plain is String && plain.isEmpty)) &&
                   playerController.isLyricsLoading.isFalse &&
                   playerController.currentSong.value != null) {
                 // Trigger lyrics fetch if not already loaded

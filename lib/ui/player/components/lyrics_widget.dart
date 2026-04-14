@@ -273,7 +273,8 @@ class _AppleMusicLyricsScrollerState extends State<_AppleMusicLyricsScroller> {
                           blurRadius: 24,
                         ),
                         Shadow(
-                          color: const Color(0xFFBB86FC).withOpacity(0.15),
+                          color: Theme.of(context).floatingActionButtonTheme.backgroundColor?.withOpacity(0.15)
+                              ?? Colors.purple.withOpacity(0.15),
                           blurRadius: 40,
                         ),
                       ]

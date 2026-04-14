@@ -65,6 +65,8 @@ class MyAudioHandler extends BaseAudioHandler with GetxServiceMixin {
   bool _nextSongPrefetched = false;
   // Cache the prefetched stream data keyed by song id
   final Map<String, HMStreamingData> _prefetchedStreams = {};
+  // Prefetch triggers when playback reaches this fraction of the song duration
+  static const double _prefetchThreshold = 0.70;
 
   // list of shuffled queue songs ids
   List<String> shuffledQueue = [];
@@ -224,7 +226,7 @@ class MyAudioHandler extends BaseAudioHandler with GetxServiceMixin {
       final duration = _player.duration;
       if (duration == null || duration.inSeconds == 0) return;
       final progress = position.inMilliseconds / duration.inMilliseconds;
-      if (progress >= 0.70) {
+      if (progress >= _prefetchThreshold) {
         _nextSongPrefetched = true;
         _prefetchNextSong();
       }
