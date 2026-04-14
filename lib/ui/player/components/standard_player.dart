@@ -43,22 +43,44 @@ class StandardPlayer extends StatelessWidget {
         ),
 
         /// Stack child
-        /// Blur effect on background
+        /// Enhanced blur + gradient overlay for depth
         BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+          filter: ImageFilter.blur(sigmaX: 40.0, sigmaY: 40.0),
           child: Stack(
             children: [
-              /// opacity effect on background
+              /// Deep overlay for rich dark aesthetic
               Positioned.fill(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor.withOpacity(0.8),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Theme.of(context).primaryColor.withOpacity(0.85),
+                        Colors.black.withOpacity(0.92),
+                      ],
+                    ),
                   ),
                 ),
               ),
 
-              /// used to hide queue header when player is minimized
-              /// gradient to used here
+              /// Subtle vignette glow at top
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: RadialGradient(
+                      center: const Alignment(0.0, -0.5),
+                      radius: 1.2,
+                      colors: [
+                        Theme.of(context).primaryColor.withOpacity(0.15),
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              /// Bottom gradient blend
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
@@ -66,14 +88,14 @@ class StandardPlayer extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Theme.of(context).primaryColor,
-                        Theme.of(context).primaryColor,
-                        Theme.of(context).primaryColor.withOpacity(0.4),
-                        Theme.of(context).primaryColor.withOpacity(0),
+                        Colors.black.withOpacity(0.95),
+                        Colors.black.withOpacity(0.7),
+                        Colors.black.withOpacity(0.3),
+                        Colors.transparent,
                       ],
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
-                      stops: const [0, 0.5, 0.8, 1],
+                      stops: const [0, 0.4, 0.75, 1],
                     ),
                   ),
                 ),
@@ -127,13 +149,13 @@ class StandardPlayer extends StatelessWidget {
                   children: [
                     /// Work as top padding depending on the lyrics visibility and screen size
                     Obx(
-                      () => playerController.showLyricsflag.value
-                          ? SizedBox(
-                              height: size.height < 750 ? 60 : 90,
-                            )
-                          : SizedBox(
-                              height: size.height < 750 ? 110 : 140,
-                            ),
+                      () => AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        curve: Curves.easeOutCubic,
+                        height: playerController.showLyricsflag.value
+                            ? (size.height < 750 ? 60 : 90)
+                            : (size.height < 750 ? 110 : 140),
+                      ),
                     ),
 
                     /// Contains the lyrics switch and album art with lyrics
@@ -191,14 +213,21 @@ class StandardPlayer extends StatelessWidget {
                       () => Column(
                         children: [
                           Text(playerController.playinfrom.value.typeString,
-                              style: const TextStyle(
-                                  fontSize: 12, fontWeight: FontWeight.bold)),
+                              style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white.withOpacity(0.5),
+                                  letterSpacing: 0.5)),
+                          const SizedBox(height: 2),
                           Obx(
                             () => Text(
                               "\"${playerController.playinfrom.value.nameString}\"",
                               overflow: TextOverflow.ellipsis,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 13,
+                                color: Colors.white.withOpacity(0.8),
+                              ),
                             ),
                           )
                         ],

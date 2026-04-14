@@ -25,7 +25,7 @@ class LyricsWidget extends StatelessWidget {
   }
 }
 
-/// Apple Music-style plain lyrics view with enhanced styling
+/// Refined plain lyrics view with modern styling
 class _PlainLyricsView extends StatelessWidget {
   final PlayerController playerController;
   final EdgeInsetsGeometry padding;
@@ -54,10 +54,11 @@ class _PlainLyricsView extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       )
                   : Theme.of(context).textTheme.titleMedium!.copyWith(
-                        color: Colors.white.withOpacity(0.9),
+                        color: Colors.white.withOpacity(0.85),
                         fontSize: 18,
-                        height: 2.0,
+                        height: 2.2,
                         fontWeight: FontWeight.w600,
+                        letterSpacing: -0.2,
                       ),
             ),
           ),
@@ -88,7 +89,7 @@ class _LiveLyricsView extends StatelessWidget {
                 : Theme.of(context)
                     .textTheme
                     .titleMedium!
-                    .copyWith(color: Colors.white.withOpacity(0.7)),
+                    .copyWith(color: Colors.white.withOpacity(0.6)),
           ),
         );
       }
@@ -102,7 +103,7 @@ class _LiveLyricsView extends StatelessWidget {
                 : Theme.of(context)
                     .textTheme
                     .titleMedium!
-                    .copyWith(color: Colors.white.withOpacity(0.7)),
+                    .copyWith(color: Colors.white.withOpacity(0.6)),
           ),
         );
       }
@@ -145,7 +146,7 @@ class _LrcLine {
   const _LrcLine({required this.timeMs, required this.text});
 }
 
-/// The actual Apple Music-style scrolling lyrics widget
+/// Premium scrolling lyrics widget with smooth animations
 class _AppleMusicLyricsScroller extends StatefulWidget {
   final List<_LrcLine> lines;
   final PlayerController playerController;
@@ -256,23 +257,24 @@ class _AppleMusicLyricsScrollerState extends State<_AppleMusicLyricsScroller> {
               duration: const Duration(milliseconds: 350),
               curve: Curves.easeOut,
               style: TextStyle(
-                fontSize: isActive ? 30 : 20,
+                fontSize: isActive ? 28 : 19,
                 fontWeight: isActive ? FontWeight.w900 : FontWeight.w700,
                 color: isActive
                     ? Colors.white
                     : isPast
-                        ? Colors.white.withOpacity(0.35)
-                        : Colors.white.withOpacity(0.50),
-                height: 1.3,
+                        ? Colors.white.withOpacity(0.25)
+                        : Colors.white.withOpacity(0.45),
+                height: 1.35,
                 letterSpacing: isActive ? -0.5 : -0.3,
                 shadows: isActive
                     ? [
                         Shadow(
-                          color: Colors.white.withOpacity(0.3),
-                          blurRadius: 20,
+                          color: Colors.white.withOpacity(0.25),
+                          blurRadius: 24,
                         ),
                         Shadow(
-                          color: const Color(0xFF1DB954).withOpacity(0.2),
+                          color: Theme.of(context).floatingActionButtonTheme.backgroundColor?.withOpacity(0.15)
+                              ?? Colors.purple.withOpacity(0.15),
                           blurRadius: 40,
                         ),
                       ]

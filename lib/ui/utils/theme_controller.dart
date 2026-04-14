@@ -229,10 +229,11 @@ class ThemeController extends GetxController {
             systemNavigationBarContrastEnforced: true),
       );
 
-      const darkSurface = Color(0xFF090909);
-      const darkCard = Color(0xFF141414);
-      const darkElevated = Color(0xFF1E1E1E);
-      const neonAccent = Color(0xFF1DB954); // Spotify-style neon green
+      // GenZ aesthetic: true AMOLED black with vibrant violet accent
+      const darkSurface = Color(0xFF050505);
+      const darkCard = Color(0xFF0F0F12);
+      const darkElevated = Color(0xFF1A1A22);
+      const neonAccent = Color(0xFFBB86FC); // Vibrant violet/purple
 
       final baseTheme = ThemeData(
           useMaterial3: true,
@@ -241,11 +242,12 @@ class ThemeController extends GetxController {
           primaryColor: darkSurface,
           primaryColorDark: darkSurface,
           primaryColorLight: darkCard,
+          scaffoldBackgroundColor: darkSurface,
           colorScheme: ColorScheme.dark(
             surface: darkSurface,
             primary: Colors.white,
             secondary: darkElevated,
-            tertiary: neonAccent.withOpacity(0.10),
+            tertiary: neonAccent.withOpacity(0.12),
             onSurface: Colors.white,
             onPrimary: darkSurface,
           ),
@@ -263,7 +265,7 @@ class ThemeController extends GetxController {
                 letterSpacing: -0.3,
               ),
               titleSmall: TextStyle(
-                color: Colors.white.withOpacity(0.55),
+                color: Colors.white.withOpacity(0.50),
                 fontWeight: FontWeight.w400,
               ),
               labelMedium: const TextStyle(
@@ -276,18 +278,19 @@ class ThemeController extends GetxController {
                   letterSpacing: 0.1,
                   fontWeight: FontWeight.w600),
               bodyMedium: TextStyle(
-                  color: Colors.white.withOpacity(0.50),
+                  color: Colors.white.withOpacity(0.45),
                   fontWeight: FontWeight.w400)),
           navigationBarTheme: NavigationBarThemeData(
             elevation: 0,
+            height: 64,
             backgroundColor: darkSurface,
-            indicatorColor: neonAccent.withOpacity(0.15),
+            indicatorColor: neonAccent.withOpacity(0.12),
             iconTheme: WidgetStateProperty.resolveWith((states) {
               if (states.contains(WidgetState.selected)) {
                 return const IconThemeData(color: neonAccent, size: 26);
               }
               return IconThemeData(
-                  color: Colors.white.withOpacity(0.40), size: 24);
+                  color: Colors.white.withOpacity(0.35), size: 24);
             }),
             labelTextStyle: WidgetStateProperty.resolveWith((states) {
               if (states.contains(WidgetState.selected)) {
@@ -297,7 +300,7 @@ class ThemeController extends GetxController {
                     fontSize: 11);
               }
               return TextStyle(
-                  color: Colors.white.withOpacity(0.40),
+                  color: Colors.white.withOpacity(0.35),
                   fontWeight: FontWeight.w500,
                   fontSize: 11);
             }),
@@ -308,42 +311,49 @@ class ThemeController extends GetxController {
                 color: neonAccent,
               ),
               unselectedIconTheme:
-                  IconThemeData(color: Colors.white.withOpacity(0.35)),
+                  IconThemeData(color: Colors.white.withOpacity(0.30)),
               selectedLabelTextStyle: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
                   fontSize: 14),
               unselectedLabelTextStyle: TextStyle(
-                  color: Colors.white.withOpacity(0.35),
+                  color: Colors.white.withOpacity(0.30),
                   fontWeight: FontWeight.w500)),
           bottomSheetTheme: BottomSheetThemeData(
               backgroundColor: darkCard,
-              modalBarrierColor: Colors.black.withOpacity(0.7),
+              modalBarrierColor: Colors.black.withOpacity(0.75),
               shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
               )),
           sliderTheme: SliderThemeData(
-            inactiveTrackColor: Colors.white.withOpacity(0.12),
+            inactiveTrackColor: Colors.white.withOpacity(0.10),
             activeTrackColor: neonAccent,
             valueIndicatorColor: darkElevated,
             thumbColor: Colors.white,
-            overlayColor: neonAccent.withOpacity(0.15),
+            overlayColor: neonAccent.withOpacity(0.12),
             trackHeight: 3.5,
           ),
           floatingActionButtonTheme: FloatingActionButtonThemeData(
             backgroundColor: neonAccent,
             foregroundColor: Colors.white,
-            elevation: 4,
+            elevation: 6,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(20),
             ),
           ),
           dialogTheme: DialogTheme(
             backgroundColor: darkCard,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(28),
             ),
             elevation: 0,
+          ),
+          cardTheme: CardThemeData(
+            color: darkCard,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
           ),
           textSelectionTheme: TextSelectionThemeData(
               cursorColor: neonAccent,

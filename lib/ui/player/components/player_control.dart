@@ -80,11 +80,22 @@ class PlayerControlWidget extends StatelessWidget {
                 width: 45,
                 child: IconButton(
                     onPressed: playerController.toggleFavourite,
-                    icon: Obx(() => Icon(
-                          playerController.isCurrentSongFav.isFalse
-                              ? Icons.favorite_border
-                              : Icons.favorite,
-                          color: Theme.of(context).textTheme.titleMedium!.color,
+                    icon: Obx(() => AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          transitionBuilder:
+                              (Widget child, Animation<double> animation) {
+                            return ScaleTransition(
+                                scale: animation, child: child);
+                          },
+                          child: Icon(
+                            playerController.isCurrentSongFav.isFalse
+                                ? Icons.favorite_border
+                                : Icons.favorite,
+                            key: ValueKey<bool>(
+                                playerController.isCurrentSongFav.value),
+                            color:
+                                Theme.of(context).textTheme.titleMedium!.color,
+                          ),
                         ))),
               ),
             ],
@@ -111,21 +122,21 @@ class PlayerControlWidget extends StatelessWidget {
               onSeek: controller.seek,
             );
           }),
+          const SizedBox(height: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButton(
                   onPressed: playerController.toggleShuffleMode,
-                  icon: Obx(() => Icon(
-                        Ionicons.shuffle,
-                        color: playerController.isShuffleModeEnabled.value
-                            ? Theme.of(context).textTheme.titleLarge!.color
-                            : Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .color!
-                                .withOpacity(0.2),
+                  icon: Obx(() => AnimatedOpacity(
+                        duration: const Duration(milliseconds: 200),
+                        opacity:
+                            playerController.isShuffleModeEnabled.value ? 1.0 : 0.25,
+                        child: Icon(
+                          Ionicons.shuffle,
+                          color: Theme.of(context).textTheme.titleLarge!.color,
+                        ),
                       ))),
               _previousButton(playerController, context),
               const CircleAvatar(radius: 35, child: AnimatedPlayButton(key: Key("playButton"),)),
@@ -133,15 +144,14 @@ class PlayerControlWidget extends StatelessWidget {
               Obx(() {
                 return IconButton(
                     onPressed: playerController.toggleLoopMode,
-                    icon: Icon(
-                      Icons.all_inclusive,
-                      color: playerController.isLoopModeEnabled.value
-                          ? Theme.of(context).textTheme.titleLarge!.color
-                          : Theme.of(context)
-                              .textTheme
-                              .titleLarge!
-                              .color!
-                              .withOpacity(0.2),
+                    icon: AnimatedOpacity(
+                      duration: const Duration(milliseconds: 200),
+                      opacity:
+                          playerController.isLoopModeEnabled.value ? 1.0 : 0.25,
+                      child: Icon(
+                        Icons.all_inclusive,
+                        color: Theme.of(context).textTheme.titleLarge!.color,
+                      ),
                     ));
               }),
             ],

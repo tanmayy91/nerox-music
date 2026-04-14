@@ -61,6 +61,13 @@ class MyAudioHandler extends BaseAudioHandler with GetxServiceMixin {
   // var networkErrorPause = false;
   bool isSongLoading = true;
 
+  // Prefetch: track whether next song URL has been pre-fetched for current track
+  bool _nextSongPrefetched = false;
+  // Cache the prefetched stream data keyed by song id
+  final Map<String, HMStreamingData> _prefetchedStreams = {};
+  // Prefetch triggers when playback reaches this fraction of the song duration
+  static const double _prefetchThreshold = 0.70;
+
   // list of shuffled queue songs ids
   List<String> shuffledQueue = [];
 
@@ -86,6 +93,7 @@ class MyAudioHandler extends BaseAudioHandler with GetxServiceMixin {
     _notifyAudioHandlerAboutPlaybackEvents();
     _listenToPlaybackForNextSong();
     _listenForSequenceStateChanges();
+    _listenForPrefetch();
     final appPrefsBox = Hive.box("appPrefs");
     _player
         .setSkipSilenceEnabled(appPrefsBox.get("skipSilenceEnabled") ?? false);
@@ -208,6 +216,39 @@ class MyAudioHandler extends BaseAudioHandler with GetxServiceMixin {
         }
       }
     });
+  }
+
+  /// Prefetch the next song's stream URL when current song reaches 70% progress.
+  /// This reduces delay when transitioning to the next track.
+  void _listenForPrefetch() {
+    _player.positionStream.listen((position) {
+      if (_nextSongPrefetched) return;
+      final duration = _player.duration;
+      if (duration == null || duration.inSeconds == 0) return;
+      final progress = position.inMilliseconds / duration.inMilliseconds;
+      if (progress >= _prefetchThreshold) {
+        _nextSongPrefetched = true;
+        _prefetchNextSong();
+      }
+    });
+  }
+
+  Future<void> _prefetchNextSong() async {
+    try {
+      final nextIndex = _getNextSongIndex();
+      if (nextIndex == currentIndex) return;
+      if (nextIndex < 0 || nextIndex >= queue.value.length) return;
+      final nextSong = queue.value[nextIndex];
+      if (_prefetchedStreams.containsKey(nextSong.id)) return;
+      printINFO("Prefetching next song URL: ${nextSong.title}");
+      final streamInfo = await checkNGetUrl(nextSong.id);
+      if (streamInfo.playable) {
+        _prefetchedStreams[nextSong.id] = streamInfo;
+        printINFO("Prefetched URL ready for: ${nextSong.title}");
+      }
+    } catch (e) {
+      printERROR("Prefetch error: $e");
+    }
   }
 
   Future<void> _triggerNext() async {
@@ -453,10 +494,18 @@ class MyAudioHandler extends BaseAudioHandler with GetxServiceMixin {
       case 'playByIndex':
         final songIndex = extras!['index'];
         currentIndex = songIndex;
+        _nextSongPrefetched = false; // Reset prefetch flag for new song
         final isNewUrlReq = extras['newUrl'] ?? false;
         final currentSong = queue.value[currentIndex];
-        final futureStreamInfo =
-            checkNGetUrl(currentSong.id, generateNewUrl: isNewUrlReq);
+        // Use prefetched stream data if available
+        Future<HMStreamingData> futureStreamInfo;
+        if (!isNewUrlReq && _prefetchedStreams.containsKey(currentSong.id)) {
+          futureStreamInfo = Future.value(_prefetchedStreams.remove(currentSong.id));
+          printINFO("Using prefetched URL for: ${currentSong.title}");
+        } else {
+          futureStreamInfo =
+              checkNGetUrl(currentSong.id, generateNewUrl: isNewUrlReq);
+        }
         final bool restoreSession = extras['restoreSession'] ?? false;
         isSongLoading = true;
         playbackState.add(playbackState.value
