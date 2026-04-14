@@ -29,15 +29,15 @@ class ContentListItem extends StatelessWidget {
             arguments: [content, content.playlistId]);
       },
       child: Container(
-        width: 130,
-        height: 180,
-        padding: const EdgeInsets.symmetric(horizontal: 5),
+        width: 140,
+        height: 195,
+        padding: const EdgeInsets.symmetric(horizontal: 4),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             isAlbum
                 ? ImageWidget(
-                    size: 120,
+                    size: 132,
                     album: content,
                   )
                 : content.isCloudPlaylist ||
@@ -46,11 +46,11 @@ class ContentListItem extends StatelessWidget {
                             content.playlistId == 'SongsCache' ||
                             content.playlistId == 'SongDownloads')
                     ? SizedBox.square(
-                        dimension: 120,
+                        dimension: 132,
                         child: Stack(
                           children: [
                             ImageWidget(
-                              size: 120,
+                              size: 132,
                               playlist: content,
                             ),
                             if (content.isPipedPlaylist)
@@ -59,13 +59,14 @@ class ContentListItem extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
-                                    height: 18,
-                                    width: 18,
+                                    height: 20,
+                                    width: 20,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(6),
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .secondary,
+                                          .secondary
+                                          .withOpacity(0.85),
                                     ),
                                     child: Center(
                                         child: Text(
@@ -73,7 +74,7 @@ class ContentListItem extends StatelessWidget {
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium!
-                                          .copyWith(fontSize: 14),
+                                          .copyWith(fontSize: 12),
                                     )),
                                   ),
                                 ),
@@ -84,13 +85,14 @@ class ContentListItem extends StatelessWidget {
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Container(
-                                    height: 18,
-                                    width: 18,
+                                    height: 20,
+                                    width: 20,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
+                                      borderRadius: BorderRadius.circular(6),
                                       color: Theme.of(context)
                                           .colorScheme
-                                          .secondary,
+                                          .secondary
+                                          .withOpacity(0.85),
                                     ),
                                     child: Center(
                                         child: Text(
@@ -98,7 +100,7 @@ class ContentListItem extends StatelessWidget {
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium!
-                                          .copyWith(fontSize: 14),
+                                          .copyWith(fontSize: 12),
                                     )),
                                   ),
                                 ),
@@ -107,34 +109,38 @@ class ContentListItem extends StatelessWidget {
                         ),
                       )
                     : Container(
-                        height: 120,
-                        width: 120,
+                        height: 132,
+                        width: 132,
                         decoration: BoxDecoration(
                             color: Theme.of(context).primaryColorLight,
-                            borderRadius: BorderRadius.circular(10)),
+                            borderRadius: BorderRadius.circular(12)),
                         child: Center(
                             child: Icon(
                           content.playlistId == 'LIBRP'
-                              ? Icons.history
+                              ? Icons.history_rounded
                               : content.playlistId == 'LIBFAV'
-                                  ? Icons.favorite
+                                  ? Icons.favorite_rounded
                                   : content.playlistId == 'SongsCache'
-                                      ? Icons.flight
-                                      : Icons.download,
+                                      ? Icons.flight_rounded
+                                      : Icons.download_rounded,
                           color: Colors.white,
-                          size: 40,
+                          size: 36,
                         ))),
-            const SizedBox(height: 5),
+            const SizedBox(height: 8),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     content.title,
-                    // overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                    style: Theme.of(context).textTheme.titleMedium,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
                   ),
+                  const SizedBox(height: 2),
                   Text(
                     isAlbum
                         ? isLibraryItem
@@ -144,7 +150,10 @@ class ContentListItem extends StatelessWidget {
                             ? ""
                             : content.description ?? "",
                     maxLines: 1,
-                    style: Theme.of(context).textTheme.titleSmall,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontSize: 11,
+                        ),
                   ),
                 ],
               ),

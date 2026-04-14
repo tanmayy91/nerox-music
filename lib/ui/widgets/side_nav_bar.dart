@@ -21,7 +21,7 @@ class SideNavBar extends StatelessWidget {
                   () => NavigationRail(
                     useIndicator: !isMobileOrTabScreen,
                     selectedIndex:
-                        homeScreenController.tabIndex.value, //_selectedIndex,
+                        homeScreenController.tabIndex.value,
                     onDestinationSelected:
                         homeScreenController.onSideBarTabSelected,
                     minWidth: 60,
@@ -31,24 +31,22 @@ class SideNavBar extends StatelessWidget {
                     labelType: isMobileOrTabScreen
                         ? NavigationRailLabelType.all
                         : NavigationRailLabelType.none,
-                    //backgroundColor: Colors.green,
                     destinations: <NavigationRailDestination>[
                       railDestination(
-                          "home".tr, isMobileOrTabScreen, Icons.home),
+                          "home".tr, isMobileOrTabScreen, Icons.home_rounded),
                       railDestination(
-                          "songs".tr, isMobileOrTabScreen, Icons.art_track),
+                          "songs".tr, isMobileOrTabScreen, Icons.audiotrack_rounded),
                       railDestination("playlists".tr, isMobileOrTabScreen,
-                          Icons.featured_play_list),
+                          Icons.library_music_rounded),
                       railDestination(
-                          "albums".tr, isMobileOrTabScreen, Icons.album),
+                          "albums".tr, isMobileOrTabScreen, Icons.album_rounded),
                       railDestination(
-                          "artists".tr, isMobileOrTabScreen, Icons.people),
-                      //railDestination("Settings")
+                          "artists".tr, isMobileOrTabScreen, Icons.people_rounded),
                       const NavigationRailDestination(
                         padding: EdgeInsets.only(top: 10, bottom: 10),
-                        icon: Icon(Icons.settings),
+                        icon: Icon(Icons.settings_rounded),
                         label: SizedBox.shrink(),
-                        selectedIcon: Icon(Icons.settings),
+                        selectedIcon: Icon(Icons.settings_rounded),
                       )
                     ],
                   ),
@@ -69,31 +67,31 @@ class SideNavBar extends StatelessWidget {
                 mainLogoImage: 'assets/icons/icon.png',
                 sidebarItems: [
                   SideBarItem(
-                    iconSelected: Icons.home,
+                    iconSelected: Icons.home_rounded,
                     iconUnselected: Icons.home_outlined,
                     text: 'home'.tr,
                   ),
                   SideBarItem(
-                    iconSelected: Icons.audiotrack,
-                    iconUnselected: Icons.audiotrack,
+                    iconSelected: Icons.audiotrack_rounded,
+                    iconUnselected: Icons.audiotrack_rounded,
                     text: 'songs'.tr,
                   ),
                   SideBarItem(
-                    iconSelected: Icons.library_music,
+                    iconSelected: Icons.library_music_rounded,
                     iconUnselected: Icons.library_music_outlined,
                     text: 'playlists'.tr,
                   ),
                   SideBarItem(
-                    iconSelected: Icons.album,
+                    iconSelected: Icons.album_rounded,
                     iconUnselected: Icons.album_outlined,
                     text: 'albums'.tr,
                   ),
                   SideBarItem(
-                    iconSelected: Icons.person,
+                    iconSelected: Icons.person_rounded,
                     text: 'artists'.tr,
                   ),
                   SideBarItem(
-                    iconSelected: Icons.settings,
+                    iconSelected: Icons.settings_rounded,
                     iconUnselected: Icons.settings_outlined,
                     text: 'settings'.tr,
                   ),
@@ -119,7 +117,7 @@ class SideNavBar extends StatelessWidget {
             label: Text(label),
             padding: const EdgeInsets.only(left: 10),
             indicatorShape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10))),
+                borderRadius: BorderRadius.all(Radius.circular(12))),
             indicatorColor: Colors.amber);
   }
 }

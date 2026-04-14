@@ -81,12 +81,12 @@ class Home extends StatelessWidget {
                       constraints: const BoxConstraints(maxWidth: 600),
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(10)),
+                            topLeft: Radius.circular(16)),
                         border: Border(
                           left: BorderSide(
-                              color: Theme.of(context).colorScheme.secondary),
+                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.3)),
                           top: BorderSide(
-                              color: Theme.of(context).colorScheme.secondary),
+                              color: Theme.of(context).colorScheme.secondary.withOpacity(0.3)),
                         ),
                       ),
                       margin: const EdgeInsets.only(
@@ -133,11 +133,11 @@ class Home extends StatelessWidget {
                                                   color: playerController
                                                           .isQueueLoopModeEnabled
                                                           .isFalse
-                                                      ? Colors.white24
+                                                      ? Colors.white.withOpacity(0.12)
                                                       : Colors.white
                                                           .withOpacity(0.8),
                                                   borderRadius:
-                                                      BorderRadius.circular(20),
+                                                      BorderRadius.circular(24),
                                                 ),
                                                 child: Center(
                                                     child:

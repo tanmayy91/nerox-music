@@ -28,7 +28,7 @@ class QuickPicksWidget extends StatelessWidget {
                 content.title.toLowerCase().removeAllWhitespace.tr,
                 style: Theme.of(context).textTheme.titleLarge,
               )),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
           Expanded(
             child: Scrollbar(
               thickness: GetPlatform.isDesktop ? null : 0,
@@ -41,19 +41,18 @@ class QuickPicksWidget extends StatelessWidget {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
                     childAspectRatio: .26 / 1,
-                    crossAxisSpacing: 1,
-                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 2,
+                    mainAxisSpacing: 6,
                   ),
                   itemBuilder: (_, item) {
                     return Listener(
                       onPointerDown: (PointerDownEvent event) {
                         if (event.buttons == kSecondaryMouseButton) {
-                          //show songinfobotomsheet
                           showModalBottomSheet(
                             constraints: const BoxConstraints(maxWidth: 500),
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(10.0)),
+                                  top: Radius.circular(20.0)),
                             ),
                             isScrollControlled: true,
                             context: playerController
@@ -66,22 +65,10 @@ class QuickPicksWidget extends StatelessWidget {
                               () => Get.delete<SongInfoController>());
                         }
                       },
-                      child: ListTile(
-                          contentPadding: const EdgeInsets.only(left: 5),
-                          leading: ImageWidget(
-                            song: content.songList[item],
-                            size: 55,
-                          ),
-                          title: Text(
-                            content.songList[item].title,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          subtitle: Text(
-                            "${content.songList[item].artist}",
-                            maxLines: 1,
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(10),
                           onTap: () {
                             playerController
                                 .pushSongToQueue(content.songList[item]);
@@ -91,42 +78,89 @@ class QuickPicksWidget extends StatelessWidget {
                               constraints: const BoxConstraints(maxWidth: 500),
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(10.0)),
+                                    top: Radius.circular(20.0)),
                               ),
                               isScrollControlled: true,
                               context: playerController
                                   .homeScaffoldkey.currentState!.context,
-                              //constraints: BoxConstraints(maxHeight:Get.height),
                               barrierColor: Colors.transparent.withAlpha(100),
                               builder: (context) =>
                                   SongInfoBottomSheet(content.songList[item]),
                             ).whenComplete(
                                 () => Get.delete<SongInfoController>());
                           },
-                          trailing: (GetPlatform.isDesktop)
-                              ? IconButton(
-                                  splashRadius: 20,
-                                  onPressed: () {
-                                    showModalBottomSheet(
-                                      constraints:
-                                          const BoxConstraints(maxWidth: 500),
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(10.0)),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 4, vertical: 2),
+                            child: Row(
+                              children: [
+                                ImageWidget(
+                                  song: content.songList[item],
+                                  size: 52,
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        content.songList[item].title,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .copyWith(fontSize: 14),
                                       ),
-                                      isScrollControlled: true,
-                                      context: playerController.homeScaffoldkey
-                                          .currentState!.context,
-                                      //constraints: BoxConstraints(maxHeight:Get.height),
-                                      barrierColor:
-                                          Colors.transparent.withAlpha(100),
-                                      builder: (context) => SongInfoBottomSheet(
-                                          content.songList[item]),
-                                    ).whenComplete(
-                                        () => Get.delete<SongInfoController>());
-                                  },
-                                  icon: const Icon(Icons.more_vert))
-                              : null),
+                                      const SizedBox(height: 2),
+                                      Text(
+                                        "${content.songList[item].artist}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                if (GetPlatform.isDesktop)
+                                  IconButton(
+                                      splashRadius: 18,
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                          constraints: const BoxConstraints(
+                                              maxWidth: 500),
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.vertical(
+                                                    top: Radius.circular(
+                                                        20.0)),
+                                          ),
+                                          isScrollControlled: true,
+                                          context: playerController
+                                              .homeScaffoldkey
+                                              .currentState!
+                                              .context,
+                                          barrierColor: Colors.transparent
+                                              .withAlpha(100),
+                                          builder: (context) =>
+                                              SongInfoBottomSheet(
+                                                  content.songList[item]),
+                                        ).whenComplete(() =>
+                                            Get.delete<
+                                                SongInfoController>());
+                                      },
+                                      icon: const Icon(Icons.more_vert,
+                                          size: 20)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     );
                   }),
             ),

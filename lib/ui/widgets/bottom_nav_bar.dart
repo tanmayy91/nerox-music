@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:harmonymusic/ui/screens/Home/home_screen_controller.dart';
@@ -8,31 +9,45 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeScreenController = Get.find<HomeScreenController>();
-    return Obx(() => NavigationBar(
-            onDestinationSelected: homeScreenController.onBottonBarTabSelected,
-            selectedIndex: homeScreenController.tabIndex.toInt(),
-            backgroundColor: Theme.of(context).primaryColor,
-            indicatorColor: Theme.of(context).colorScheme.secondary,
-            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-            destinations: [
-              NavigationDestination(
-                selectedIcon: const Icon(Icons.home),
-                icon: const Icon(Icons.home_outlined),
-                label: modifyNgetlabel('home'.tr),
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.search),
-                label: modifyNgetlabel('search'.tr),
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.library_music),
-                label: modifyNgetlabel('library'.tr),
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.settings),
-                label: modifyNgetlabel('settings'.tr),
-              ),
-            ]));
+    return ClipRRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+        child: Obx(() => NavigationBar(
+                onDestinationSelected:
+                    homeScreenController.onBottonBarTabSelected,
+                selectedIndex: homeScreenController.tabIndex.toInt(),
+                backgroundColor:
+                    Theme.of(context).primaryColor.withOpacity(0.85),
+                surfaceTintColor: Colors.transparent,
+                elevation: 0,
+                height: 68,
+                labelBehavior:
+                    NavigationDestinationLabelBehavior.alwaysShow,
+                animationDuration: const Duration(milliseconds: 400),
+                destinations: [
+                  NavigationDestination(
+                    selectedIcon: const Icon(Icons.home_rounded),
+                    icon: const Icon(Icons.home_outlined),
+                    label: modifyNgetlabel('home'.tr),
+                  ),
+                  NavigationDestination(
+                    selectedIcon: const Icon(Icons.search_rounded),
+                    icon: const Icon(Icons.search_rounded),
+                    label: modifyNgetlabel('search'.tr),
+                  ),
+                  NavigationDestination(
+                    selectedIcon: const Icon(Icons.library_music_rounded),
+                    icon: const Icon(Icons.library_music_outlined),
+                    label: modifyNgetlabel('library'.tr),
+                  ),
+                  NavigationDestination(
+                    selectedIcon: const Icon(Icons.settings_rounded),
+                    icon: const Icon(Icons.settings_outlined),
+                    label: modifyNgetlabel('settings'.tr),
+                  ),
+                ])),
+      ),
+    );
   }
 
   String modifyNgetlabel(String label) {

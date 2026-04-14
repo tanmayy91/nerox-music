@@ -25,7 +25,8 @@ class ContentListWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 2),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -33,7 +34,6 @@ class ContentListWidget extends StatelessWidget {
                   !isHomeContent && content.title.length > 12
                       ? "${content.title.substring(0, 12)}..."
                       : content.title,
-                  //maxLines: 2,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 !isHomeContent
@@ -49,20 +49,19 @@ class ContentListWidget extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: 8),
           SizedBox(
-            height: 200,
-            //color: Colors.blueAccent,
+            height: 210,
             child: Scrollbar(
               thickness: GetPlatform.isDesktop ? null : 0,
               controller: scrollController,
               child: ListView.separated(
                   controller: scrollController,
-                  addAutomaticKeepAlives: false, //Testing going
-                  addRepaintBoundaries: false, //on this
+                  addAutomaticKeepAlives: false,
+                  addRepaintBoundaries: false,
                   physics: const BouncingScrollPhysics(),
                   separatorBuilder: (context, index) => const SizedBox(
-                        width: 15,
+                        width: 14,
                       ),
                   scrollDirection: Axis.horizontal,
                   itemCount: isAlbumContent

@@ -101,42 +101,52 @@ class ThemeController extends GetxController {
       );
 
       final baseTheme = ThemeData(
-          useMaterial3: false,
+          useMaterial3: true,
           primaryColor: primarySwatch![500],
           colorScheme: ColorScheme.fromSwatch(
               accentColor: primarySwatch[200],
               brightness: Brightness.dark,
               backgroundColor: primarySwatch[700],
               primarySwatch: primarySwatch),
-          //accentColor: primarySwatch[200],
           dialogBackgroundColor: primarySwatch[700],
           cardColor: primarySwatch[600],
           primaryColorLight: primarySwatch[400],
           primaryColorDark: primarySwatch[700],
-          //secondaryHeaderColor: primarySwatch[50],
           canvasColor: primarySwatch[700],
-          //scaffoldBackgroundColor: primarySwatch[700],
           bottomSheetTheme: BottomSheetThemeData(
               backgroundColor: primarySwatch[600],
-              modalBarrierColor: primarySwatch[400]),
+              modalBarrierColor: primarySwatch[400],
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              )),
           textTheme: TextTheme(
             titleLarge: const TextStyle(
-                fontSize: 23, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+                letterSpacing: -0.5),
             titleMedium: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white),
-            titleSmall: TextStyle(color: primarySwatch[100]),
-            bodyMedium: TextStyle(color: primarySwatch[100]),
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                letterSpacing: -0.2),
+            titleSmall: TextStyle(
+                color: primarySwatch[100],
+                fontWeight: FontWeight.w400),
+            bodyMedium: TextStyle(
+                color: primarySwatch[100],
+                fontWeight: FontWeight.w400),
             labelMedium: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 23,
+                fontWeight: FontWeight.w700,
+                fontSize: 24,
+                letterSpacing: -0.5,
                 color: textColor ?? primarySwatch[50]),
             labelSmall: TextStyle(
-                fontSize: 15,
+                fontSize: 14,
                 color: titleColorSwatch != null
                     ? titleColorSwatch[900]
                     : primarySwatch[100],
-                letterSpacing: 0,
-                fontWeight: FontWeight.bold),
+                letterSpacing: 0.1,
+                fontWeight: FontWeight.w600),
           ),
           indicatorColor: Colors.white,
           progressIndicatorTheme: ProgressIndicatorThemeData(
@@ -144,27 +154,66 @@ class ThemeController extends GetxController {
                   ? Colors.black54
                   : Colors.white70,
               color: textColor),
+          navigationBarTheme: NavigationBarThemeData(
+            elevation: 0,
+            backgroundColor: primarySwatch[700],
+            indicatorColor: primarySwatch[400]?.withOpacity(0.3),
+            iconTheme: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.selected)) {
+                return const IconThemeData(color: Colors.white, size: 24);
+              }
+              return IconThemeData(color: primarySwatch[200], size: 24);
+            }),
+            labelTextStyle: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.selected)) {
+                return const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12);
+              }
+              return TextStyle(
+                  color: primarySwatch[200],
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12);
+            }),
+          ),
           navigationRailTheme: NavigationRailThemeData(
               backgroundColor: primarySwatch[700],
               selectedIconTheme: const IconThemeData(color: Colors.white),
               unselectedIconTheme: IconThemeData(color: primarySwatch[100]),
               selectedLabelTextStyle: const TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14),
               unselectedLabelTextStyle: TextStyle(
-                  color: primarySwatch[100], fontWeight: FontWeight.bold)),
+                  color: primarySwatch[100], fontWeight: FontWeight.w500)),
           sliderTheme: SliderThemeData(
             inactiveTrackColor: primarySwatch[300],
             activeTrackColor: textColor,
             valueIndicatorColor: primarySwatch[400],
             thumbColor: Colors.white,
+            overlayColor: Colors.white.withOpacity(0.1),
+            trackHeight: 3,
+          ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: primarySwatch[400],
+            foregroundColor: Colors.white,
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+          dialogTheme: DialogTheme(
+            backgroundColor: primarySwatch[700],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 0,
           ),
           textSelectionTheme: TextSelectionThemeData(
               cursorColor: primarySwatch[200],
               selectionColor: primarySwatch[200],
-              selectionHandleColor: primarySwatch[200])
-          //scaffoldBackgroundColor: primarySwatch[700]
+              selectionHandleColor: primarySwatch[200]),
           );
       return baseTheme.copyWith(
           textTheme: GoogleFonts.interTextTheme(baseTheme.textTheme));
@@ -179,64 +228,131 @@ class ThemeController extends GetxController {
             systemStatusBarContrastEnforced: false,
             systemNavigationBarContrastEnforced: true),
       );
+
+      const darkSurface = Color(0xFF0F0F0F);
+      const darkCard = Color(0xFF1A1A1A);
+      const darkElevated = Color(0xFF242424);
+
       final baseTheme = ThemeData(
-          useMaterial3: false,
+          useMaterial3: true,
           brightness: Brightness.dark,
-          canvasColor: Colors.black,
-          primaryColor: Colors.black,
-          primaryColorDark: Colors.black,
-          primaryColorLight: Colors.grey[850],
-          colorScheme: ColorScheme.fromSwatch(
-              accentColor: Colors.grey[700], brightness: Brightness.dark),
+          canvasColor: darkSurface,
+          primaryColor: darkSurface,
+          primaryColorDark: darkSurface,
+          primaryColorLight: darkCard,
+          colorScheme: ColorScheme.dark(
+            surface: darkSurface,
+            primary: Colors.white,
+            secondary: darkElevated,
+            tertiary: Colors.white.withOpacity(0.08),
+            onSurface: Colors.white,
+            onPrimary: darkSurface,
+          ),
           progressIndicatorTheme: ProgressIndicatorThemeData(
-              color: Colors.grey[700], linearTrackColor: Colors.white),
-          textTheme: const TextTheme(
-              titleLarge: TextStyle(
-                fontSize: 23,
-                fontWeight: FontWeight.bold,
+              color: Colors.white.withOpacity(0.3),
+              linearTrackColor: Colors.white),
+          textTheme: TextTheme(
+              titleLarge: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+                letterSpacing: -0.5,
               ),
-              titleMedium: TextStyle(
-                fontWeight: FontWeight.bold,
+              titleMedium: const TextStyle(
+                fontWeight: FontWeight.w600,
+                letterSpacing: -0.2,
               ),
-              titleSmall: TextStyle(),
-              labelMedium: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 23,
+              titleSmall: TextStyle(
+                color: Colors.white.withOpacity(0.6),
+                fontWeight: FontWeight.w400,
               ),
-              labelSmall: TextStyle(
-                  fontSize: 15, letterSpacing: 0, fontWeight: FontWeight.bold),
-              bodyMedium: TextStyle(color: Colors.grey)),
-          navigationRailTheme: const NavigationRailThemeData(
-              backgroundColor: Colors.black,
-              selectedIconTheme: IconThemeData(
+              labelMedium: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 24,
+                letterSpacing: -0.5,
+              ),
+              labelSmall: const TextStyle(
+                  fontSize: 14,
+                  letterSpacing: 0.1,
+                  fontWeight: FontWeight.w600),
+              bodyMedium: TextStyle(
+                  color: Colors.white.withOpacity(0.55),
+                  fontWeight: FontWeight.w400)),
+          navigationBarTheme: NavigationBarThemeData(
+            elevation: 0,
+            backgroundColor: darkSurface,
+            indicatorColor: Colors.white.withOpacity(0.08),
+            iconTheme: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.selected)) {
+                return const IconThemeData(color: Colors.white, size: 24);
+              }
+              return IconThemeData(
+                  color: Colors.white.withOpacity(0.45), size: 24);
+            }),
+            labelTextStyle: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.selected)) {
+                return const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12);
+              }
+              return TextStyle(
+                  color: Colors.white.withOpacity(0.45),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12);
+            }),
+          ),
+          navigationRailTheme: NavigationRailThemeData(
+              backgroundColor: darkSurface,
+              selectedIconTheme: const IconThemeData(
                 color: Colors.white,
               ),
-              unselectedIconTheme: IconThemeData(color: Colors.white38),
-              selectedLabelTextStyle: TextStyle(
+              unselectedIconTheme:
+                  IconThemeData(color: Colors.white.withOpacity(0.4)),
+              selectedLabelTextStyle: const TextStyle(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14),
               unselectedLabelTextStyle: TextStyle(
-                  color: Colors.white38, fontWeight: FontWeight.bold)),
-          bottomSheetTheme: const BottomSheetThemeData(
-              backgroundColor: Colors.black, modalBarrierColor: Colors.black),
-          sliderTheme: const SliderThemeData(
-            //base bar color
-            inactiveTrackColor: Colors.white30,
-            //buffered progress
+                  color: Colors.white.withOpacity(0.4),
+                  fontWeight: FontWeight.w500)),
+          bottomSheetTheme: BottomSheetThemeData(
+              backgroundColor: darkCard,
+              modalBarrierColor: Colors.black.withOpacity(0.6),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              )),
+          sliderTheme: SliderThemeData(
+            inactiveTrackColor: Colors.white.withOpacity(0.15),
             activeTrackColor: Colors.white,
-            //progress bar color
-            valueIndicatorColor: Colors.black38,
+            valueIndicatorColor: darkElevated,
             thumbColor: Colors.white,
+            overlayColor: Colors.white.withOpacity(0.1),
+            trackHeight: 3,
+          ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: Colors.white,
+            foregroundColor: darkSurface,
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+          dialogTheme: DialogTheme(
+            backgroundColor: darkCard,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 0,
           ),
           textSelectionTheme: TextSelectionThemeData(
-              cursorColor: Colors.grey[700],
-              selectionColor: Colors.grey[700],
-              selectionHandleColor: Colors.grey[700]),
-          inputDecorationTheme: const InputDecorationTheme(
+              cursorColor: Colors.white.withOpacity(0.6),
+              selectionColor: Colors.white.withOpacity(0.3),
+              selectionHandleColor: Colors.white.withOpacity(0.6)),
+          inputDecorationTheme: InputDecorationTheme(
               focusColor: Colors.white,
               focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white))));
+                  borderSide:
+                      BorderSide(color: Colors.white.withOpacity(0.6)))));
       return baseTheme.copyWith(
           textTheme: GoogleFonts.interTextTheme(baseTheme.textTheme));
     } else {
@@ -250,65 +366,130 @@ class ThemeController extends GetxController {
             systemStatusBarContrastEnforced: false,
             systemNavigationBarContrastEnforced: false),
       );
+
+      const lightSurface = Color(0xFFF8F8FA);
+      const lightCard = Color(0xFFFFFFFF);
+      final lightMuted = Colors.grey[500]!;
+
       final baseTheme = ThemeData(
-          useMaterial3: false,
+          useMaterial3: true,
           brightness: Brightness.light,
-          canvasColor: Colors.white,
-          colorScheme: ColorScheme.fromSwatch(
-              accentColor: Colors.grey[400],
-              backgroundColor: Colors.white,
-              cardColor: Colors.white,
-              brightness: Brightness.light),
-          primaryColor: Colors.white,
-          primaryColorLight: Colors.grey[300],
+          canvasColor: lightSurface,
+          colorScheme: ColorScheme.light(
+            surface: lightSurface,
+            primary: const Color(0xFF1A1A1A),
+            secondary: const Color(0xFFE8E8EC),
+            tertiary: Colors.black.withOpacity(0.05),
+            onSurface: const Color(0xFF1A1A1A),
+            onPrimary: lightCard,
+          ),
+          primaryColor: lightSurface,
+          primaryColorLight: const Color(0xFFE8E8EC),
           progressIndicatorTheme: ProgressIndicatorThemeData(
-              linearTrackColor: Colors.grey[700], color: Colors.grey[400]),
+              linearTrackColor: const Color(0xFF1A1A1A),
+              color: lightMuted.withOpacity(0.3)),
           textTheme: TextTheme(
               titleLarge: const TextStyle(
-                fontSize: 23,
-                fontWeight: FontWeight.bold,
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF1A1A1A),
+                letterSpacing: -0.5,
               ),
               titleMedium: const TextStyle(
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF1A1A1A),
+                letterSpacing: -0.2,
               ),
-              titleSmall: const TextStyle(),
+              titleSmall: TextStyle(
+                color: Colors.grey[600],
+                fontWeight: FontWeight.w400,
+              ),
               labelMedium: const TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 23,
+                fontWeight: FontWeight.w700,
+                fontSize: 24,
+                color: Color(0xFF1A1A1A),
+                letterSpacing: -0.5,
               ),
-              labelSmall: const TextStyle(
-                  fontSize: 15, letterSpacing: 0, fontWeight: FontWeight.bold),
-              bodyMedium: TextStyle(color: Colors.grey[700])),
+              labelSmall: TextStyle(
+                  fontSize: 14,
+                  letterSpacing: 0.1,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey[700]),
+              bodyMedium: TextStyle(
+                  color: Colors.grey[600],
+                  fontWeight: FontWeight.w400)),
+          navigationBarTheme: NavigationBarThemeData(
+            elevation: 0,
+            backgroundColor: lightSurface,
+            indicatorColor: Colors.black.withOpacity(0.06),
+            iconTheme: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.selected)) {
+                return const IconThemeData(
+                    color: Color(0xFF1A1A1A), size: 24);
+              }
+              return IconThemeData(color: Colors.grey[500], size: 24);
+            }),
+            labelTextStyle: WidgetStateProperty.resolveWith((states) {
+              if (states.contains(WidgetState.selected)) {
+                return const TextStyle(
+                    color: Color(0xFF1A1A1A),
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12);
+              }
+              return TextStyle(
+                  color: Colors.grey[500],
+                  fontWeight: FontWeight.w500,
+                  fontSize: 12);
+            }),
+          ),
           navigationRailTheme: NavigationRailThemeData(
-              backgroundColor: Colors.white,
-              selectedIconTheme: const IconThemeData(color: Colors.black),
-              unselectedIconTheme: IconThemeData(color: Colors.grey[800]),
+              backgroundColor: lightSurface,
+              selectedIconTheme:
+                  const IconThemeData(color: Color(0xFF1A1A1A)),
+              unselectedIconTheme: IconThemeData(color: Colors.grey[500]),
               selectedLabelTextStyle: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15),
+                  color: Color(0xFF1A1A1A),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14),
               unselectedLabelTextStyle: TextStyle(
-                  color: Colors.grey[800], fontWeight: FontWeight.bold)),
-          bottomSheetTheme: const BottomSheetThemeData(
-              backgroundColor: Colors.white, modalBarrierColor: Colors.white),
+                  color: Colors.grey[500], fontWeight: FontWeight.w500)),
+          bottomSheetTheme: BottomSheetThemeData(
+              backgroundColor: lightCard,
+              modalBarrierColor: Colors.black.withOpacity(0.3),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              )),
           sliderTheme: SliderThemeData(
-            //base bar color
-            inactiveTrackColor: Colors.black38,
-            //buffered progress
-            activeTrackColor: Colors.grey[800],
-            //progress bar color
-            valueIndicatorColor: Colors.white38,
-            thumbColor: Colors.grey[800],
+            inactiveTrackColor: Colors.black.withOpacity(0.12),
+            activeTrackColor: const Color(0xFF1A1A1A),
+            valueIndicatorColor: const Color(0xFFE8E8EC),
+            thumbColor: const Color(0xFF1A1A1A),
+            overlayColor: Colors.black.withOpacity(0.05),
+            trackHeight: 3,
+          ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: const Color(0xFF1A1A1A),
+            foregroundColor: Colors.white,
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+          dialogTheme: DialogTheme(
+            backgroundColor: lightCard,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 0,
           ),
           textSelectionTheme: TextSelectionThemeData(
-              cursorColor: Colors.grey[400],
+              cursorColor: Colors.grey[600],
               selectionColor: Colors.grey[400],
-              selectionHandleColor: Colors.grey[400]),
-          dialogTheme: DialogTheme(backgroundColor: Colors.grey[200]),
+              selectionHandleColor: Colors.grey[600]),
           inputDecorationTheme: const InputDecorationTheme(
-              focusColor: Colors.black,
+              focusColor: Color(0xFF1A1A1A),
               focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black))));
+                  borderSide: BorderSide(color: Color(0xFF1A1A1A)))));
       return baseTheme.copyWith(
           textTheme: GoogleFonts.interTextTheme(baseTheme.textTheme));
     }

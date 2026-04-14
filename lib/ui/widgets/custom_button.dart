@@ -12,17 +12,21 @@ class ProceedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Theme.of(context).textTheme.titleLarge!.color,
-          borderRadius: BorderRadius.circular(10)),
+    return Material(
+      color: Theme.of(context).textTheme.titleLarge!.color,
+      borderRadius: BorderRadius.circular(12),
       child: InkWell(
+        borderRadius: BorderRadius.circular(12),
         onTap: onPressed,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 12),
           child: Text(
             buttonText,
-            style: TextStyle(color: Theme.of(context).canvasColor),
+            style: TextStyle(
+              color: Theme.of(context).canvasColor,
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+            ),
           ),
         ),
       ),
@@ -36,17 +40,29 @@ class CancelButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Text("cancel".tr),
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(12),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+          child: Text(
+            "cancel".tr,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              color: Theme.of(context).textTheme.titleSmall?.color,
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.of(context).pop();
+          if (onPressed != null) {
+            onPressed!();
+          }
+        },
       ),
-      onTap: () {
-        Navigator.of(context).pop();
-         if (onPressed != null) {
-          onPressed!();
-        }
-      },
     );
   }
 }

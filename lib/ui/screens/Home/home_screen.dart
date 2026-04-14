@@ -50,8 +50,8 @@ class HomeScreen extends StatelessWidget {
                             focusElevation: 0,
                             shape: const RoundedRectangleBorder(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(14))),
-                            elevation: 0,
+                                    BorderRadius.all(Radius.circular(16))),
+                            elevation: 2,
                             onPressed: () async {
                               if (homeScreenController.tabIndex.value == 2) {
                                 showDialog(
@@ -165,14 +165,14 @@ class Body extends StatelessWidget {
                                       ),
                                       Container(
                                         padding: const EdgeInsets.symmetric(
-                                            horizontal: 15, vertical: 10),
+                                            horizontal: 20, vertical: 12),
                                         decoration: BoxDecoration(
                                             color: Theme.of(context)
                                                 .textTheme
                                                 .titleLarge!
                                                 .color,
                                             borderRadius:
-                                                BorderRadius.circular(10)),
+                                                BorderRadius.circular(12)),
                                         child: InkWell(
                                           onTap: () {
                                             homeScreenController
