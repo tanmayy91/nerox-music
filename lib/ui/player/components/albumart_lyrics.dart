@@ -46,26 +46,53 @@ class AlbumArtNLyrics extends StatelessWidget {
                     playerController.prev();
                   }
                 },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: ImageWidget(
-                    size: playerArtImageSize,
-                    song: playerController.currentSong.value!,
-                    isPlayerArtImage: true,
+                // Animated album art with elevation shadow
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeOutCubic,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.4),
+                        blurRadius: 30,
+                        offset: const Offset(0, 12),
+                        spreadRadius: -5,
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: ImageWidget(
+                      size: playerArtImageSize,
+                      song: playerController.currentSong.value!,
+                      isPlayerArtImage: true,
+                    ),
                   ),
                 ),
               ),
+              // Lyrics overlay with glassmorphism
               Obx(() => playerController.showLyricsflag.isTrue
                   ? InkWell(
                       onTap: () {
                         playerController.showLyrics();
                       },
-                      child: Container(
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 350),
+                        curve: Curves.easeOutCubic,
                         height: playerArtImageSize,
                         width: playerArtImageSize,
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.85),
-                          borderRadius: BorderRadius.circular(16),
+                          color: Colors.black.withOpacity(0.88),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              blurRadius: 30,
+                              offset: const Offset(0, 12),
+                              spreadRadius: -5,
+                            ),
+                          ],
                         ),
                         child: Stack(
                           children: [
@@ -73,11 +100,11 @@ class AlbumArtNLyrics extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 4,
                                     vertical: playerArtImageSize / 4)),
-                            // Top gradient fade
+                            // Top/bottom gradient fade
                             IgnorePointer(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(16),
+                                  borderRadius: BorderRadius.circular(20),
                                   gradient: LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
@@ -88,31 +115,35 @@ class AlbumArtNLyrics extends StatelessWidget {
                                       Colors.transparent,
                                       Colors.black.withOpacity(0.95),
                                     ],
-                                    stops: const [0, 0.15, 0.5, 0.85, 1],
+                                    stops: const [0, 0.12, 0.5, 0.88, 1],
                                   ),
                                 ),
                               ),
                             ),
-                            // "LYRICS" label at top
+                            // "LYRICS" label with pill badge
                             Positioned(
-                              top: 12,
+                              top: 14,
                               left: 0,
                               right: 0,
                               child: Center(
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 14, vertical: 4),
+                                      horizontal: 16, vertical: 5),
                                   decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.10),
-                                    borderRadius: BorderRadius.circular(12),
+                                    color: Colors.white.withOpacity(0.08),
+                                    borderRadius: BorderRadius.circular(14),
+                                    border: Border.all(
+                                      color: Colors.white.withOpacity(0.06),
+                                      width: 1,
+                                    ),
                                   ),
                                   child: Text(
                                     "LYRICS",
                                     style: TextStyle(
-                                      color: Colors.white.withOpacity(0.6),
+                                      color: Colors.white.withOpacity(0.55),
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700,
-                                      letterSpacing: 2,
+                                      letterSpacing: 2.5,
                                     ),
                                   ),
                                 ),
@@ -130,17 +161,15 @@ class AlbumArtNLyrics extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: Container(
-                        height: 50,
-                        width: 60,
+                        height: 46,
+                        width: 46,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(width: 1.3, color: Colors.white),
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondary
-                                .withAlpha(150)),
+                            borderRadius: BorderRadius.circular(23),
+                            border:
+                                Border.all(width: 1.2, color: Colors.white.withOpacity(0.3)),
+                            color: Colors.black.withOpacity(0.5)),
                         child: IconButton(
                           onPressed: () {
                             showModalBottomSheet(
@@ -157,9 +186,10 @@ class AlbumArtNLyrics extends StatelessWidget {
                                   const SleepTimerBottomSheet(),
                             );
                           },
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.timer,
-                            color: Colors.white,
+                            color: Colors.white.withOpacity(0.8),
+                            size: 20,
                           ),
                         ),
                       ),
