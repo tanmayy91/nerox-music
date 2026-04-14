@@ -660,9 +660,9 @@ class SettingsScreen extends StatelessWidget {
                 children: [
                   ListTile(
                     contentPadding: const EdgeInsets.only(left: 5, right: 10),
-                    title: const Text("Credits"),
+                    title: Text("credits".tr),
                     subtitle: Text(
-                      "Made with ❤️ by tanmay\nInstagram: @tanmaaahy",
+                      "${"madeWithLoveBy".tr} tanmay\nInstagram: @tanmaaahy",
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     isThreeLine: true,

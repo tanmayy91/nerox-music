@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../screens/Home/home_screen_controller.dart';
 import 'common_dialog_widget.dart';
@@ -28,12 +27,8 @@ class NewVersionDialog extends StatelessWidget {
                   child: FittedBox(
                     child: FloatingActionButton(
                       onPressed: () {
-                        launchUrl(
-                          Uri.parse(
-                            'https://instagram.com/tanmaaahy',
-                          ),
-                          mode: LaunchMode.externalApplication,
-                        );
+                        // Update check is disabled - dismiss dialog
+                        Navigator.of(context).pop();
                       },
                       child: const Icon(
                         Icons.download,

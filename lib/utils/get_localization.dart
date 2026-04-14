@@ -2037,7 +2037,9 @@ Map<String, Map<String, String>> get keys => {
     "linkCopied": "Link copied to clipboard",
     "keepScreenOnWhilePlaying": "Keep screen on while playing",
     "keepScreenOnWhilePlayingDes": "If enabled, the device screen will stay awake while music is playing",
-    "fetchingLyrics": "Fetching lyrics..."
+    "fetchingLyrics": "Fetching lyrics...",
+    "credits": "Credits",
+    "madeWithLoveBy": "Made with ❤️ by"
 },"eo" : {
     "renamePlaylist": "Alinomi Ludliston",
     "trending": "Populara",
