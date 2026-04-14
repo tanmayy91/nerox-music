@@ -61,7 +61,7 @@ class SyncedLyricsService {
         return result;
       } on DioException catch (e) {
         if (attempt == _maxRetries) {
-          printERROR("Lyrics fetch failed after ${_maxRetries + 1} attempts: ${e.message}");
+          printERROR("Lyrics fetch failed after ${_maxRetries + 1} attempts: ${e.toString()}");
           return null;
         }
         // Wait briefly before retry

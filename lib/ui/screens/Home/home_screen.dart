@@ -330,9 +330,9 @@ class _GreetingHeader extends StatelessWidget {
 
   String _greeting() {
     final hour = DateTime.now().hour;
-    if (hour < 12) return "🌅 Good morning";
-    if (hour < 17) return "☀️ Good afternoon";
-    return "🌙 Good evening";
+    if (hour < 12) return "greetingMorning".tr;
+    if (hour < 17) return "greetingAfternoon".tr;
+    return "greetingEvening".tr;
   }
 
   @override
@@ -352,7 +352,7 @@ class _GreetingHeader extends StatelessWidget {
           ),
           const SizedBox(height: 2),
           Text(
-            "What would you like to listen to? 🎵",
+            "greetingSubtitle".tr,
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,

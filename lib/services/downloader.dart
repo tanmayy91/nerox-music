@@ -190,7 +190,7 @@ class Downloader extends GetxService {
         requiredAudioStream.audioCodec.name.contains("mp") ? "m4a" : "opus";
     final RegExp invalidChar =
         RegExp(r'Container.|\/|\\|\"|\<|\>|\*|\?|\:|\!|\[|\]|\¡|\||\%');
-    final artist = song.artist?.trim() ?? "Unknown";
+    final artist = song.artist?.trim() ?? "unknownArtist".tr;
     final songTitle = "${song.title.trim()} ($artist)"
         .replaceAll(invalidChar, "");
     String filePath = "$dirPath/$songTitle.$actualDownformat";

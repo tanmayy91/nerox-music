@@ -58,7 +58,9 @@ class PlaylistCollageWidget extends StatelessWidget {
         child: CachedNetworkImage(
           imageUrl: url,
           fit: BoxFit.cover,
-          errorWidget: (_, __, ___) => Container(color: Colors.grey[800]),
+          errorWidget: (context, __, ___) => Container(
+            color: Theme.of(context).colorScheme.surface,
+          ),
         ),
       );
 }
