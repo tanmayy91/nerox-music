@@ -37,7 +37,7 @@ Future<AudioHandler> initAudioService() async {
     config: const AudioServiceConfig(
       androidNotificationIcon: 'mipmap/ic_launcher_monochrome',
       androidNotificationChannelId: 'com.mycompany.myapp.audio',
-      androidNotificationChannelName: 'Harmony Music Notification',
+      androidNotificationChannelName: 'Nerox Music Notification',
       androidNotificationOngoing: true,
       androidStopForegroundOnPause: true,
     ),

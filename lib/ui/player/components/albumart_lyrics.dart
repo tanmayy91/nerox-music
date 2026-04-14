@@ -14,8 +14,6 @@ class AlbumArtNLyrics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PlayerController playerController = Get.find<PlayerController>();
-    //final size = MediaQuery.of(context).size;
-    //double playerArtImageSize = size.width - ((size.height < 750) ? 90 : 60);
     return Obx(() => playerController.currentSong.value != null
         ? Stack(
             children: [
@@ -48,10 +46,13 @@ class AlbumArtNLyrics extends StatelessWidget {
                     playerController.prev();
                   }
                 },
-                child: ImageWidget(
-                  size: playerArtImageSize,
-                  song: playerController.currentSong.value!,
-                  isPlayerArtImage: true,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: ImageWidget(
+                    size: playerArtImageSize,
+                    song: playerController.currentSong.value!,
+                    isPlayerArtImage: true,
+                  ),
                 ),
               ),
               Obx(() => playerController.showLyricsflag.isTrue
@@ -63,38 +64,60 @@ class AlbumArtNLyrics extends StatelessWidget {
                         height: playerArtImageSize,
                         width: playerArtImageSize,
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.8),
-                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.black.withOpacity(0.85),
+                          borderRadius: BorderRadius.circular(16),
                         ),
                         child: Stack(
                           children: [
                             LyricsWidget(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: 0,
-                                    vertical: playerArtImageSize / 3.5)),
+                                    horizontal: 4,
+                                    vertical: playerArtImageSize / 4)),
+                            // Top gradient fade
                             IgnorePointer(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(16),
                                   gradient: LinearGradient(
                                     begin: Alignment.topCenter,
                                     end: Alignment.bottomCenter,
                                     colors: [
-                                      Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.90),
+                                      Colors.black.withOpacity(0.95),
                                       Colors.transparent,
                                       Colors.transparent,
                                       Colors.transparent,
-                                      Theme.of(context)
-                                          .primaryColor
-                                          .withOpacity(0.90)
+                                      Colors.black.withOpacity(0.95),
                                     ],
-                                    stops: const [0, 0.2, 0.5, 0.8, 1],
+                                    stops: const [0, 0.15, 0.5, 0.85, 1],
                                   ),
                                 ),
                               ),
-                            )
+                            ),
+                            // "LYRICS" label at top
+                            Positioned(
+                              top: 12,
+                              left: 0,
+                              right: 0,
+                              child: Center(
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 14, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.10),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Text(
+                                    "LYRICS",
+                                    style: TextStyle(
+                                      color: Colors.white.withOpacity(0.6),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w700,
+                                      letterSpacing: 2,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -104,7 +127,6 @@ class AlbumArtNLyrics extends StatelessWidget {
                 SizedBox(
                   width: playerArtImageSize,
                   height: playerArtImageSize,
-                  //color: Colors.green,
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
