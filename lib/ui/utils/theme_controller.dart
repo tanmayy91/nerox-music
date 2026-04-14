@@ -390,7 +390,7 @@ class ThemeController extends GetxController {
       const lightCard = Color(0xFFFFFFFF);
       const charcoal = Color(0xFF141416);
       const warmAccent = Color(0xFF6D5BFF); // Warm indigo accent
-      final softGray = Colors.grey[450]!;
+      final softGray = Colors.grey[500]!;
 
       final baseTheme = ThemeData(
           useMaterial3: true,
@@ -422,7 +422,7 @@ class ThemeController extends GetxController {
                 letterSpacing: -0.2,
               ),
               titleSmall: TextStyle(
-                color: Colors.grey[550],
+                color: Colors.grey[600],
                 fontWeight: FontWeight.w400,
               ),
               labelMedium: const TextStyle(
@@ -435,9 +435,9 @@ class ThemeController extends GetxController {
                   fontSize: 13,
                   letterSpacing: 0.2,
                   fontWeight: FontWeight.w600,
-                  color: Colors.grey[650]),
+                  color: Colors.grey[700]),
               bodyMedium: TextStyle(
-                  color: Colors.grey[550],
+                  color: Colors.grey[600],
                   fontWeight: FontWeight.w400)),
           navigationBarTheme: NavigationBarThemeData(
             elevation: 0,
