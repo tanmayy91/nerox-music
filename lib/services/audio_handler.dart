@@ -291,7 +291,7 @@ class MyAudioHandler extends BaseAudioHandler with GetxServiceMixin {
   void _listenForDurationChanges() {
     _player.durationStream.listen((duration) async {
       final currQueue = queue.value;
-      if (currentIndex == null || currQueue.isEmpty || duration == null) return;
+      if (currQueue.isEmpty || duration == null) return;
       final currentSong = queue.value[currentIndex];
       if (currentSong.duration == null || currentIndex == 0) {
         final newMediaItem = currentSong.copyWith(duration: duration);
@@ -789,7 +789,7 @@ class MyAudioHandler extends BaseAudioHandler with GetxServiceMixin {
     if (currQueue.isNotEmpty) {
       final queueData =
           currQueue.map((e) => MediaItemBuilder.toJson(e)).toList();
-      final currIndex = currentIndex ?? 0;
+      final currIndex = currentIndex;
       final position = _player.position.inMilliseconds;
       final prevSessionData = await Hive.openBox("prevSessionData");
       await prevSessionData.clear();

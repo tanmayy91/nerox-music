@@ -512,7 +512,7 @@ class PlaylistScreen extends StatelessWidget {
                                                       .titleSmall!
                                                       .copyWith(fontSize: 13),
                                                 ),
-                                              if (description != null && description!.isNotEmpty) ...[
+                                              if (description != null && description.isNotEmpty) ...[
                                                 if (playlistController.songList.isNotEmpty)
                                                   Padding(
                                                     padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -531,7 +531,7 @@ class PlaylistScreen extends StatelessWidget {
                                                         const Duration(seconds: 5),
                                                     id: description.hashCode.toString(),
                                                     child: Text(
-                                                      description!,
+                                                      description,
                                                       maxLines: 1,
                                                       style: Theme.of(context)
                                                           .textTheme
@@ -541,7 +541,7 @@ class PlaylistScreen extends StatelessWidget {
                                                   ),
                                                 ),
                                               ],
-                                              if (description == null || description!.isEmpty)
+                                              if (description == null || description.isEmpty)
                                                 Expanded(
                                                   child: Text(
                                                     "playlist".tr,
