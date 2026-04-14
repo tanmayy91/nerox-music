@@ -49,8 +49,7 @@ class MyAudioHandler extends BaseAudioHandler with GetxServiceMixin {
   late final _cacheDir;
   late AudioPlayer _player;
   late MediaLibrary _mediaLibrary;
-  // ignore: prefer_typing_uninitialized_variables
-  dynamic currentIndex;
+  int currentIndex = 0;
   int currentShuffleIndex = 0;
   late String? currentSongUrl;
   bool isPlayingUsingLockCachingSource = false;

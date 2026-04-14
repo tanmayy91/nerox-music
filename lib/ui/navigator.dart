@@ -33,47 +33,58 @@ class ScreenNavigation extends StatelessWidget {
         initialRoute: '/homeScreen',
         onGenerateRoute: (settings) {
           Get.routing.args = settings.arguments;
-          switch (settings.name) {
+          try {
+            switch (settings.name) {
+              case ScreenNavigationSetup.homeScreen:
+                return GetPageRoute(
+                    page: () => const HomeScreen(), settings: settings);
 
-            case ScreenNavigationSetup.homeScreen:
-              return GetPageRoute(
-                  page: () => const HomeScreen(), settings: settings);
-            
-            case ScreenNavigationSetup.albumScreen:
-              final id = (settings.arguments as (Album?, String)).$2;
-              return GetPageRoute(
-                  page: () => AlbumScreen(
-                        key: Key(id),
-                      ),
-                  settings: settings);
-            
-            case ScreenNavigationSetup.playlistScreen:
-             final id = (settings.arguments as List)[1] as String;
-              return GetPageRoute(
-                  page: () => PlaylistScreen(
-                        key: Key(id),
-                      ),
-                  settings: settings);
-            
-            case ScreenNavigationSetup.searchScreen:
-              return GetPageRoute(
-                  page: () => const SearchScreen(), settings: settings);
-            
-            case ScreenNavigationSetup.searchResultScreen:
-              return GetPageRoute(
-                  page: () => const SearchResultScreen(), settings: settings);
-            
-            case ScreenNavigationSetup.artistScreen:
-              final args = settings.arguments as List;
-              final id = args[0] ? args[1] : (args[1] as Artist).browseId;
-              return GetPageRoute(
-                  page: () => ArtistScreen(
-                        key: Key(id),
-                      ),
-                  settings: settings);
-            
-            default:
-              return null;
+              case ScreenNavigationSetup.albumScreen:
+                final id = (settings.arguments as (Album?, String)).$2;
+                return GetPageRoute(
+                    page: () => AlbumScreen(
+                          key: Key(id),
+                        ),
+                    settings: settings);
+
+              case ScreenNavigationSetup.playlistScreen:
+                final args = settings.arguments;
+                if (args is! List || args.length < 2) return null;
+                final id = args[1] as String;
+                return GetPageRoute(
+                    page: () => PlaylistScreen(
+                          key: Key(id),
+                        ),
+                    settings: settings);
+
+              case ScreenNavigationSetup.searchScreen:
+                return GetPageRoute(
+                    page: () => const SearchScreen(), settings: settings);
+
+              case ScreenNavigationSetup.searchResultScreen:
+                return GetPageRoute(
+                    page: () => const SearchResultScreen(),
+                    settings: settings);
+
+              case ScreenNavigationSetup.artistScreen:
+                final args = settings.arguments;
+                if (args is! List || args.length < 2) return null;
+                final id = args[0] == true
+                    ? args[1] as String
+                    : (args[1] as Artist).browseId;
+                return GetPageRoute(
+                    page: () => ArtistScreen(
+                          key: Key(id),
+                        ),
+                    settings: settings);
+
+              default:
+                return null;
+            }
+          } catch (e) {
+            debugPrint("Navigation error: $e");
+            return GetPageRoute(
+                page: () => const HomeScreen(), settings: settings);
           }
         });
   }

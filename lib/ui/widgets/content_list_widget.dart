@@ -21,64 +21,95 @@ class ContentListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isAlbumContent = content is AlbumContent;
-    // ignore: avoid_unnecessary_containers
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 2),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  !isHomeContent && content.title.length > 12
-                      ? "${content.title.substring(0, 12)}..."
-                      : content.title,
-                  style: Theme.of(context).textTheme.titleLarge,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 6, right: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  content.title,
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -0.3,
+                      ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                !isHomeContent
-                    ? TextButton(
-                        onPressed: () {
+              ),
+              !isHomeContent
+                  ? Container(
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .color
+                            ?.withOpacity(0.08),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(14),
+                        onTap: () {
                           final scrresController =
                               Get.find<SearchResultScreenController>();
                           scrresController.viewAllCallback(content.title);
                         },
-                        child: Text("viewAll".tr,
-                            style: Theme.of(Get.context!).textTheme.titleSmall))
-                    : const SizedBox.shrink()
-              ],
-            ),
-          ),
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 210,
-            child: Scrollbar(
-              thickness: GetPlatform.isDesktop ? null : 0,
-              controller: scrollController,
-              child: ListView.separated(
-                  controller: scrollController,
-                  addAutomaticKeepAlives: false,
-                  addRepaintBoundaries: false,
-                  physics: const BouncingScrollPhysics(),
-                  separatorBuilder: (context, index) => const SizedBox(
-                        width: 14,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Center(
+                            child: Text(
+                              "viewAll".tr,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .color
+                                    ?.withOpacity(0.6),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: isAlbumContent
-                      ? content.albumList.length
-                      : content.playlistList.length,
-                  itemBuilder: (_, index) {
-                    if (isAlbumContent) {
-                      return ContentListItem(content: content.albumList[index]);
-                    }
-                    return ContentListItem(
-                        content: content.playlistList[index]);
-                  }),
-            ),
+                    )
+                  : const SizedBox.shrink()
+            ],
           ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 4),
+        SizedBox(
+          height: 210,
+          child: Scrollbar(
+            thickness: GetPlatform.isDesktop ? null : 0,
+            controller: scrollController,
+            child: ListView.separated(
+                controller: scrollController,
+                addAutomaticKeepAlives: false,
+                addRepaintBoundaries: false,
+                physics: const BouncingScrollPhysics(),
+                separatorBuilder: (context, index) => const SizedBox(
+                      width: 14,
+                    ),
+                scrollDirection: Axis.horizontal,
+                itemCount: isAlbumContent
+                    ? content.albumList.length
+                    : content.playlistList.length,
+                itemBuilder: (_, index) {
+                  if (isAlbumContent) {
+                    return ContentListItem(content: content.albumList[index]);
+                  }
+                  return ContentListItem(
+                      content: content.playlistList[index]);
+                }),
+          ),
+        ),
+      ],
     );
   }
 }

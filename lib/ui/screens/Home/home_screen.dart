@@ -146,7 +146,14 @@ class Body extends StatelessWidget {
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "home".tr,
-                                style: Theme.of(context).textTheme.titleLarge,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .copyWith(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w800,
+                                      letterSpacing: -0.5,
+                                    ),
                               ),
                             ),
                             Expanded(
@@ -154,35 +161,61 @@ class Body extends StatelessWidget {
                                 child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
+                                      Icon(
+                                        Icons.wifi_off_rounded,
+                                        size: 56,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium!
+                                            .color
+                                            ?.withOpacity(0.3),
+                                      ),
+                                      const SizedBox(height: 16),
                                       Text(
                                         "networkError1".tr,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .titleMedium,
+                                            .titleMedium!
+                                            .copyWith(
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                       ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20, vertical: 12),
-                                        decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge!
-                                                .color,
-                                            borderRadius:
-                                                BorderRadius.circular(12)),
-                                        child: InkWell(
-                                          onTap: () {
-                                            homeScreenController
-                                                .loadContentFromNetwork();
-                                          },
-                                          child: Text(
-                                            "retry".tr,
-                                            style: TextStyle(
+                                      const SizedBox(height: 20),
+                                      InkWell(
+                                        borderRadius: BorderRadius.circular(24),
+                                        onTap: () {
+                                          homeScreenController
+                                              .loadContentFromNetwork();
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 28, vertical: 14),
+                                          decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .titleLarge!
+                                                  .color,
+                                              borderRadius:
+                                                  BorderRadius.circular(24)),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(
+                                                Icons.refresh_rounded,
+                                                size: 18,
                                                 color: Theme.of(context)
-                                                    .canvasColor),
+                                                    .canvasColor,
+                                              ),
+                                              const SizedBox(width: 8),
+                                              Text(
+                                                "retry".tr,
+                                                style: TextStyle(
+                                                  color: Theme.of(context)
+                                                      .canvasColor,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
@@ -193,7 +226,7 @@ class Body extends StatelessWidget {
                         ),
                       )
                     : Obx(() {
-                        // dispose all detachached scroll controllers
+                        // dispose all detached scroll controllers
                         homeScreenController.disposeDetachedScrollControllers();
                         final items = homeScreenController
                                 .isContentFetched.value
@@ -216,6 +249,7 @@ class Body extends StatelessWidget {
                               ]
                             : [const HomeShimmer()];
                         return ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           padding:
                               EdgeInsets.only(bottom: 200, top: topPadding),
                           itemCount: items.length,

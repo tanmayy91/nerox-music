@@ -190,7 +190,8 @@ class Downloader extends GetxService {
         requiredAudioStream.audioCodec.name.contains("mp") ? "m4a" : "opus";
     final RegExp invalidChar =
         RegExp(r'Container.|\/|\\|\"|\<|\>|\*|\?|\:|\!|\[|\]|\¡|\||\%');
-    final songTitle = "${song.title.trim()} (${song.artist?.trim()})"
+    final artist = song.artist?.trim() ?? "Unknown";
+    final songTitle = "${song.title.trim()} ($artist)"
         .replaceAll(invalidChar, "");
     String filePath = "$dirPath/$songTitle.$actualDownformat";
     printINFO("Downloading filePath: $filePath");
@@ -216,15 +217,18 @@ class Downloader extends GetxService {
               year = await musicServ.getSongYear(song.id);
             }
           }
-        } catch (_) {}
+        } catch (e) {
+          printWarning("Failed to fetch year for ${song.title}: $e");
+        }
 
         // Save Thumbnail
         try {
           final thumbnailPath =
               "${settingsScreenController.supportDirPath}/thumbnails/${song.id}.png";
           await _dio.downloadUri(song.artUri!, thumbnailPath);
-          // ignore: empty_catches
-        } catch (e) {}
+        } catch (e) {
+          printWarning("Failed to save thumbnail for ${song.title}: $e");
+        }
 
         song.extras?['url'] = filePath;
         final songJson = MediaItemBuilder.toJson(song);
@@ -271,12 +275,14 @@ class Downloader extends GetxService {
       },
     ).onError(
       (error, stackTrace) {
-        ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
-            Get.context!, "downloadError3".tr,
-            size: SanckBarSize.BIG,
-            duration: const Duration(seconds: 2),
-            top: !GetPlatform.isDesktop));
-        printINFO(
+        if (Get.context != null) {
+          ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
+              Get.context!, "downloadError3".tr,
+              size: SanckBarSize.BIG,
+              duration: const Duration(seconds: 2),
+              top: !GetPlatform.isDesktop));
+        }
+        printERROR(
             "Downloading failed due to network/stream error! Please try again");
         complete.complete();
       },

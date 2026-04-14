@@ -153,9 +153,17 @@ class HomeScreenController extends GetxController {
       if (quickPicks.value.songList.isEmpty) {
         final index = homeContentListMap
             .indexWhere((element) => element['title'] == "Quick picks");
-        final con = homeContentListMap.removeAt(index);
-        quickPicks.value = QuickPicks(List<MediaItem>.from(con["contents"]),
-            title: "Quick picks");
+        if (index != -1) {
+          final con = homeContentListMap.removeAt(index);
+          quickPicks.value = QuickPicks(List<MediaItem>.from(con["contents"]),
+              title: "Quick picks");
+        } else if (homeContentListMap.isNotEmpty) {
+          // Fallback: use first available content section
+          final con = homeContentListMap.removeAt(0);
+          quickPicks.value = QuickPicks(
+              List<MediaItem>.from(con["contents"]),
+              title: con["title"] ?? "discover".tr);
+        }
       }
 
       middleContent.value = _setContentList(middleContentTemp);
@@ -167,9 +175,8 @@ class HomeScreenController extends GetxController {
       cachedHomeScreenData(updateAll: true);
       await Hive.box("AppPrefs")
           .put("homeScreenDataTime", DateTime.now().millisecondsSinceEpoch);
-      // ignore: unused_catch_stack
-    } on NetworkError catch (r, e) {
-      printERROR("Home Content not loaded due to ${r.message}");
+    } on NetworkError catch (e) {
+      printERROR("Home Content not loaded due to ${e.message}");
       await Future.delayed(const Duration(seconds: 1));
       networkError.value = !silent;
     }

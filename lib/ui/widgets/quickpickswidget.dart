@@ -17,18 +17,78 @@ class QuickPicksWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final PlayerController playerController = Get.find<PlayerController>();
     return SizedBox(
-      height: 340,
+      height: 360,
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                content.title.toLowerCase().removeAllWhitespace.tr,
-                style: Theme.of(context).textTheme.titleLarge,
-              )),
-          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  content.title.toLowerCase().removeAllWhitespace.tr,
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -0.5,
+                      ),
+                ),
+              ),
+              // Play all button
+              Container(
+                height: 32,
+                decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .color
+                      ?.withOpacity(0.08),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: () {
+                    if (content.songList.isNotEmpty) {
+                      playerController.pushSongToQueue(content.songList[0]);
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 14),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.play_arrow_rounded,
+                          size: 18,
+                          color: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .color
+                              ?.withOpacity(0.7),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          "play".tr,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .color
+                                ?.withOpacity(0.7),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+            ],
+          ),
+          const SizedBox(height: 14),
           Expanded(
             child: Scrollbar(
               thickness: GetPlatform.isDesktop ? null : 0,
@@ -48,55 +108,31 @@ class QuickPicksWidget extends StatelessWidget {
                     return Listener(
                       onPointerDown: (PointerDownEvent event) {
                         if (event.buttons == kSecondaryMouseButton) {
-                          showModalBottomSheet(
-                            constraints: const BoxConstraints(maxWidth: 500),
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(20.0)),
-                            ),
-                            isScrollControlled: true,
-                            context: playerController
-                                .homeScaffoldkey.currentState!.context,
-                            barrierColor: Colors.transparent.withAlpha(100),
-                            builder: (context) => SongInfoBottomSheet(
-                              content.songList[item],
-                            ),
-                          ).whenComplete(
-                              () => Get.delete<SongInfoController>());
+                          _showSongInfo(playerController, content.songList[item]);
                         }
                       },
                       child: Material(
                         color: Colors.transparent,
                         child: InkWell(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(12),
                           onTap: () {
                             playerController
                                 .pushSongToQueue(content.songList[item]);
                           },
                           onLongPress: () {
-                            showModalBottomSheet(
-                              constraints: const BoxConstraints(maxWidth: 500),
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(20.0)),
-                              ),
-                              isScrollControlled: true,
-                              context: playerController
-                                  .homeScaffoldkey.currentState!.context,
-                              barrierColor: Colors.transparent.withAlpha(100),
-                              builder: (context) =>
-                                  SongInfoBottomSheet(content.songList[item]),
-                            ).whenComplete(
-                                () => Get.delete<SongInfoController>());
+                            _showSongInfo(playerController, content.songList[item]);
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 4, vertical: 2),
+                                horizontal: 4, vertical: 3),
                             child: Row(
                               children: [
-                                ImageWidget(
-                                  song: content.songList[item],
-                                  size: 52,
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: ImageWidget(
+                                    song: content.songList[item],
+                                    size: 52,
+                                  ),
                                 ),
                                 const SizedBox(width: 12),
                                 Expanded(
@@ -112,9 +148,12 @@ class QuickPicksWidget extends StatelessWidget {
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium!
-                                            .copyWith(fontSize: 14),
+                                            .copyWith(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                       ),
-                                      const SizedBox(height: 2),
+                                      const SizedBox(height: 3),
                                       Text(
                                         "${content.songList[item].artist}",
                                         maxLines: 1,
@@ -122,7 +161,10 @@ class QuickPicksWidget extends StatelessWidget {
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleSmall!
-                                            .copyWith(fontSize: 12),
+                                            .copyWith(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                            ),
                                       ),
                                     ],
                                   ),
@@ -131,28 +173,7 @@ class QuickPicksWidget extends StatelessWidget {
                                   IconButton(
                                       splashRadius: 18,
                                       onPressed: () {
-                                        showModalBottomSheet(
-                                          constraints: const BoxConstraints(
-                                              maxWidth: 500),
-                                          shape: const RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.vertical(
-                                                    top: Radius.circular(
-                                                        20.0)),
-                                          ),
-                                          isScrollControlled: true,
-                                          context: playerController
-                                              .homeScaffoldkey
-                                              .currentState!
-                                              .context,
-                                          barrierColor: Colors.transparent
-                                              .withAlpha(100),
-                                          builder: (context) =>
-                                              SongInfoBottomSheet(
-                                                  content.songList[item]),
-                                        ).whenComplete(() =>
-                                            Get.delete<
-                                                SongInfoController>());
+                                        _showSongInfo(playerController, content.songList[item]);
                                       },
                                       icon: const Icon(Icons.more_vert,
                                           size: 20)),
@@ -169,5 +190,21 @@ class QuickPicksWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _showSongInfo(PlayerController playerController, dynamic song) {
+    showModalBottomSheet(
+      constraints: const BoxConstraints(maxWidth: 500),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20.0)),
+      ),
+      isScrollControlled: true,
+      context: playerController
+          .homeScaffoldkey.currentState!.context,
+      barrierColor: Colors.transparent.withAlpha(100),
+      builder: (context) => SongInfoBottomSheet(song),
+    ).whenComplete(
+        () => Get.delete<SongInfoController>());
   }
 }
