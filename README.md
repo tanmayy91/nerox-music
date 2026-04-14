@@ -1,15 +1,26 @@
 <div align="center">
 
-# ❗**This repository is no longer maintained.**
+# 🎵 Harmony Music
+
+[![Build & Release APK](https://github.com/tanmayy91/Harmony-Music/actions/workflows/build_release.yml/badge.svg)](https://github.com/tanmayy91/Harmony-Music/actions/workflows/build_release.yml)
+
+**A beautiful, modern, cross-platform music streaming app built with Flutter.**
 
 </div>
 
 <img src="https://github.com/anandnet/Harmony-Music/blob/main/cover.png" width="1200" >
 
-# Harmony Music
-A cross platform app for music streaming made with Flutter(Android, Windows, linux).
+## ⬇️ Download
 
-# Features
+| Platform | Download |
+|----------|----------|
+| **Android APK** | [📥 Latest Release](https://github.com/tanmayy91/Harmony-Music/releases/latest) |
+| **Android APK (CI Build)** | [📦 Latest Build Artifact](https://github.com/tanmayy91/Harmony-Music/actions/workflows/build_release.yml) |
+| **Windows** | [🖥️ Windows Build](https://github.com/tanmayy91/Harmony-Music/actions/workflows/win_exe.yml) |
+
+> **Tip:** Go to the latest successful workflow run → click on **harmony-music-apk** under Artifacts to download.
+
+## ✨ Features
 * Ability to play song from Ytube/Ytube Music.
 * Song cache while playing
 * Radio feature support
@@ -32,22 +43,28 @@ A cross platform app for music streaming made with Flutter(Android, Windows, lin
 * Piped playlist integration
 
 
-# Download
-* Pleass choose one source for android apk. you won't be able to update from cross build apk source.
+## ⬇️ Download APK
 
-<a href="https://github.com/anandnet/Harmony-Music/releases/latest"><img src ="https://github.com/anandnet/Harmony-Music/blob/main/don_github.png" width = "250"></a> <a href= "https://f-droid.org/packages/com.anandnet.harmonymusic"><img src = "https://github.com/anandnet/Harmony-Music/blob/main/down_fdroid.png" width = '250'></a></a> 
+Get the latest APK from our automated builds:
 
-# Translation
+| Source | Link |
+|--------|------|
+| **GitHub Releases** | [📥 Download Latest APK](https://github.com/tanmayy91/Harmony-Music/releases/latest) |
+| **CI Artifacts** | [📦 Build Artifacts](https://github.com/tanmayy91/Harmony-Music/actions/workflows/build_release.yml) |
+
+> Click on the latest successful workflow run and download **harmony-music-apk** from the Artifacts section.
+
+## 🌐 Translation
 <a href="https://hosted.weblate.org/engage/harmony-music/">
 <img src="https://hosted.weblate.org/widget/harmony-music/project-translations/multi-auto.svg" alt="Translation status" />
 </a>
 
 You can also help us in translation, click status image or <a href="https://hosted.weblate.org/projects/harmony-music/project-translations/"> here </a> to go to Weblate.
 
-# Troubleshoot
+## 🔧 Troubleshoot
 * if you are facing Notification control issue or music playback stopped by system optimization, please enable ignore battery optimization option from settings
 
-# License
+## 📄 License
 ```
 Harmony Music is a free software licensed under GPL v3.0 with following condition.
 
@@ -58,7 +75,7 @@ Harmony Music is a free software licensed under GPL v3.0 with following conditio
 ```
 
 
-# Disclaimer
+## ⚠️ Disclaimer
 ```
 This project has been created while learning & learning is the main intention.
 This project is not sponsored or affiliated with, funded, authorized, endorsed by any content provider.
@@ -73,7 +90,7 @@ other pecuniary loss) arising out of the use of inability to use this product, e
 Author of this Sotware is aware of the possibility of such damages and known defect.
 ```
 
-# Learning References & Credits
+## 🙏 Credits & References
 <a href = 'https://docs.flutter.dev/'>Flutter documentation</a> - a best guide to learn cross platform Ui/app developemnt<br/>
 <a href = 'https://suragch.medium.com/'>Suragch</a>'s Article related to Just audio & state management,architectural style<br/>
 <a href = 'https://github.com/sigma67'>sigma67</a>'s unofficial ytmusic api project<br/>
