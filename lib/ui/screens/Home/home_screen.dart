@@ -335,7 +335,7 @@ class _GreetingHeader extends StatelessWidget {
     return "greetingEvening".tr;
   }
 
-  String _emoji() {
+  String _getGreetingEmoji() {
     final hour = DateTime.now().hour;
     if (hour < 12) return "☀️";
     if (hour < 17) return "🎵";
@@ -361,7 +361,7 @@ class _GreetingHeader extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                _emoji(),
+                _getGreetingEmoji(),
                 style: const TextStyle(fontSize: 24),
               ),
             ],
