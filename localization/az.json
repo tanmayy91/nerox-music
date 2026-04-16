@@ -144,5 +144,12 @@
     "sleepTimer": "Yuxu taymeri",
     "cancelTimerAlert": "Yuxu taymeri ləğv edildi",
     "keepScreenOnWhilePlaying": "Musiqi çalarkən ekranı açıq saxla",
-    "keepScreenOnWhilePlayingDes": "Aktivdirsə, cihazın ekranı musiqi çalarkən açıq qalacaq"
+    "keepScreenOnWhilePlayingDes": "Aktivdirsə, cihazın ekranı musiqi çalarkən açıq qalacaq",
+    "signInWithGoogle": "Sign in with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as",
+    "googleSignInFailed": "Google sign-in failed. Please try again.",
+    "profile": "Profile",
+    "listenTogether": "Listen Together"
 }

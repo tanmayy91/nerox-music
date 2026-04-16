@@ -211,5 +211,12 @@
     "unLink": "Huwag ikawing",
     "allFieldsReqMsg": "Kailagan may laman ang mga field",
     "keepScreenOnWhilePlaying": "Panatilihing naka-on ang screen habang tumutugtog",
-    "keepScreenOnWhilePlayingDes": "Kung naka-enable, mananatiling naka-on ang screen ng device habang tumutugtog ang musika"
+    "keepScreenOnWhilePlayingDes": "Kung naka-enable, mananatiling naka-on ang screen ng device habang tumutugtog ang musika",
+    "signInWithGoogle": "Sign in with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as",
+    "googleSignInFailed": "Google sign-in failed. Please try again.",
+    "profile": "Profile",
+    "listenTogether": "Listen Together"
 }

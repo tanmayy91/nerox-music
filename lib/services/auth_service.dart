@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hive/hive.dart';
 
@@ -9,15 +10,12 @@ class AuthService {
   static const _keyPhotoUrl = 'photoUrl';
   static const _keyIsSignedIn = 'isSignedIn';
 
-  // Using the web client ID (type-3 OAuth client) as serverClientId lets
-  // Google Sign-In work on Android regardless of the APK signing SHA-1,
-  // because the web-client flow does not enforce certificate matching.
-  static const _webClientId =
-      '616723741130-fh1siculubkcia76jid5tj3hpfounf17.apps.googleusercontent.com';
-
+  // Standard Android sign-in — scopes only, no serverClientId needed because
+  // this app has no backend server that exchanges tokens.  The SHA-1
+  // fingerprint registered in Firebase Console must match the signing
+  // certificate of the installed APK (debug or release).
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: ['email', 'profile'],
-    serverClientId: _webClientId,
   );
 
   Box get _box => Hive.box(_boxName);
@@ -34,6 +32,9 @@ class AuthService {
   String? get photoUrl => _box.get(_keyPhotoUrl) as String?;
 
   /// Performs an interactive Google Sign-In (always shows the account picker).
+  ///
+  /// Returns `true` on success, `false` when the user dismisses the picker or
+  /// cancels, and throws a [PlatformException] for genuine sign-in errors.
   Future<bool> signIn() async {
     try {
       final account = await _googleSignIn.signIn();
@@ -41,6 +42,12 @@ class AuthService {
 
       await _persistUser(account);
       return true;
+    } on PlatformException catch (e) {
+      // sign_in_cancelled is raised on some Android versions when the user
+      // presses back; treat it as a normal cancellation, not an error.
+      if (e.code == 'sign_in_cancelled') return false;
+      debugPrint('Google Sign-In error [${e.code}]: ${e.message}');
+      rethrow;
     } catch (e) {
       debugPrint('Google Sign-In error: $e');
       rethrow;

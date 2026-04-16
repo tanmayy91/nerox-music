@@ -165,7 +165,7 @@ class Downloader extends GetxService {
               : playerResponse.statusMSG,
           size: SanckBarSize.BIG,
           duration: const Duration(seconds: 2),
-          top: true));;
+          top: true));
       complete.complete();
       return complete.future;
     }

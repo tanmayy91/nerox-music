@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:harmonymusic/services/permission_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -389,6 +390,14 @@ class SettingsScreenController extends GetxController {
                 size: SanckBarSize.MEDIUM));
       }
       // success == false means the user dismissed the picker; no error shown.
+    } on PlatformException catch (e) {
+      // Build a message that includes the error code so configuration issues
+      // are diagnosable without needing ADB logs.
+      final codeInfo = e.code.isNotEmpty ? ' (${e.code})' : '';
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+          snackbar(Get.context!, "${"googleSignInFailed".tr}$codeInfo",
+              size: SanckBarSize.MEDIUM));
+      printERROR('signInWithGoogle PlatformException [${e.code}]: ${e.message}');
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(
           snackbar(Get.context!, "googleSignInFailed".tr,

@@ -157,5 +157,12 @@
     "errorOccuredAlert": "Iu eraro okazis!",
     "resetblacklistedplaylist": "Rekomencigi nigralistigitajn ludlistojn",
     "keepScreenOnWhilePlaying": "Konservi ekrano ŝaltita dum ludado",
-    "keepScreenOnWhilePlayingDes": "Se ebligita, la ekrano de la aparato restos ŝaltita dum muziko ludas"
+    "keepScreenOnWhilePlayingDes": "Se ebligita, la ekrano de la aparato restos ŝaltita dum muziko ludas",
+    "signInWithGoogle": "Sign in with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as",
+    "googleSignInFailed": "Google sign-in failed. Please try again.",
+    "profile": "Profile",
+    "listenTogether": "Listen Together"
 }

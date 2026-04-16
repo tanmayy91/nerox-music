@@ -166,5 +166,12 @@
     "blacklistPlstResetAlert": "Återställning lyckades!",
     "goToDownloadPage": "Klicka här för att gå till nedladdningssidan",
     "keepScreenOnWhilePlaying": "Håll skärmen på under uppspelning",
-    "keepScreenOnWhilePlayingDes": "Om aktiverat förblir enhetens skärm på medan musik spelas"
+    "keepScreenOnWhilePlayingDes": "Om aktiverat förblir enhetens skärm på medan musik spelas",
+    "signInWithGoogle": "Sign in with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as",
+    "googleSignInFailed": "Google sign-in failed. Please try again.",
+    "profile": "Profile",
+    "listenTogether": "Listen Together"
 }

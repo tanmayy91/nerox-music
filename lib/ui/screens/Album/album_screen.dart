@@ -180,7 +180,7 @@ class AlbumScreen extends StatelessWidget {
                             itemBuilder: (_, index) {
                               if (index == 0) {
                                 return Padding(
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       left:
                                           10.0),
                                   child: SizedBox(
