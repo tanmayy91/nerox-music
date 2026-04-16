@@ -2,6 +2,9 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    // Apply Google Services plugin — requires android/app/google-services.json
+    // See docs/GOOGLE_SIGNIN_SETUP.md for setup instructions
+    id "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()

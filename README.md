@@ -91,6 +91,7 @@ Full documentation is available in the [`docs/`](docs/) folder and on the [websi
 
 - [Architecture Overview](docs/ARCHITECTURE.md)
 - [Build Instructions](docs/BUILD.md)
+- [Google Sign-In Setup](docs/GOOGLE_SIGNIN_SETUP.md)
 
 ---
 

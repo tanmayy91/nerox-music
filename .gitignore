@@ -60,6 +60,10 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# Google Sign-In credentials — never commit the real file
+# Copy google-services.json.template → google-services.json and fill in your values
+/android/app/google-services.json
+
 # FVM Version Cache
 .fvm/
 .fvmrc

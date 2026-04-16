@@ -38,6 +38,12 @@ flutter doctor
 flutter analyze
 ```
 
+### 4. Google Sign-In credentials (Android only)
+
+Google Sign-In requires a `google-services.json` file that is **not** committed to the repository (it contains OAuth secrets).
+
+→ Follow the **[Google Sign-In Setup guide](GOOGLE_SIGNIN_SETUP.md)** to create your credentials and place the file at `android/app/google-services.json` before building for Android.
+
 ---
 
 ## Build for Android
@@ -131,6 +137,10 @@ Every push to `main` builds a release APK and uploads it as a GitHub Actions art
 
 **Flutter pub get fails:**
 Some dependencies use custom Git forks. Ensure you have network access to GitHub.
+
+**Android build fails with `google-services.json not found`:**
+Google Sign-In requires a `google-services.json` credential file that is not committed to the repository.
+Follow the [Google Sign-In Setup guide](GOOGLE_SIGNIN_SETUP.md) to create one.
 
 **Android build fails with JDK error:**
 Ensure JDK 17 is installed and `JAVA_HOME` is set correctly.
