@@ -360,9 +360,24 @@ class SettingsScreenController extends GetxController {
   void _loadAuthState() {
     final auth = Get.find<AuthService>();
     isSignedIn.value = auth.isSignedIn;
-    userDisplayName.value = auth.displayName;
+    userDisplayName.value = auth.isSignedIn
+        ? auth.displayName
+        : (setBox.get('localDisplayName', defaultValue: '') as String);
     userEmail.value = auth.email;
     userPhotoUrl.value = auth.photoUrl;
+  }
+
+  /// Called from main.dart after AuthService is ready; restores session and
+  /// refreshes the observable state so the UI reflects the restored user.
+  Future<void> restoreAndRefreshAuthState() async {
+    final auth = Get.find<AuthService>();
+    final restored = await auth.restoreSession();
+    if (restored) {
+      isSignedIn.value = auth.isSignedIn;
+      userDisplayName.value = auth.displayName;
+      userEmail.value = auth.email;
+      userPhotoUrl.value = auth.photoUrl;
+    }
   }
 
   Future<void> signInWithGoogle() async {
@@ -384,6 +399,11 @@ class SettingsScreenController extends GetxController {
             snackbar(Get.context!, "googleSignInFailed".tr,
                 size: SanckBarSize.MEDIUM));
       }
+    } catch (e) {
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+          snackbar(Get.context!, "googleSignInFailed".tr,
+              size: SanckBarSize.MEDIUM));
+      printERROR('signInWithGoogle: $e');
     } finally {
       isSigningIn.value = false;
     }

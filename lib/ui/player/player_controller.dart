@@ -7,7 +7,6 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 import '../../models/playling_from.dart';
-import '../../services/downloader.dart';
 import '../screens/Playlist/playlist_screen_controller.dart';
 import '../widgets/snackbar.dart';
 import '/services/synced_lyrics_service.dart';
@@ -683,12 +682,6 @@ class PlayerController extends GetxController
       // ignore: empty_catches
     } catch (e) {}
     isCurrentSongFav.value = !isCurrentSongFav.value;
-    if (Get.find<SettingsScreenController>()
-            .autoDownloadFavoriteSongEnabled
-            .isTrue &&
-        isCurrentSongFav.isTrue) {
-      Get.find<Downloader>().download(currMediaItem);
-    }
   }
 
   // ignore: prefer_typing_uninitialized_variables

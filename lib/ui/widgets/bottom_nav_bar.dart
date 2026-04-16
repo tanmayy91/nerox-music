@@ -78,6 +78,13 @@ class BottomNavBar extends StatelessWidget {
                     label: modifyNgetlabel('settings'.tr),
                     isSelected: selected == 3,
                   ),
+                  _bouncyDest(
+                    context,
+                    selectedIcon: Icons.person_rounded,
+                    unselectedIcon: Icons.person_outline_rounded,
+                    label: modifyNgetlabel('profile'.tr),
+                    isSelected: selected == 4,
+                  ),
                 ],
               );
             }),

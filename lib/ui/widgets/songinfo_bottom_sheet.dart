@@ -6,7 +6,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../services/downloader.dart';
 import '../screens/Playlist/playlist_screen_controller.dart';
 import '../screens/Settings/settings_screen_controller.dart';
 import '/utils/helper.dart';
@@ -19,7 +18,6 @@ import '/ui/widgets/snackbar.dart';
 import '../../models/media_Item_builder.dart';
 import '../../models/playlist.dart';
 import '../navigator.dart';
-import 'song_download_btn.dart';
 import 'image_widget.dart';
 import 'song_info_dialog.dart';
 
@@ -58,7 +56,7 @@ class SongInfoBottomSheet extends StatelessWidget {
               ),
               subtitle: Text(song.artist!),
               trailing: SizedBox(
-                width: 110,
+                width: 60,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -88,11 +86,6 @@ class SongInfoBottomSheet extends StatelessWidget {
                                       .titleMedium!
                                       .color,
                                 ))),
-                    SongDownloadButton(
-                      song_: song,
-                      isDownloadingDoneCallback:
-                          songInfoController.setDownloadStatus,
-                    )
                   ],
                 ),
               ),
@@ -209,42 +202,6 @@ class SongInfoBottomSheet extends StatelessWidget {
                       }
                     })
                 : const SizedBox.shrink(),
-            Obx(
-              () => (songInfoController.isDownloaded.isTrue &&
-                      (playlist?.playlistId != "SongDownloads" &&
-                          playlist?.playlistId != "SongsCache"))
-                  ? ListTile(
-                      contentPadding: const EdgeInsets.only(left: 15),
-                      visualDensity: const VisualDensity(vertical: -1),
-                      leading: const Icon(Icons.delete),
-                      title: Text("deleteDownloadData".tr),
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        final box = Hive.box("SongDownloads");
-                        Get.find<LibrarySongsController>()
-                            .removeSong(song, true,
-                                url: box.get(song.id)['url'])
-                            .then((value) async {
-                          box.delete(song.id).then((value) {
-                            if (playlist != null) {
-                              Get.find<PlaylistScreenController>(
-                                      tag: Key(playlist!.playlistId)
-                                          .hashCode
-                                          .toString())
-                                  .checkDownloadStatus();
-                            }
-                            if (context.mounted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  snackbar(
-                                      context, "deleteDownloadedDataAlert".tr,
-                                      size: SanckBarSize.BIG));
-                            }
-                          });
-                        });
-                      },
-                    )
-                  : const SizedBox.shrink(),
-            ),
             ListTile(
               leading: const Icon(Icons.open_with),
               title: Text("openIn".tr),
@@ -388,12 +345,6 @@ class SongInfoController extends GetxController
         ? box.put(song.id, MediaItemBuilder.toJson(song))
         : box.delete(song.id);
     isCurrentSongFav.value = !isCurrentSongFav.value;
-    if (Get.find<SettingsScreenController>()
-            .autoDownloadFavoriteSongEnabled
-            .isTrue &&
-        isCurrentSongFav.isTrue) {
-      Get.find<Downloader>().download(song);
-    }
   }
 }
 

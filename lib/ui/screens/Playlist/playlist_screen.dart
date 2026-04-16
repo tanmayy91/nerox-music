@@ -8,7 +8,6 @@ import 'package:widget_marquee/widget_marquee.dart';
 import '/models/playling_from.dart';
 import '/models/thumbnail.dart';
 import '/ui/widgets/playlist_album_scroll_behaviour.dart';
-import '../../../services/downloader.dart';
 import '../../navigator.dart';
 import '../../player/player_controller.dart';
 import '../../widgets/create_playlist_dialog.dart';
@@ -327,38 +326,6 @@ class PlaylistScreen extends StatelessWidget {
                                                 });
                                               },
                                             ),
-                                            // Download
-                                            GetX<Downloader>(builder: (dlCtrl) {
-                                              final id = playlistController.playlist.value.playlistId;
-                                              final isDone = playlistController.isDownloaded.isTrue;
-                                              final isActive = dlCtrl.playlistQueue.containsKey(id) &&
-                                                  dlCtrl.currentPlaylistId.toString() == id;
-                                              final isQueued = dlCtrl.playlistQueue.containsKey(id);
-                                              return _PlaylistIconChip(
-                                                tooltip: "downloadPlaylist".tr,
-                                                icon: isDone ? Icons.download_done_rounded : Icons.download_rounded,
-                                                onTap: isDone
-                                                    ? null
-                                                    : () => dlCtrl.downloadPlaylist(
-                                                        id, playlistController.songList.toList()),
-                                                child: isActive
-                                                    ? Stack(alignment: Alignment.center, children: [
-                                                        Text(
-                                                            "${dlCtrl.playlistDownloadingProgress.value}/${playlistController.songList.length}",
-                                                            style: Theme.of(context)
-                                                                .textTheme
-                                                                .titleMedium!
-                                                                .copyWith(fontSize: 9, fontWeight: FontWeight.bold)),
-                                                        const LoadingIndicator(dimension: 22),
-                                                      ])
-                                                    : isQueued
-                                                        ? const Stack(alignment: Alignment.center, children: [
-                                                            Icon(Icons.hourglass_bottom_rounded, size: 16),
-                                                            LoadingIndicator(dimension: 22),
-                                                          ])
-                                                        : null,
-                                              );
-                                            }),
                                             // Cloud Sync
                                             if (playlistController.isAddedToLibrary.isTrue)
                                               _PlaylistIconChip(

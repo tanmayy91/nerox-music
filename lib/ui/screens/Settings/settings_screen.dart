@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../widgets/common_dialog_widget.dart';
 import '../../widgets/cust_switch.dart';
-import '../../widgets/export_file_dialog.dart';
 import '../../widgets/backup_dialog.dart';
 import '../../widgets/restore_dialog.dart';
 import '../Library/library_controller.dart';
@@ -611,99 +610,6 @@ class SettingsScreen extends StatelessWidget {
                           ),
                         )
                       : const SizedBox.shrink(),
-                ],
-              ),
-              CustomExpansionTile(
-                title: "download".tr,
-                icon: Icons.download,
-                children: [
-                  ListTile(
-                    contentPadding: const EdgeInsets.only(left: 5, right: 10),
-                    title: Text("autoDownFavSong".tr),
-                    subtitle: Text("autoDownFavSongDes".tr,
-                        style: Theme.of(context).textTheme.bodyMedium),
-                    trailing: Obx(
-                      () => CustSwitch(
-                          value: settingsController
-                              .autoDownloadFavoriteSongEnabled.value,
-                          onChanged: settingsController
-                              .toggleAutoDownloadFavoriteSong),
-                    ),
-                  ),
-                  ListTile(
-                    contentPadding: const EdgeInsets.only(left: 5, right: 10),
-                    title: Text("downloadingFormat".tr),
-                    subtitle: Text("downloadingFormatDes".tr,
-                        style: Theme.of(context).textTheme.bodyMedium),
-                    trailing: Obx(
-                      () => DropdownButton(
-                        dropdownColor: Theme.of(context).cardColor,
-                        underline: const SizedBox.shrink(),
-                        value: settingsController.downloadingFormat.value,
-                        items: const [
-                          DropdownMenuItem(
-                              value: "opus", child: Text("Opus/Ogg")),
-                          DropdownMenuItem(
-                            value: "m4a",
-                            child: Text("M4a"),
-                          ),
-                        ],
-                        onChanged: settingsController.changeDownloadingFormat,
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    trailing: TextButton(
-                      child: Text(
-                        "reset".tr,
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium!
-                            .copyWith(fontSize: 15),
-                      ),
-                      onPressed: () {
-                        settingsController.resetDownloadLocation();
-                      },
-                    ),
-                    contentPadding:
-                        const EdgeInsets.only(left: 5, right: 10, top: 0),
-                    title: Text("downloadLocation".tr),
-                    subtitle: Obx(() => Text(
-                        settingsController.isCurrentPathsupportDownDir
-                            ? "In App storage directory"
-                            : settingsController.downloadLocationPath.value,
-                        style: Theme.of(context).textTheme.bodyMedium)),
-                    onTap: () async {
-                      settingsController.setDownloadLocation();
-                    },
-                  ),
-                  if (GetPlatform.isAndroid)
-                    ListTile(
-                      contentPadding: const EdgeInsets.only(left: 5, right: 10),
-                      title: Text("exportDowloadedFiles".tr),
-                      subtitle: Text(
-                        "exportDowloadedFilesDes".tr,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      isThreeLine: true,
-                      onTap: () => showDialog(
-                        context: context,
-                        builder: (context) => const ExportFileDialog(),
-                      ).whenComplete(
-                          () => Get.delete<ExportFileDialogController>()),
-                    ),
-                  if (GetPlatform.isAndroid)
-                    ListTile(
-                      contentPadding:
-                          const EdgeInsets.only(left: 5, right: 10, top: 0),
-                      title: Text("exportedFileLocation".tr),
-                      subtitle: Obx(() => Text(
-                          settingsController.exportLocationPath.value,
-                          style: Theme.of(context).textTheme.bodyMedium)),
-                      onTap: () async {
-                        settingsController.setExportedLocation();
-                      },
-                    ),
                 ],
               ),
               CustomExpansionTile(

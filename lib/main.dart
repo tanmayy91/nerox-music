@@ -85,7 +85,6 @@ class MyApp extends StatelessWidget {
 
 Future<void> startApplicationServices() async {
   Get.put<AuthService>(AuthService(), permanent: true);
-  Get.find<AuthService>().restoreSession();
   Get.lazyPut(() => PipedServices(), fenix: true);
   Get.lazyPut(() => MusicServices(), fenix: true);
   Get.lazyPut(() => ThemeController(), fenix: true);
@@ -101,6 +100,11 @@ Future<void> startApplicationServices() async {
     Get.lazyPut(() => SearchScreenController(), fenix: true);
     Get.put(DesktopSystemTray());
   }
+  // Restore previous Google session in the background and refresh UI state
+  // after the controller is initialised (fenix controllers are created lazily).
+  Future.microtask(() async {
+    await Get.find<SettingsScreenController>().restoreAndRefreshAuthState();
+  });
 }
 
 Future<void> initHive() async {

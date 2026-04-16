@@ -10,7 +10,6 @@ import '/ui/widgets/song_info_dialog.dart';
 import '/ui/player/player_controller.dart';
 import '../../widgets/add_to_playlist.dart';
 import '../../widgets/sleep_timer_bottom_sheet.dart';
-import '../../widgets/song_download_btn.dart';
 import '../../widgets/image_widget.dart';
 import '../../widgets/mini_player_progress_bar.dart';
 import 'animated_play_button.dart';
@@ -445,12 +444,6 @@ class MiniPlayer extends StatelessWidget {
                                                   : Icons.timer_outlined),
                                             ),
                                           ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        const SongDownloadButton(
-                                          calledFromPlayer: true,
-                                        ),
                                         const SizedBox(
                                           width: 10,
                                         ),
