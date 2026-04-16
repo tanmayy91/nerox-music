@@ -62,7 +62,7 @@ class ListenTogetherService extends GetxService {
         callback: (payload) => _handleChat(payload),
       )
       // Track presence for member count.
-      ..onPresenceSync(callback: (_) {
+      ..onPresenceSync((_) {
         membersOnline.value = _channel!.presenceState().length;
       })
       ..subscribe((status, error) async {
@@ -109,7 +109,7 @@ class ListenTogetherService extends GetxService {
           onHostEnded?.call();
         },
       )
-      ..onPresenceSync(callback: (_) {
+      ..onPresenceSync((_) {
         membersOnline.value = _channel!.presenceState().length;
       })
       ..subscribe((status, error) async {

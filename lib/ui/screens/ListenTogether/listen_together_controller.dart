@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:audio_service/audio_service.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '/services/audio_handler.dart';
 import '/services/listen_together_service.dart';
 import '/ui/player/player_controller.dart';
 import '/ui/widgets/snackbar.dart';
