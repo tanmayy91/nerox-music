@@ -394,11 +394,8 @@ class SettingsScreenController extends GetxController {
         ScaffoldMessenger.of(Get.context!).showSnackBar(
             snackbar(Get.context!, "${"signedInAs".tr} ${auth.displayName}",
                 size: SanckBarSize.MEDIUM));
-      } else {
-        ScaffoldMessenger.of(Get.context!).showSnackBar(
-            snackbar(Get.context!, "googleSignInFailed".tr,
-                size: SanckBarSize.MEDIUM));
       }
+      // success == false means the user dismissed the picker; no error shown.
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(
           snackbar(Get.context!, "googleSignInFailed".tr,

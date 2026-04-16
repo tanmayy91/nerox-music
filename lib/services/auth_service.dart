@@ -33,27 +33,16 @@ class AuthService {
 
   String? get photoUrl => _box.get(_keyPhotoUrl) as String?;
 
-  /// Attempts a silent sign-in first; falls back to interactive sign-in.
+  /// Performs an interactive Google Sign-In (always shows the account picker).
   Future<bool> signIn() async {
     try {
-      GoogleSignInAccount? account;
-
-      // v6 signInSilently() can throw instead of returning null on Android.
-      try {
-        account = await _googleSignIn.signInSilently();
-      } catch (e) {
-        debugPrint('Google silent sign-in skipped: $e');
-      }
-
-      // Fall back to interactive sign-in.
-      account ??= await _googleSignIn.signIn();
-      if (account == null) return false;
+      final account = await _googleSignIn.signIn();
+      if (account == null) return false; // user dismissed the picker
 
       await _persistUser(account);
       return true;
     } catch (e) {
       debugPrint('Google Sign-In error: $e');
-      // Re-throw so the controller can surface the real reason.
       rethrow;
     }
   }
@@ -61,7 +50,6 @@ class AuthService {
   Future<void> signOut() async {
     try {
       await _googleSignIn.signOut();
-      await _googleSignIn.disconnect();
     } catch (e) {
       debugPrint('Google Sign-Out error: $e');
     } finally {
