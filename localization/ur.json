@@ -10,5 +10,12 @@
     "library": "لائبریری",
     "libSongs": "لائبریری کے گانے",
     "keepScreenOnWhilePlaying": "پلے ہوتے وقت اسکرین کو روشن رکھیں",
-    "keepScreenOnWhilePlayingDes": "اگر فعال ہو تو، جب موسیقی چل رہی ہوگی تو ڈیوائس کی اسکرین روشن رہے گی"
+    "keepScreenOnWhilePlayingDes": "اگر فعال ہو تو، جب موسیقی چل رہی ہوگی تو ڈیوائس کی اسکرین روشن رہے گی",
+    "signInWithGoogle": "Sign in with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as",
+    "googleSignInFailed": "Google sign-in failed. Please try again.",
+    "profile": "Profile",
+    "listenTogether": "Listen Together"
 }

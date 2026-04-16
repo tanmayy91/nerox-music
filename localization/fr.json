@@ -277,5 +277,12 @@
     "exportToYouTubeMusicSubtitle": "Cela poussera votre playlist (titres < 50) vers la file d'attente actuelle. N'oubliez pas de l'ajouter à la playlist/de l'enregistrer après l'ouverture dans YouTube Music",
     "linkCopied": "Lien copié dans le presse-papiers",
     "keepScreenOnWhilePlaying": "Garder l'écran allumé pendant la lecture",
-    "keepScreenOnWhilePlayingDes": "S'il est activé, l'écran restera allumé pendant la lecture de la musique"
+    "keepScreenOnWhilePlayingDes": "S'il est activé, l'écran restera allumé pendant la lecture de la musique",
+    "signInWithGoogle": "Sign in with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as",
+    "googleSignInFailed": "Google sign-in failed. Please try again.",
+    "profile": "Profile",
+    "listenTogether": "Listen Together"
 }

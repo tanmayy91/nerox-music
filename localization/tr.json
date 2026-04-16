@@ -275,5 +275,12 @@
     "exportPlaylistCsvSubtitle": "Buraya aktarılamaz",
     "exportToYouTubeMusicSubtitle": "Çalma listenizdeki 50 şarkıdan kısa olanları mevcut kuyruğa ekleyecek, YtMusic'te açtıktan sonra çalma listesine eklemeyi/kaydetmeyi unutmayın",
     "keepScreenOnWhilePlaying": "Müzik çalarken ekranı açık tut",
-    "keepScreenOnWhilePlayingDes": "Etkinleştirildiğinde, müzik çalarken cihazın ekranı açık kalır"
+    "keepScreenOnWhilePlayingDes": "Etkinleştirildiğinde, müzik çalarken cihazın ekranı açık kalır",
+    "signInWithGoogle": "Sign in with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as",
+    "googleSignInFailed": "Google sign-in failed. Please try again.",
+    "profile": "Profile",
+    "listenTogether": "Listen Together"
 }

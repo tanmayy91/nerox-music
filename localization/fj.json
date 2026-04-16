@@ -1,4 +1,11 @@
 {
     "keepScreenOnWhilePlaying": "Taura na mata ni bula tiko ni qito",
-    "keepScreenOnWhilePlayingDes": "Kevaka e vakayagataki, na mata ni iyaya ena bula tiko ni qito na sere"
+    "keepScreenOnWhilePlayingDes": "Kevaka e vakayagataki, na mata ni iyaya ena bula tiko ni qito na sere",
+    "signInWithGoogle": "Sign in with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as",
+    "googleSignInFailed": "Google sign-in failed. Please try again.",
+    "profile": "Profile",
+    "listenTogether": "Listen Together"
 }

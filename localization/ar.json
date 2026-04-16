@@ -239,5 +239,12 @@
     "playingfromPlaylist": "التشغيل من قائمة التشغيل",
     "playingfromSelection": "اللعب من المختارة",
     "keepScreenOnWhilePlaying": "ابقِ الشاشة مضاءة أثناء التشغيل",
-    "keepScreenOnWhilePlayingDes": "إذا تم التفعيل، ستبقى شاشة الجهاز مضاءة أثناء تشغيل الموسيقى"
+    "keepScreenOnWhilePlayingDes": "إذا تم التفعيل، ستبقى شاشة الجهاز مضاءة أثناء تشغيل الموسيقى",
+    "signInWithGoogle": "Sign in with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as",
+    "googleSignInFailed": "Google sign-in failed. Please try again.",
+    "profile": "Profile",
+    "listenTogether": "Listen Together"
 }

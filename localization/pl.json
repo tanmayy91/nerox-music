@@ -270,5 +270,12 @@
     "playlistExportedMsg": "Lista odtwarzania została pomyślnie wyeksportowana do",
     "importError": "Błąd podczas importowania listy odtwarzania",
     "keepScreenOnWhilePlaying": "Utrzymuj ekran włączony podczas odtwarzania",
-    "keepScreenOnWhilePlayingDes": "Jeśli włączone, ekran urządzenia pozostanie włączony podczas odtwarzania muzyki"
+    "keepScreenOnWhilePlayingDes": "Jeśli włączone, ekran urządzenia pozostanie włączony podczas odtwarzania muzyki",
+    "signInWithGoogle": "Sign in with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as",
+    "googleSignInFailed": "Google sign-in failed. Please try again.",
+    "profile": "Profile",
+    "listenTogether": "Listen Together"
 }

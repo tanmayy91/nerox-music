@@ -274,5 +274,12 @@
     "exportToYouTubeMusicSubtitle": "再生リスト (曲数50未満) を現在のキューに追加する。YtMusicで開いたら、再生リストへの追加/保存を忘れないよう",
     "linkCopied": "リンクをクリップボードにコピー",
     "keepScreenOnWhilePlaying": "再生中は画面を点灯したままにする",
-    "keepScreenOnWhilePlayingDes": "有効にすると、音楽再生中はデバイスの画面が点灯したままになります"
+    "keepScreenOnWhilePlayingDes": "有効にすると、音楽再生中はデバイスの画面が点灯したままになります",
+    "signInWithGoogle": "Sign in with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as",
+    "googleSignInFailed": "Google sign-in failed. Please try again.",
+    "profile": "Profile",
+    "listenTogether": "Listen Together"
 }
