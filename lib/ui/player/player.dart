@@ -36,19 +36,13 @@ class Player extends StatelessWidget {
               ? 65 + Get.mediaQuery.padding.bottom
               : 0,
           maxHeight: size.height,
-          isDraggable: !GetPlatform.isDesktop,
-          controller: GetPlatform.isDesktop
-              ? null
-              : playerController.queuePanelController,
+          isDraggable: true,
+          controller: playerController.queuePanelController,
 
           /// Collapsed header — swipe up indicator for lyrics
           collapsed: InkWell(
             onTap: () {
-              if (GetPlatform.isDesktop) {
-                playerController.homeScaffoldkey.currentState!.openEndDrawer();
-              } else {
-                playerController.queuePanelController.open();
-              }
+              playerController.queuePanelController.open();
             },
             child: Container(
                 color: Theme.of(context).primaryColor,
@@ -187,12 +181,7 @@ class _LyricsPanel extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           playerController.queuePanelController.close();
-                          if (GetPlatform.isDesktop) {
-                            playerController.homeScaffoldkey.currentState!
-                                .openEndDrawer();
-                          } else {
-                            _showQueueBottomSheet(context);
-                          }
+                          _showQueueBottomSheet(context);
                         },
                         icon: Icon(
                           Icons.queue_music_rounded,

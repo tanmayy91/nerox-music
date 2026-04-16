@@ -92,7 +92,7 @@ class ContentListWidget extends StatelessWidget {
         SizedBox(
           height: 220,
           child: Scrollbar(
-            thickness: GetPlatform.isDesktop ? null : 0,
+            thickness: 0,
             controller: scrollController,
             child: ListView.separated(
                 controller: scrollController,

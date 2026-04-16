@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../Search/components/desktop_search_bar.dart';
 import '/ui/screens/Search/search_screen_controller.dart';
 import '/ui/widgets/animated_screen_transition.dart';
 import '../Library/library_combined.dart';
@@ -31,8 +30,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
         floatingActionButton: Obx(
-          () => ((homeScreenController.tabIndex.value == 0 &&
-                          !GetPlatform.isDesktop) ||
+          () => (homeScreenController.tabIndex.value == 0 ||
                       homeScreenController.tabIndex.value == 2) &&
                   settingsScreenController.isBottomNavBarEnabled.isFalse
               ? Obx(
@@ -113,13 +111,11 @@ class Body extends StatelessWidget {
     final homeScreenController = Get.find<HomeScreenController>();
     final settingsScreenController = Get.find<SettingsScreenController>();
     final size = MediaQuery.of(context).size;
-    final topPadding = GetPlatform.isDesktop
-        ? 85.0
-        : context.isLandscape
-            ? 50.0
-            : size.height < 750
-                ? 80.0
-                : 85.0;
+    final topPadding = context.isLandscape
+        ? 50.0
+        : size.height < 750
+            ? 80.0
+            : 85.0;
     final leftPadding =
         settingsScreenController.isBottomNavBarEnabled.isTrue ? 20.0 : 5.0;
     if (homeScreenController.tabIndex.value == 0) {
@@ -128,15 +124,7 @@ class Body extends StatelessWidget {
         child: Stack(
           children: [
             GestureDetector(
-              onTap: () {
-                // for Desktop search bar
-                if (GetPlatform.isDesktop) {
-                  final sscontroller = Get.find<SearchScreenController>();
-                  if (sscontroller.focusNode.hasFocus) {
-                    sscontroller.focusNode.unfocus();
-                  }
-                }
-              },
+              onTap: () {},
               child: Obx(
                 () => homeScreenController.networkError.isTrue
                     ? SizedBox(
@@ -268,20 +256,6 @@ class Body extends StatelessWidget {
                       }),
               ),
             ),
-            if (GetPlatform.isDesktop)
-              Align(
-                alignment: Alignment.topCenter,
-                child: LayoutBuilder(builder: (context, constraints) {
-                  return SizedBox(
-                    width: constraints.maxWidth > 800
-                        ? 800
-                        : constraints.maxWidth - 40,
-                    child: const Padding(
-                        padding: EdgeInsets.only(top: 15.0),
-                        child: DesktopSearchBar()),
-                  );
-                }),
-              )
           ],
         ),
       );

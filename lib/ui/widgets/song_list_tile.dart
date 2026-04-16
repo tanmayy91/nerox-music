@@ -233,12 +233,6 @@ class _SongListTileState extends State<SongListTile>
                                         .titleMedium!
                                         .color!)
                                 : const SizedBox.shrink()),
-                      if (GetPlatform.isDesktop)
-                        IconButton(
-                            splashRadius: 20,
-                            onPressed: () =>
-                                _showSongInfo(context, playerController),
-                            icon: const Icon(Icons.more_vert_rounded))
                     ],
                   ),
                 ),

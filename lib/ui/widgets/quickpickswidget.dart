@@ -97,7 +97,7 @@ class QuickPicksWidget extends StatelessWidget {
           const SizedBox(height: 16),
           Expanded(
             child: Scrollbar(
-              thickness: GetPlatform.isDesktop ? null : 0,
+              thickness: 0,
               controller: scrollController,
               child: GridView.builder(
                   controller: scrollController,
@@ -181,14 +181,6 @@ class QuickPicksWidget extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                if (GetPlatform.isDesktop)
-                                  IconButton(
-                                      splashRadius: 18,
-                                      onPressed: () {
-                                        _showSongInfo(playerController, content.songList[item]);
-                                      },
-                                      icon: const Icon(Icons.more_vert,
-                                          size: 20)),
                               ],
                             ),
                           ),
