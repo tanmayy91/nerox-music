@@ -717,9 +717,9 @@ class _SongProgressCard extends StatelessWidget {
                         width: 52,
                         height: 52,
                         fit: BoxFit.cover,
-                        errorWidget: (_, __, ___) => _FallbackThumb(size: 52),
+                        errorWidget: (_, __, ___) => const _FallbackThumb(size: 52),
                       )
-                    : _FallbackThumb(size: 52),
+                    : const _FallbackThumb(size: 52),
               ),
               const SizedBox(width: 12),
               Expanded(
