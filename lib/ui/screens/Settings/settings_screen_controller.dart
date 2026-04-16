@@ -86,7 +86,6 @@ class SettingsScreenController extends GetxController {
   }
 
   Future<void> _setInitValue() async {
-    final isDesktop = GetPlatform.isDesktop;
     final appLang = setBox.get('currentAppLanguageCode') ?? "en";
     currentAppLanguageCode.value = appLang == "zh_Hant"
         ? "zh-TW"
@@ -94,33 +93,27 @@ class SettingsScreenController extends GetxController {
             ? "zh-CN"
             : appLang;
     isBottomNavBarEnabled.value =
-        isDesktop ? false : (setBox.get("isBottomNavBarEnabled") ?? true);
+        setBox.get("isBottomNavBarEnabled") ?? true;
     noOfHomeScreenContent.value = setBox.get("noOfHomeScreenContent") ?? 3;
     isTransitionAnimationDisabled.value =
         setBox.get("isTransitionAnimationDisabled") ?? false;
     cacheSongs.value = setBox.get('cacheSongs') ?? false;
     themeModetype.value = ThemeType.values[setBox.get('themeModeType') ?? 0];
-    skipSilenceEnabled.value =
-        isDesktop ? false : setBox.get("skipSilenceEnabled");
-    loudnessNormalizationEnabled.value = isDesktop
-        ? false
-        : (setBox.get("loudnessNormalizationEnabled") ?? false);
+    skipSilenceEnabled.value = setBox.get("skipSilenceEnabled");
+    loudnessNormalizationEnabled.value =
+        setBox.get("loudnessNormalizationEnabled") ?? false;
     autoOpenPlayer.value = (setBox.get("autoOpenPlayer") ?? true);
     restorePlaybackSession.value =
         setBox.get("restrorePlaybackSession") ?? false;
     cacheHomeScreenData.value = setBox.get("cacheHomeScreenData") ?? true;
     streamingQuality.value =
         AudioQuality.values[setBox.get('streamingQuality')];
-    playerUi.value = isDesktop ? 0 : (setBox.get('playerUi') ?? 0);
+    playerUi.value = setBox.get('playerUi') ?? 0;
     backgroundPlayEnabled.value = setBox.get("backgroundPlayEnabled") ?? true;
-    keepScreenAwake.value =
-        setBox.get("keepScreenAwake") ?? GetPlatform.isDesktop ? true : false;
+    keepScreenAwake.value = setBox.get("keepScreenAwake") ?? false;
     final downloadPath =
         setBox.get('downloadLocationPath') ?? await _createInAppSongDownDir();
-    downloadLocationPath.value =
-        (isDesktop && downloadPath.contains("emulated"))
-            ? await _createInAppSongDownDir()
-            : downloadPath;
+    downloadLocationPath.value = downloadPath;
 
     exportLocationPath.value =
         setBox.get("exportLocationPath") ?? "/storage/emulated/0/Music";
@@ -394,11 +387,8 @@ class SettingsScreenController extends GetxController {
         ScaffoldMessenger.of(Get.context!).showSnackBar(
             snackbar(Get.context!, "${"signedInAs".tr} ${auth.displayName}",
                 size: SanckBarSize.MEDIUM));
-      } else {
-        ScaffoldMessenger.of(Get.context!).showSnackBar(
-            snackbar(Get.context!, "googleSignInFailed".tr,
-                size: SanckBarSize.MEDIUM));
       }
+      // success == false means the user dismissed the picker; no error shown.
     } catch (e) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(
           snackbar(Get.context!, "googleSignInFailed".tr,
@@ -425,10 +415,6 @@ class SettingsScreenController extends GetxController {
   }
 
   Future<String> get dbDir async {
-    if (GetPlatform.isDesktop) {
-      return "$supportDirPath/db";
-    } else {
-      return (await getApplicationDocumentsDirectory()).path;
-    }
+    return (await getApplicationDocumentsDirectory()).path;
   }
 }

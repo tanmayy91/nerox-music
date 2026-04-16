@@ -86,8 +86,7 @@ class BackupDialog extends StatelessWidget {
                   )),
                 ),
               ),
-              if (!GetPlatform.isDesktop)
-                Obx(() => Padding(
+              Obx(() => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -288,7 +287,7 @@ Future<void> compressFilesInBackground(
   // Convert file paths to file data
   final List<List<int>> filesData = filePathsToFileData(filePaths);
   final List<String> fileNames = filePaths
-      .map((path) => path.split(GetPlatform.isWindows ? '\\' : '/').last)
+      .map((path) => path.split('/').last)
       .toList();
 
   printINFO(fileNames);

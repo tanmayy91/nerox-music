@@ -142,8 +142,8 @@ class RestoreDialogController extends GetxController {
     final FilePickerResult? pickedFileResult = await FilePicker.platform
         .pickFiles(
             dialogTitle: "Select backup file",
-            type: GetPlatform.isWindows ? FileType.custom : FileType.any,
-            allowedExtensions: GetPlatform.isWindows ? ['hmb'] : null,
+            type: FileType.any,
+            allowedExtensions: null,
             allowMultiple: false);
 
     final String? pickedFile = pickedFileResult?.files.first.path;
@@ -196,23 +196,6 @@ class RestoreDialogController extends GetxController {
     final tempFilePickerDir = Directory(tempFilePickerDirPath);
     if (tempFilePickerDir.existsSync()) {
       await tempFilePickerDir.delete(recursive: true);
-    }
-
-    // change file download path to support dir path in songs if system is windows or linux
-    if (GetPlatform.isWindows || GetPlatform.isLinux) {
-      // open the restored box
-      final newSongBox = await Hive.openBox("SongDownloads");
-      final downloadedSongs = newSongBox.values.toList();
-      for(final song in downloadedSongs) {
-        final songPath = song["url"];
-        if (songPath != null && songPath is String) {
-          final fileName = songPath.split("/").last;
-          final newFilePath = "$supportDirPath/Music/$fileName";
-          song["url"] = newFilePath;
-          song['streamInfo'][1]['url'] = newFilePath;
-          await newSongBox.put(song["videoId"], song);
-        }
-      }
     }
 
     restoreRunning.value = false;

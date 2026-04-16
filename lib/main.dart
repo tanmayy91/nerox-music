@@ -20,7 +20,6 @@ import 'ui/screens/Settings/settings_screen_controller.dart';
 import '/ui/utils/theme_controller.dart';
 import 'ui/screens/Home/home_screen_controller.dart';
 import 'ui/screens/Library/library_controller.dart';
-import 'utils/system_tray.dart';
 import 'utils/update_check_flag_file.dart';
 
 Future<void> main() async {
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    if (!GetPlatform.isDesktop) Get.put(AppLinksController());
+    Get.put(AppLinksController());
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     return GetMaterialApp(
         title: 'Nerox Music',
@@ -96,10 +95,7 @@ Future<void> startApplicationServices() async {
   Get.lazyPut(() => LibraryArtistsController(), fenix: true);
   Get.lazyPut(() => SettingsScreenController(), fenix: true);
   Get.lazyPut(() => Downloader(), fenix: true);
-  if (GetPlatform.isDesktop) {
-    Get.lazyPut(() => SearchScreenController(), fenix: true);
-    Get.put(DesktopSystemTray());
-  }
+  Get.lazyPut(() => SearchScreenController(), fenix: true);
   // Restore previous Google session in the background and refresh UI state
   // after the controller is initialised (fenix controllers are created lazily).
   Future.microtask(() async {
@@ -109,13 +105,8 @@ Future<void> startApplicationServices() async {
 
 Future<void> initHive() async {
   String applicationDataDirectoryPath;
-  if (GetPlatform.isDesktop) {
-    applicationDataDirectoryPath =
-        "${(await getApplicationSupportDirectory()).path}/db";
-  } else {
-    applicationDataDirectoryPath =
-        (await getApplicationDocumentsDirectory()).path;
-  }
+  applicationDataDirectoryPath =
+      (await getApplicationDocumentsDirectory()).path;
   await Hive.initFlutter(applicationDataDirectoryPath);
   await Hive.openBox("SongsCache");
   await Hive.openBox("SongDownloads");

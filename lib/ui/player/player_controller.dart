@@ -12,7 +12,6 @@ import '../widgets/snackbar.dart';
 import '/services/synced_lyrics_service.dart';
 import '/ui/screens/Settings/settings_screen_controller.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
-import '../../services/windows_audio_service.dart';
 import '../../utils/helper.dart';
 import '/models/media_Item_builder.dart';
 import '../screens/Home/home_screen_controller.dart';
@@ -90,9 +89,6 @@ class PlayerController extends GetxController
 
   @override
   void onReady() {
-    if (GetPlatform.isWindows) {
-      Get.put(WindowsAudioService());
-    }
     _restorePrevSession();
     super.onReady();
   }
@@ -111,10 +107,6 @@ class PlayerController extends GetxController
     isShuffleModeEnabled.value = appPrefs.get("isShuffleModeEnabled") ?? false;
     isQueueLoopModeEnabled.value =
         appPrefs.get("queueLoopModeEnabled") ?? false;
-
-    if (GetPlatform.isDesktop) {
-      setVolume(appPrefs.get("volume") ?? 100);
-    }
 
     if ((appPrefs.get("playerUi") ?? 0) == 1) {
       initGesturePlayerStateAnimationController();
@@ -836,9 +828,6 @@ class PlayerController extends GetxController
     scrollController.dispose();
     gesturePlayerStateAnimationController?.dispose();
     sleepTimer?.cancel();
-    if (GetPlatform.isWindows) {
-      Get.delete<WindowsAudioService>();
-    }
     // ensure wakelock disabled when player controller disposed
     try {
       _setWakelock(false);

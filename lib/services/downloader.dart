@@ -156,16 +156,6 @@ class Downloader extends GetxService {
     final downloadingFormat = settingsScreenController.downloadingFormat.string;
 
     final playerResponse = await StreamProvider.fetch(song.id);
-    // if (!playerResponse.playable) {
-    //   printINFO("Network error! Check your network connection.");
-    //   ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
-    //       Get.context!, playerResponse.statusMSG,
-    //       size: SanckBarSize.BIG,
-    //       duration: const Duration(seconds: 2),
-    //       top: !GetPlatform.isDesktop));
-    //   complete.complete();
-    //   return complete.future;
-    // }
 
     if (!playerResponse.playable) {
       ScaffoldMessenger.of(Get.context!).showSnackBar(snackbar(
@@ -175,8 +165,7 @@ class Downloader extends GetxService {
               : playerResponse.statusMSG,
           size: SanckBarSize.BIG,
           duration: const Duration(seconds: 2),
-          top: !GetPlatform.isDesktop));
-      printINFO("Requested song is not downloadable. You may try again");
+          top: true));;
       complete.complete();
       return complete.future;
     }
@@ -280,7 +269,7 @@ class Downloader extends GetxService {
               Get.context!, "downloadError3".tr,
               size: SanckBarSize.BIG,
               duration: const Duration(seconds: 2),
-              top: !GetPlatform.isDesktop));
+              top: true));
         }
         printERROR(
             "Downloading failed due to network/stream error! Please try again");

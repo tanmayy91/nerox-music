@@ -15,5 +15,5 @@ class Thumbnail {
   String get medium => sizewith(250); //350
   String get low => sizewith(150);
   String get extraHigh =>
-      GetPlatform.isDesktop ? sizewith(1000) : sizewith(600); //150
+      sizewith(600); //150
 }

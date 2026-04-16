@@ -76,7 +76,7 @@ class Home extends StatelessWidget {
                       child: const BottomNavBar())
                   : null,
               key: playerController.homeScaffoldkey,
-              endDrawer: GetPlatform.isDesktop || isWideScreen
+              endDrawer: isWideScreen
                   ? Container(
                       constraints: const BoxConstraints(maxWidth: 600),
                       decoration: BoxDecoration(

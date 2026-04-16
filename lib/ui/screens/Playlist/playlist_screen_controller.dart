@@ -563,16 +563,6 @@ class PlaylistScreenController extends PlaylistAlbumScreenControllerBase
       if (Platform.isAndroid) {
         // Android: use Downloads folder
         directory = Directory('/storage/emulated/0/Download/$appFolderName');
-      } else if (Platform.isIOS) {
-        // iOS: use Documents directory
-        final docDir = await path_provider.getApplicationDocumentsDirectory();
-        directory = Directory('${docDir.path}/$appFolderName');
-      } else if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-        // Desktop platforms: use Downloads folder in user's home directory
-        final homeDir = Platform.environment['HOME'] ??
-            Platform.environment['USERPROFILE'] ??
-            '.';
-        directory = Directory('$homeDir/Downloads/$appFolderName');
       } else {
         // Fallback: use temporary directory
         final tempDir = await path_provider.getTemporaryDirectory();
@@ -599,10 +589,6 @@ class PlaylistScreenController extends PlaylistAlbumScreenControllerBase
   // Helper method to get a user-friendly location message
   String _getLocationMessage(String path) {
     if (Platform.isAndroid) {
-      return "Downloads/NeroxMusic";
-    } else if (Platform.isIOS) {
-      return "Files App > NeroxMusic";
-    } else if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
       return "Downloads/NeroxMusic";
     } else {
       return path.split('/').last;

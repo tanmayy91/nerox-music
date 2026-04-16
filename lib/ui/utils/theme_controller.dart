@@ -544,18 +544,7 @@ class ThemeController extends GetxController {
   }
 
   Future<void> setWindowsTitleBarColor(Color color) async {
-    if (!GetPlatform.isWindows) return;
-    try {
-      Future.delayed(
-          const Duration(milliseconds: 350),
-          () async => await platform.invokeMethod('setTitleBarColor', {
-                'r': color.red,
-                'g': color.green,
-                'b': color.blue,
-              }));
-    } on PlatformException catch (e) {
-      printERROR("Failed to set title bar color: ${e.message}");
-    }
+    // no-op on Android
   }
 }
 
