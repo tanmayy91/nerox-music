@@ -2044,7 +2044,12 @@ Map<String, Map<String, String>> get keys => {
     "greetingAfternoon": "Good afternoon",
     "greetingEvening": "Good evening",
     "greetingSubtitle": "What would you like to listen to?",
-    "unknownArtist": "Unknown"
+    "unknownArtist": "Unknown",
+    "signInWithGoogle": "Sign in with Google",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "signedInAs": "Signed in as",
+    "googleSignInFailed": "Google sign-in failed. Please try again."
 },"eo" : {
     "renamePlaylist": "Alinomi Ludliston",
     "trending": "Populara",

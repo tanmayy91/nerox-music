@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:terminate_restart/terminate_restart.dart';
 
+import '/services/auth_service.dart';
 import '/ui/screens/Search/search_screen_controller.dart';
 import '/utils/get_localization.dart';
 import '/services/downloader.dart';
@@ -83,6 +84,8 @@ class MyApp extends StatelessWidget {
 }
 
 Future<void> startApplicationServices() async {
+  Get.put<AuthService>(AuthService(), permanent: true);
+  Get.find<AuthService>().restoreSession();
   Get.lazyPut(() => PipedServices(), fenix: true);
   Get.lazyPut(() => MusicServices(), fenix: true);
   Get.lazyPut(() => ThemeController(), fenix: true);
@@ -114,6 +117,7 @@ Future<void> initHive() async {
   await Hive.openBox("SongDownloads");
   await Hive.openBox('SongsUrlCache');
   await Hive.openBox("AppPrefs");
+  await Hive.openBox("UserData");
 }
 
 void _setAppInitPrefs() {
