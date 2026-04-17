@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:616723741130:android:6c3bbc821a4caa135df733",
         "android_client_info": {
-          "package_name": "com.anandnet.harmonymusic"
+          "package_name": "com.nrxstudios.neroxmusic"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "616723741130-57hurtr6u6962936mgu098d6ds4o2r54.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.anandnet.harmonymusic",
+            "package_name": "com.nrxstudios.neroxmusic",
             "certificate_hash": "1dd899f726fc3111f021e958264719c9293571f8"
           }
         },

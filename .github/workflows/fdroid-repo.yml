@@ -1,0 +1,122 @@
+name: Build F-Droid Repository
+
+on:
+  # Run after a successful APK build on main
+  workflow_run:
+    workflows: ["Build & Release APK"]
+    branches: [main]
+    types: [completed]
+  # Also allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-fdroid-repo:
+    name: Generate Self-Hosted F-Droid Repo
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Need a PAT or default token with write permission to push back
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: '3.24.2'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: |
+          flutter build apk --release
+          cp build/app/outputs/flutter-apk/app-release.apk nerox-music.apk
+
+      - name: Install fdroidserver
+        run: |
+          sudo apt-get update -qq
+          pip install fdroidserver
+
+      - name: Set up F-Droid keystore
+        env:
+          FDROID_KEYSTORE_B64: ${{ secrets.FDROID_KEYSTORE_B64 }}
+          FDROID_KEYSTORE_PASS: ${{ secrets.FDROID_KEYSTORE_PASS }}
+        run: |
+          mkdir -p fdroid/repo fdroid/archive
+
+          if [ -n "$FDROID_KEYSTORE_B64" ]; then
+            echo "$FDROID_KEYSTORE_B64" | base64 -d > fdroid/keystore.jks
+            echo "✅ Restored keystore from secret."
+          else
+            echo "⚠️  FDROID_KEYSTORE_B64 secret not set — generating a new keystore."
+            echo "    After this run, copy the base64 output below into the FDROID_KEYSTORE_B64 secret."
+            keytool -genkey -v \
+              -keystore fdroid/keystore.jks \
+              -alias neroxmusic \
+              -keyalg RSA -keysize 4096 \
+              -validity 10000 \
+              -dname "CN=Nerox Music, O=NRX Studios, C=IN" \
+              -storepass "${FDROID_KEYSTORE_PASS:-neroxfdr0id}" \
+              -keypass  "${FDROID_KEYSTORE_PASS:-neroxfdr0id}"
+            echo ""
+            echo "=== FDROID_KEYSTORE_B64 (save this as a GitHub secret) ==="
+            base64 -w 0 fdroid/keystore.jks
+            echo ""
+          fi
+
+      - name: Copy metadata and APK into F-Droid repo
+        run: |
+          cp nerox-music.apk fdroid/repo/nerox-music.apk
+          # metadata directory already lives at fdroid/metadata/ in the repo
+
+      - name: Write fdroidserver config
+        env:
+          FDROID_KEYSTORE_PASS: ${{ secrets.FDROID_KEYSTORE_PASS }}
+        run: |
+          PASS="${FDROID_KEYSTORE_PASS:-neroxfdr0id}"
+          cat > fdroid/config.yml << EOF
+          repo_url: "https://tanmayy91.github.io/nerox-music/fdroid/repo"
+          repo_name: "Nerox Music"
+          repo_description: "Official Nerox Music F-Droid repository. Add this URL in the F-Droid app to receive updates automatically."
+          archive_url: "https://tanmayy91.github.io/nerox-music/fdroid/archive"
+          archive_name: "Nerox Music Archive"
+          archive_description: "Older Nerox Music APK releases."
+          keystore: "keystore.jks"
+          keystorepass: "$PASS"
+          keypass: "$PASS"
+          keydname: "CN=Nerox Music, O=NRX Studios, C=IN"
+          repo_keyalias: "neroxmusic"
+          EOF
+
+      - name: Generate F-Droid repository index
+        run: |
+          cd fdroid
+          fdroid update -c --delete-unknown
+          cd ..
+
+      - name: Copy repo to docs for GitHub Pages
+        run: |
+          mkdir -p docs/fdroid
+          cp -r fdroid/repo  docs/fdroid/repo
+          cp -r fdroid/archive docs/fdroid/archive 2>/dev/null || true
+
+      - name: Commit and push updated F-Droid repo
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/fdroid/
+          git diff --staged --quiet || git commit -m "chore: update self-hosted F-Droid repository index [skip ci]"
+          git push

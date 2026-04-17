@@ -1,0 +1,10 @@
+* Rebranded to Nerox Music v4.0.0
+* New premium dark theme with electric violet accents (#9D6BFF)
+* Dynamic theme adapts to album artwork colors
+* Listen Together feature via Supabase Realtime
+* Synced lyrics via LRCLIB with cascading fallback
+* Audio prefetch at 70% progress for gapless playback
+* Improved Android Auto integration
+* Smooth animated transitions throughout the app
+* Responsive layout improvements for tablets and desktops
+* Removed all advertisements and login requirements

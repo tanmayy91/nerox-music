@@ -1,4 +1,4 @@
-package com.anandnet.harmonymusic
+package com.nrxstudios.neroxmusic
 
 import android.app.Activity
 import android.content.Context

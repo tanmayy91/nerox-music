@@ -4,15 +4,16 @@
 
 # Nerox Music
 
-[![Build & Release APK](https://github.com/tanmayy91/Harmony-Music/actions/workflows/build_release.yml/badge.svg)](https://github.com/tanmayy91/Harmony-Music/actions/workflows/build_release.yml)
-[![GitHub Pages](https://github.com/tanmayy91/Harmony-Music/actions/workflows/pages.yml/badge.svg)](https://tanmayy91.github.io/Harmony-Music)
+[![Build & Release APK](https://github.com/tanmayy91/nerox-music/actions/workflows/build_release.yml/badge.svg)](https://github.com/tanmayy91/nerox-music/actions/workflows/build_release.yml)
+[![GitHub Pages](https://github.com/tanmayy91/nerox-music/actions/workflows/pages.yml/badge.svg)](https://tanmayy91.github.io/nerox-music)
 [![Version](https://img.shields.io/badge/version-4.0.0-purple.svg)]()
+[![F-Droid](https://img.shields.io/badge/F--Droid-pending-orange.svg)](docs/DISTRIBUTION.md)
 
 **A premium, cross-platform music streaming experience built with Flutter.**
 
 Stream millions of songs. No ads. No login. No limits.
 
-[Download APK](https://github.com/tanmayy91/Harmony-Music/releases/latest) · [Website](https://tanmayy91.github.io/Harmony-Music) · [Report Bug](https://github.com/tanmayy91/Harmony-Music/issues)
+[Download APK](https://github.com/tanmayy91/nerox-music/releases/latest) · [Website](https://tanmayy91.github.io/nerox-music) · [Report Bug](https://github.com/tanmayy91/nerox-music/issues)
 
 </div>
 
@@ -20,13 +21,28 @@ Stream millions of songs. No ads. No login. No limits.
 
 ## Download
 
-| Platform | Download |
-|----------|----------|
-| **Android APK** | [Latest Release](https://github.com/tanmayy91/Harmony-Music/releases/latest) |
-| **Android APK (CI Build)** | [Latest Build Artifact](https://github.com/tanmayy91/Harmony-Music/actions/workflows/build_release.yml) |
-| **Windows** | [Windows Build](https://github.com/tanmayy91/Harmony-Music/actions/workflows/win_exe.yml) |
+### Android
 
-> Go to the latest successful workflow run and download **nerox-music-apk** under Artifacts.
+| Source | Link | Notes |
+|--------|------|-------|
+| **GitHub Releases** | [Latest APK](https://github.com/tanmayy91/nerox-music/releases/latest) | Recommended |
+| **Self-hosted F-Droid repo** | Add `https://tanmayy91.github.io/nerox-music/fdroid/repo` in F-Droid | Auto-updates via F-Droid |
+| **IzzyOnDroid** | [IzzyOnDroid listing](https://apt.izzysoft.de/fdroid/index/apk/com.nrxstudios.neroxmusic) | F-Droid-compatible repo |
+| **Official F-Droid** | [Submission in progress](docs/fdroid-metadata.yml) | Coming soon |
+| **Obtainium** | [Add to Obtainium](obtainium://add/https://github.com/tanmayy91/nerox-music) | Tap on phone, or paste URL manually |
+
+### Desktop
+
+| Source | Link |
+|--------|------|
+| **Windows EXE** | [Windows Build Artifacts](https://github.com/tanmayy91/nerox-music/actions/workflows/win_exe.yml) |
+| **CI Build Artifacts** | [Latest APK + EXE](https://github.com/tanmayy91/nerox-music/actions/workflows/build_release.yml) |
+
+> **F-Droid self-hosted repo**: Open F-Droid → Settings → Repositories → `+` → paste `https://tanmayy91.github.io/nerox-music/fdroid/repo`
+
+> For CI artifacts: click the latest successful run and download **nerox-music-apk** under Artifacts.
+
+> See [`docs/DISTRIBUTION.md`](docs/DISTRIBUTION.md) for IzzyOnDroid & official F-Droid submission steps.
 
 ---
 
@@ -87,7 +103,7 @@ Help translate Nerox Music — click the badge above or visit the [Weblate proje
 
 ## Documentation
 
-Full documentation is available in the [`docs/`](docs/) folder and on the [website](https://tanmayy91.github.io/Harmony-Music).
+Full documentation is available in the [`docs/`](docs/) folder and on the [website](https://tanmayy91.github.io/nerox-music).
 
 - [Architecture Overview](docs/ARCHITECTURE.md)
 - [Build Instructions](docs/BUILD.md)

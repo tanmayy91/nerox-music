@@ -380,6 +380,62 @@
             margin: 0 auto 48px;
         }
 
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto 48px;
+        }
+
+        .download-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.4s;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .download-card:hover {
+            border-color: rgba(157, 107, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .download-card .material-icons-round {
+            font-size: 36px;
+            color: var(--accent-glow);
+        }
+
+        .download-card h3 {
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .download-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .download-card .pill {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(157, 107, 255, 0.12);
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent-glow);
+            letter-spacing: 0.5px;
+        }
+
         /* ─── FOOTER ─── */
         footer {
             border-top: 1px solid var(--border);
@@ -473,7 +529,7 @@
             <li><a href="#platforms">Platforms</a></li>
             <li><a href="#download">Download</a></li>
         </ul>
-        <a href="https://github.com/tanmayy91/Harmony-Music/releases/latest" class="nav-cta">
+        <a href="https://github.com/tanmayy91/nerox-music/releases/latest" class="nav-cta">
             Download APK
         </a>
     </nav>
@@ -493,7 +549,7 @@
             No ads. No login. No limits. Just pure music.
         </p>
         <div class="hero-buttons">
-            <a href="https://github.com/tanmayy91/nerox-music/releases/download/1/nerox.music.apk" class="btn-primary">
+            <a href="https://github.com/tanmayy91/nerox-music/releases/latest" class="btn-primary">
                 <span class="material-icons-round" style="font-size: 20px;">download</span>
                 Download APK
             </a>
@@ -597,12 +653,12 @@
             <div class="platform-card">
                 <span class="material-icons-round">phone_android</span>
                 <h3>Android</h3>
-                <p>APK available</p>
+                <p>APK · IzzyOnDroid</p>
             </div>
             <div class="platform-card">
                 <span class="material-icons-round">desktop_windows</span>
                 <h3>Windows</h3>
-                <p>Native executable</p>
+                <p>Native executable (ZIP)</p>
             </div>
             <div class="platform-card">
                 <span class="material-icons-round">laptop</span>
@@ -620,13 +676,66 @@
         </div>
         <h2 class="section-title">Ready to elevate your<br>music experience?</h2>
         <p class="section-subtitle">
-            Download Nerox Music now and start streaming.
+            Download Nerox Music from your preferred source.
             Free forever.
         </p>
+
+        <div class="download-grid">
+            <a href="https://github.com/tanmayy91/nerox-music/releases/latest" class="download-card">
+                <span class="material-icons-round">phone_android</span>
+                <h3>GitHub Releases</h3>
+                <p>Latest stable APK for Android</p>
+                <span class="pill">RECOMMENDED</span>
+            </a>
+            <div class="download-card" onclick="copyFdroidUrl()" style="cursor:pointer;">
+                <span class="material-icons-round">verified</span>
+                <h3>F-Droid Repo</h3>
+                <p>Tap to copy the repo URL, then add it in F-Droid → Settings → Repositories</p>
+                <code style="font-size:11px;word-break:break-all;color:var(--accent-glow);margin-top:4px;display:block;">tanmayy91.github.io/nerox-music/fdroid/repo</code>
+                <span class="pill" id="fdroid-copy-pill">TAP TO COPY URL</span>
+            </div>
+            <div class="download-card" style="opacity:0.6;cursor:default;">
+                <span class="material-icons-round">store</span>
+                <h3>IzzyOnDroid</h3>
+                <p>Submission in progress — will be available shortly</p>
+                <span class="pill">PENDING</span>
+            </div>
+            <div class="download-card" style="opacity:0.6;cursor:default;">
+                <span class="material-icons-round">inventory_2</span>
+                <h3>F-Droid Official</h3>
+                <p>Submission in progress — check back soon</p>
+                <span class="pill">COMING SOON</span>
+            </div>
+            <a href="obtainium://add/https://github.com/tanmayy91/nerox-music" class="download-card">
+                <span class="material-icons-round">system_update</span>
+                <h3>Obtainium</h3>
+                <p>Tap to add Nerox Music to Obtainium for automatic updates</p>
+                <span class="pill">AUTO-UPDATE</span>
+            </a>
+            <a href="https://github.com/tanmayy91/nerox-music/actions/workflows/build_release.yml" class="download-card">
+                <span class="material-icons-round">build</span>
+                <h3>CI Build Artifacts</h3>
+                <p>Latest build from every commit — open a run and download the APK or Windows ZIP under Artifacts</p>
+                <span class="pill">BLEEDING EDGE</span>
+            </a>
+        </div>
+
+        <div class="fdroid-hint" style="margin:0 auto 48px;max-width:600px;padding:20px 24px;background:var(--card);border:1px solid var(--border);border-radius:16px;text-align:left;">
+            <p style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+                <strong style="color:var(--accent-glow);">📦 Add our F-Droid repo manually:</strong><br>
+                Open F-Droid → Settings → Repositories → <strong>+</strong><br>
+                Paste: <code style="background:rgba(157,107,255,0.12);padding:2px 8px;border-radius:6px;font-size:12px;color:var(--accent-glow);">https://tanmayy91.github.io/nerox-music/fdroid/repo</code>
+            </p>
+        </div>
+
         <div class="hero-buttons">
-            <a href="https://github.com/tanmayy91/nerox-music/releases/download/1/nerox.music.apk" class="btn-primary">
+            <a href="https://github.com/tanmayy91/nerox-music/releases/latest" class="btn-primary">
                 <span class="material-icons-round" style="font-size: 20px;">download</span>
                 Download Latest APK
+            </a>
+            <a href="https://github.com/tanmayy91/nerox-music" class="btn-secondary">
+                <span class="material-icons-round" style="font-size: 20px;">code</span>
+                View on GitHub
             </a>
         </div>
     </section>
@@ -640,12 +749,28 @@
             <a href="#features">Features</a>
             <a href="#platforms">Platforms</a>
             <a href="#download">Download</a>
+            <a href="https://github.com/tanmayy91/nerox-music">GitHub</a>
             <a href="https://instagram.com/tanmaaahy">Instagram</a>
         </div>
         <div class="footer-credit">
             Made with love by <a href="https://instagram.com/tanmaaahy">tanmay</a>
         </div>
     </footer>
+
+    <script>
+        function copyFdroidUrl() {
+            const url = 'https://tanmayy91.github.io/nerox-music/fdroid/repo';
+            navigator.clipboard.writeText(url).then(function () {
+                const pill = document.getElementById('fdroid-copy-pill');
+                if (pill) {
+                    pill.textContent = '✓ COPIED!';
+                    setTimeout(function () { pill.textContent = 'TAP TO COPY URL'; }, 2000);
+                }
+            }).catch(function () {
+                prompt('Copy this URL and paste it in F-Droid → Repositories:', url);
+            });
+        }
+    </script>
 
 </body>
 </html>

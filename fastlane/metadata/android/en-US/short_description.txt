@@ -1,1 +1,1 @@
-An Android App for streaming Music
+Stream music from YouTube. No ads. No login. No limits.

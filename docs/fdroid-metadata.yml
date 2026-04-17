@@ -1,0 +1,75 @@
+Categories:
+  - Multimedia
+
+License: GPL-3.0-only
+
+AuthorName: tanmay
+AuthorWebSite: https://instagram.com/tanmaaahy
+
+WebSite: https://tanmayy91.github.io/nerox-music
+SourceCode: https://github.com/tanmayy91/nerox-music
+IssueTracker: https://github.com/tanmayy91/nerox-music/issues
+Changelog: https://github.com/tanmayy91/nerox-music/releases
+
+Name: Nerox Music
+AutoName: Nerox Music
+Summary: Stream music from YouTube. No ads. No login. No limits.
+
+Description: |-
+    Nerox Music is a free, open-source, cross-platform music streaming app built
+    with Flutter. Stream millions of songs from YouTube and YouTube Music — no ads,
+    no login, no limits.
+
+    Features:
+
+    * Stream music from YouTube / YouTube Music
+    * Background playback with system media controls
+    * Streaming quality control (Low / High / Best)
+    * Song caching while playing for instant replay
+    * Song download for offline playback
+    * Synced and plain lyrics via LRCLIB
+    * Dynamic theme that adapts to album artwork
+    * Create and manage playlists
+    * Bookmark albums and artists
+    * Import songs, playlists, albums, and artists by sharing from YouTube Music
+    * Radio feature for endless music discovery
+    * Skip silence for seamless listening
+    * Equalizer support (Android)
+    * Android Auto support
+    * Sleep timer
+    * Piped playlist integration
+    * No advertisements
+    * No login required
+    * No tracking or data collection
+
+RepoType: git
+Repo: https://github.com/tanmayy91/nerox-music
+
+Builds:
+  - versionName: 4.0.0
+    versionCode: 30
+    commit: v4.0.0
+    subdir: .
+    sudo:
+      - apt-get update
+      - apt-get install -y openjdk-17-jdk-headless
+    gradle:
+      - yes
+    prebuild:
+      - wget -q https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.24.2-stable.tar.xz
+        -O /tmp/flutter.tar.xz
+      - tar xf /tmp/flutter.tar.xz -C /opt
+      - export PATH="$PATH:/opt/flutter/bin"
+      - flutter pub get
+    build:
+      - export PATH="$PATH:/opt/flutter/bin"
+      - flutter build apk --release
+    output: build/app/outputs/flutter-apk/app-release.apk
+    scanignore:
+      - android/app/google-services.json
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+UpdateCheckData: pubspec.yaml|^version: (\S+)\+|.|^version: \S+\+(\d+)
+CurrentVersion: 4.0.0
+CurrentVersionCode: 30

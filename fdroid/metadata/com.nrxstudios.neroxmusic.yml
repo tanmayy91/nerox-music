@@ -1,0 +1,42 @@
+AuthorName: tanmay
+AuthorWebSite: https://instagram.com/tanmaaahy
+
+Categories:
+  - Multimedia
+
+Description: |-
+    Nerox Music is a free, open-source, cross-platform music streaming app built
+    with Flutter. Stream millions of songs from YouTube and YouTube Music — no ads,
+    no login, no limits.
+
+    Features:
+
+    * Stream music from YouTube / YouTube Music
+    * Background playback with system media controls
+    * Streaming quality control (Low / High / Best)
+    * Song caching while playing for instant replay
+    * Song download for offline playback
+    * Synced and plain lyrics via LRCLIB
+    * Dynamic theme that adapts to album artwork
+    * Create and manage playlists
+    * Bookmark albums and artists
+    * Import songs, playlists, albums, and artists by sharing from YouTube Music
+    * Radio feature for endless music discovery
+    * Skip silence for seamless listening
+    * Equalizer support (Android)
+    * Android Auto support
+    * Sleep timer
+    * Piped playlist integration
+    * No advertisements
+    * No login required
+    * No tracking or data collection
+
+IssueTracker: https://github.com/tanmayy91/nerox-music/issues
+License: GPL-3.0-only
+Name: Nerox Music
+SourceCode: https://github.com/tanmayy91/nerox-music
+Summary: Stream music from YouTube. No ads. No login. No limits.
+WebSite: https://tanmayy91.github.io/nerox-music
+
+AutoUpdateMode: None
+UpdateCheckMode: None

@@ -39,7 +39,7 @@ This guide walks you through the one-time configuration needed to enable Google 
 
    | Field | Value |
    |-------|-------|
-   | Android package name | `com.anandnet.harmonymusic` |
+   | Android package name | `com.nrxstudios.neroxmusic` |
    | App nickname | Nerox Music *(optional)* |
    | Debug signing certificate SHA-1 | *(see below)* |
 
@@ -171,6 +171,6 @@ If you prefer not to use Firebase at all, you can create OAuth 2.0 credentials d
 2. Create or select a project.
 3. Go to **APIs & Services → Credentials → Create credentials → OAuth client ID**.
 4. Select **Android** as the application type.
-5. Enter package name `com.anandnet.harmonymusic` and your SHA-1.
+5. Enter package name `com.nrxstudios.neroxmusic` and your SHA-1.
 6. Create a second credential of type **Web application** — `google_sign_in` requires this to get a `serverClientId`.
 7. Construct `google-services.json` manually using the template at `android/app/google-services.json.template`, filling in the project number, client IDs, and API key from the Cloud Console.

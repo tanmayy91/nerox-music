@@ -1,0 +1,21 @@
+{
+  "app": {
+    "id": "com.nrxstudios.neroxmusic",
+    "url": "https://github.com/tanmayy91/nerox-music",
+    "author": "tanmayy91",
+    "name": "Nerox Music",
+    "installedVersion": null,
+    "latestVersion": null,
+    "source": "GitHub",
+    "apkUrls": [],
+    "preferredApkIndex": 0,
+    "additionalSettings": "{\"includePrereleases\":false,\"fallbackToOlderReleases\":true,\"filterReleaseTitlesByRegEx\":\"\",\"filterReleaseNotesByRegEx\":\"\",\"verifyLatestTag\":false,\"dontSortReleasesList\":false,\"useLatestAssetUrl\":false,\"releaseTitleAsVersion\":false}",
+    "lastUpdateCheck": null,
+    "pinned": false,
+    "categories": [],
+    "releaseDate": null,
+    "changeLog": null,
+    "allowIdChange": false,
+    "overrideSource": null
+  }
+}
