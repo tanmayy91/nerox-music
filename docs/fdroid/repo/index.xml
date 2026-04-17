@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><fdroid><repo icon="icon.png" name="Nerox Music" pubkey="30820517308202ffa003020102020863147ab49e599a8a300d06092a864886f70d01010c05003039310b300906035504061302494e31143012060355040a130b4e52582053747564696f73311430120603550403130b4e65726f78204d757369633020170d3236303431373034313135335a180f32303533303930323034313135335a3039310b300906035504061302494e31143012060355040a130b4e52582053747564696f73311430120603550403130b4e65726f78204d7573696330820222300d06092a864886f70d01010105000382020f003082020a0282020100c50ef477774aed724c4c7b76e7e2250568c842010d8f9242957b777c9eca5ad3b077904226cb0587825853437aefdcc0be692577e31d6f5809d54a6b4b27ecaf677f9b1ed13a94e4e1b31545fffe6c24553583f4326e87ec0d78a5906f41d7d7b43c6ff9f479c1db6dce7d2d1b8c8c89f5ab00b897e27b54e4d8e2a5d7e33c6f14b73f05afe2cca20da811016edf75cc1e6dbd3db0b5ba0f62e2840ea427636788be924dc9993a38c6f9f4254984337a72ee0554536596519ca0d23e8dd45100fa8bbbf75643d04620d335c792744925c773783a974ef91103d5967cb9a5db89742754bc5a5976fb6f41fa38eac18c3b419e0dce2fc5cb49872949568be8879cbb05f4bf2f06e6c4047bf2a4eba6222a94d0b9f43b612b3417c9069bafeb45ecb73c6aaffd0277a2d746eae380c5b333a202033497e5e74d92d9fd8e27cb2d98e152171eadfd77d765857d341f1b192da21e29dcc62e49b13a8b1cdfaa8a9bfb15ca6650647fceaf526417ad63bb16aa1fa8ed7fdb30f472f78d8616050d5e60080a2c7d4ad8549278de0b6213ba17559693aea414e86a09f6e4a32e99bb3f6f0a28723c14cad8bc374a3f1e14371452c6f94cd0ef8d03bc029e4a3374079af22478c821c4bb902ce5b990bdcbb7c13b2e3be1a8a081325b9a19c9daa6b7225c5c7f6743ee1fb8f33345c3179d9fe60b5b07913e62cadba83cc39de9463411b30203010001a321301f301d0603551d0e04160414ee0c56bd8a2572632050750164a52f0b6f1ed40d300d06092a864886f70d01010c0500038202010030964eaf916f3f65d4c5b2de73c2e0e63cef205d03008fc720a637b2e74b57a72904257d426a9a995d580b9ebdd35aa2165be1a2755e04a38a891c47b0e028ba6adf7cd3850c0e6bdd26366616dc20e41c7963e3ad866f573586852289af9c69badcdcf40123986bacade67c6c61e3baa5dac51e9103e1fbb6db2301eb478ef9a747b4a47ca2cbc08bbe210a0fab0c4ef5b17ad4d29a15e4768ab9adcb9ea3f4ef66b7044eb06c37cb359ad7dfacad107d9781c17dae0ec1dce7c88a8284b97924c69b4dd11e56df966c6eab6fd4bb0f0f7339430673f9c0c659356a0a6e6f034819c6f27de0648b0b6210f1f067ad23e051cdb92d93d0b25b658aae5b84c50665ab3a71cb0aa33366e77d21465b256829eef7c914871004563a87ae939fd93265d4716ad9dec2aaf19a2835940f3cbd7b44ac014f1a4288e851d1d307975c6c43202457bad62439aa15041f8a752b8e3785ff38d2fceb44f990347e665fa4704f6bc4189c4cb97f3c74cdd64cecf69cca161266e16c5bba3e251f1dad82ed345b6201c30b92fe314f66c37d664266e29293f12e67857700705d6241e8326ac1c6a213255e471467a1f6a2b57d054b424a1ce5ef63f384fb3c659b4ed1bd1faca0d67953a8195c80af9ae4711cb93a3c0aecacacf8ce74bf063e28203f285d4b33ea090a63c77901707da937210b532f1e19f9d9f35f601cba707a17253282e3" timestamp="1776399115" url="https://tanmayy91.github.io/nerox-music/fdroid/repo" version="20002"><description>Official Nerox Music F-Droid repository. Add this URL in the F-Droid app to receive updates automatically.</description></repo><application id="com.nrxstudios.neroxmusic"><id>com.nrxstudios.neroxmusic</id><added>2026-04-17</added><lastupdated>2026-04-17</lastupdated><name>Nerox Music</name><summary>Stream music from YouTube. No ads. No login. No limits.</summary><desc>Nerox Music is a free, open-source, cross-platform music streaming app built
+with Flutter. Stream millions of songs from YouTube and YouTube Music — no ads,
+no login, no limits.
+
+Features:
+
+* Stream music from YouTube / YouTube Music
+* Background playback with system media controls
+* Streaming quality control (Low / High / Best)
+* Song caching while playing for instant replay
+* Song download for offline playback
+* Synced and plain lyrics via LRCLIB
+* Dynamic theme that adapts to album artwork
+* Create and manage playlists
+* Bookmark albums and artists
+* Import songs, playlists, albums, and artists by sharing from YouTube Music
+* Radio feature for endless music discovery
+* Skip silence for seamless listening
+* Equalizer support (Android)
+* Android Auto support
+* Sleep timer
+* Piped playlist integration
+* No advertisements
+* No login required
+* No tracking or data collection</desc><license>GPL-3.0-only</license><categories>Multimedia</categories><category>Multimedia</category><web>https://tanmayy91.github.io/nerox-music</web><source>https://github.com/tanmayy91/nerox-music</source><tracker>https://github.com/tanmayy91/nerox-music/issues</tracker><author>tanmay</author><marketversion></marketversion><marketvercode>30</marketvercode><package><version>4.0.0</version><versioncode>30</versioncode><apkname>nerox-music.apk</apkname><hash type="sha256">56811882b4f09581bbeacdb3d11353a64ab259ebc1e40e648f2ee27540525f97</hash><size>32927923</size><sdkver>21</sdkver><targetSdkVersion>34</targetSdkVersion><added>2026-04-17</added><sig>6a4ffbad0c2318bcf9522df1c3334c66</sig><permissions>ACCESS_NETWORK_STATE,FOREGROUND_SERVICE,FOREGROUND_SERVICE_MEDIA_PLAYBACK,INTERNET,MANAGE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE,REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,WAKE_LOCK,WRITE_EXTERNAL_STORAGE,com.nrxstudios.neroxmusic.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION</permissions><nativecode>arm64-v8a,armeabi-v7a,x86,x86_64</nativecode></package></application></fdroid>
