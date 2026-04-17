@@ -28,7 +28,7 @@ Stream millions of songs. No ads. No login. No limits.
 | **GitHub Releases** | [Latest APK](https://github.com/tanmayy91/nerox-music/releases/latest) | Recommended |
 | **Self-hosted F-Droid repo** | Add `https://tanmayy91.github.io/nerox-music/fdroid/repo` in F-Droid | Auto-updates via F-Droid |
 | **IzzyOnDroid** | [IzzyOnDroid listing](https://apt.izzysoft.de/fdroid/index/apk/com.nrxstudios.neroxmusic) | F-Droid-compatible repo |
-| **Official F-Droid** | [Submission in progress](docs/fdroid-metadata.yml) | Coming soon |
+| **Official F-Droid** | [Submission in progress](fdroid/metadata/com.nrxstudios.neroxmusic.yml) | Coming soon |
 | **Obtainium** | [Add to Obtainium](obtainium://add/https://github.com/tanmayy91/nerox-music) | Tap on phone, or paste URL manually |
 
 ### Desktop
@@ -114,11 +114,10 @@ Full documentation is available in the [`docs/`](docs/) folder and on the [websi
 ## License
 
 ```
-Nerox Music is proprietary software. All rights reserved.
+Nerox Music is licensed under the GNU General Public License v3.0 (GPL-3.0-only).
 
-- This software and its source code may not be copied, modified, or redistributed
-  without explicit written permission from the author.
-- Unauthorized distribution is strictly prohibited.
+You are free to use, study, modify, and redistribute this software under the
+terms of the GPL v3.
 ```
 
 ---

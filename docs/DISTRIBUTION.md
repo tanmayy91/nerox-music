@@ -76,18 +76,20 @@ IzzyOnDroid reads the fastlane metadata directly from the repo after approval.
 ## 🔄 Official F-Droid (Pending submission)
 
 Official F-Droid requires a pull request to the [fdroiddata](https://gitlab.com/fdroid/fdroiddata) repository.
-The metadata file is ready at `docs/fdroid-metadata.yml`.
+The metadata file is ready at `fdroid/metadata/com.nrxstudios.neroxmusic.yml`.
 
 ### How to submit
 
 1. **Fork** `https://gitlab.com/fdroid/fdroiddata`
-2. Copy `docs/fdroid-metadata.yml` into `metadata/com.nrxstudios.neroxmusic.yml` in your fork
+2. Copy `fdroid/metadata/com.nrxstudios.neroxmusic.yml` into `metadata/com.nrxstudios.neroxmusic.yml` in your fork
 3. Open a **Merge Request** with:
    - Title: `New app: Nerox Music (com.nrxstudios.neroxmusic)`
    - Description: brief description of the app
 4. The F-Droid team will review and build the app on their build server.
 
 > **Note**: F-Droid builds apps from source — they will clone this repo and run `flutter build apk`. Make sure the build succeeds cleanly.
+>
+> The Android build supports an F-Droid build mode (`FDROID_BUILD=true`) that disables the Google Services plugin path when `google-services.json` is unavailable.
 
 ---
 

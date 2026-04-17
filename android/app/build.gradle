@@ -2,9 +2,15 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
-    // Apply Google Services plugin — requires android/app/google-services.json
-    // See docs/GOOGLE_SIGNIN_SETUP.md for setup instructions
-    id "com.google.gms.google-services"
+}
+
+def isFdroidBuild = (System.getenv("FDROID_BUILD") ?: "").toBoolean()
+def hasGoogleServicesJson = file('google-services.json').exists()
+
+// Keep Google Sign-In support for regular Android builds, but allow
+// reproducible F-Droid builds without proprietary google-services wiring.
+if (!isFdroidBuild && hasGoogleServicesJson) {
+    apply plugin: "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()

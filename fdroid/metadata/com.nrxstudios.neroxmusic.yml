@@ -32,11 +32,40 @@ Description: |-
     * No tracking or data collection
 
 IssueTracker: https://github.com/tanmayy91/nerox-music/issues
+Changelog: https://github.com/tanmayy91/nerox-music/releases
 License: GPL-3.0-only
 Name: Nerox Music
 SourceCode: https://github.com/tanmayy91/nerox-music
 Summary: Stream music from YouTube. No ads. No login. No limits.
 WebSite: https://tanmayy91.github.io/nerox-music
 
-AutoUpdateMode: None
-UpdateCheckMode: None
+RepoType: git
+Repo: https://github.com/tanmayy91/nerox-music
+
+Builds:
+  - versionName: 4.0.0
+    versionCode: 30
+    commit: v4.0.0
+    subdir: .
+    sudo:
+      - apt-get update
+      - apt-get install -y openjdk-17-jdk-headless
+    gradle:
+      - yes
+    prebuild:
+      - wget -q https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_3.24.2-stable.tar.xz -O /tmp/flutter.tar.xz
+      - tar xf /tmp/flutter.tar.xz -C /opt
+      - export PATH="$PATH:/opt/flutter/bin"
+      - flutter pub get
+    build:
+      - export PATH="$PATH:/opt/flutter/bin"
+      - flutter build apk --release
+    output: build/app/outputs/flutter-apk/app-release.apk
+    scanignore:
+      - android/app/google-services.json
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+UpdateCheckData: pubspec.yaml|^version: (\S+)\+|.|^version: \S+\+(\d+)
+CurrentVersion: 4.0.0
+CurrentVersionCode: 30
